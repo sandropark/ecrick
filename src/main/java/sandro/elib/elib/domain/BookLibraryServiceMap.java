@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BookLibraryServiceMap {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "book_library_service_map_id")
     private Long id;
 
