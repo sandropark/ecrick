@@ -1,34 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
-<head th:replace="fragments/common :: head('List')"></head>
+<head th:replace="fragments/common :: head('도서검색')"></head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/common :: menu(bookslist)"></nav>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
+     th:replace="fragments/common :: menu(bookslist)"></nav>
 
-    <main class="container">
-        <h2 class="mt-5">도서목록</h2>
-        <div>총 도서수 : <span th:text="${#lists.size(books)}"></span></div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>제목</th>
-                    <th>저자</th>
-                    <th>출판사</th>
-                    <th>출간일</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="book : ${books}">  <!-- 반복문으로 데이터 하나씩 빼기-->
-                    <th><a th:text="${book.title}">title</a></th>
-                    <td th:text="${book.author}">author</td>
-                    <td th:text="${book.publisher}">publisher</td>
-                    <td th:text="${book.publicDate}">publicDate</td>
-                </tr>
-            </tbody>
-        </table>
-<!--        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">-->
-<!--            <a th:if="${page != nowPage}" th:href="@{/books/list(page = ${page - 1})}" th:text="${page}"></a>-->
-<!--            <strong th:if="${page == nowPage}" th:text="${page}" style="color: red"></strong>-->
-<!--        </th:block>-->
-    </main>
+<div class="container">
+    <form class="form-inline" th:object="${bookSearch}">
+        <div class="input-group w-75">
+            <input class="form-control" placeholder="검색어를 입력하세요." th:field="*{title}" type="text">
+            <button class="btn btn-outline-secondary" id="button-addon2" type="submit">검색</button>
+        </div>
+    </form>
+</div>
+
+<main class="container">
+    <div class="row row-cols-auto g-4">
+        <div class="col-md-2" th:each="book : ${books}">
+            <div class="card">
+                <a th:href="@{/books/{id}(id=${book.id})}">
+                    <img class="card-img-top" src="" th:src="${book.imageUrl}">
+                </a>
+                <div class="card-body">
+                    <h6 class="card-title" th:text="${book.title}">Card title</h6>
+                    <p class="card-text" th:text="${book.author}">Card Text</p>
+                    <p class="card-text" th:text="${book.publisher}">Card Text</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a aria-label="Previous" class="page-link" href="#"
+                   th:href="@{/books?page={preStartPage}(preStartPage=${page.preStartPage})}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <div th:each="tempPage : ${#numbers.sequence(page.startPage, page.endPage)}">
+                <li class="page-item" th:if="${tempPage != page.nowPage}">
+                    <a class="page-link" href="#" th:href="@{/books?page={page}(page=${tempPage})}"
+                       th:text="${tempPage}">1</a>
+                </li>
+                <li class="page-item active" th:if="${tempPage == page.nowPage}">
+                    <span class="page-link" th:text="${tempPage}"></span>
+                </li>
+            </div>
+
+            <li class="page-item">
+                <a aria-label="Next" class="page-link"
+                   href="#" th:href="@{/books?page={nextStartPage}(nextStartPage=${page.nextStartPage})}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 </body>
 </html>
