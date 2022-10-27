@@ -2,9 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head th:replace="fragments/common :: head('도서검색')"></head>
 <body>
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
      th:replace="fragments/common :: menu(bookslist)"></nav>
 
+<!--검색창-->
 <div class="container">
     <form class="form-inline" th:object="${bookSearch}">
         <div class="input-group w-75">
@@ -13,7 +15,7 @@
         </div>
     </form>
 </div>
-
+<!--도서목록-->
 <main class="container">
     <div class="row row-cols-auto g-4">
         <div class="col-md-2" th:each="book : ${books}">
@@ -23,41 +25,52 @@
                 </a>
                 <div class="card-body">
                     <h6 class="card-title" th:text="${book.title}">Card title</h6>
-                    <p class="card-text" th:text="${book.author}">Card Text</p>
-                    <p class="card-text" th:text="${book.publisher}">Card Text</p>
+                    <p>
+                        <span class="card-text">
+                            <small th:text="${book.author}" class="text-muted">하라리</small>
+                        </span>
+                        <span>/</span>
+                        <span class="card-text">
+                            <small th:text="${book.publisher}" class="text-muted">김영사</small>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </main>
+<!--페이징-->
 <div class="container">
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
+            <!--이전 버튼-->
             <li class="page-item">
                 <a aria-label="Previous" class="page-link" href="#"
-                   th:href="@{/books?page={preStartPage}(preStartPage=${page.preStartPage})}">
+                   th:href="@{/books?title={title}&page={preStartPage} (preStartPage=${page.preStartPage}, title=${bookSearch.title})}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-
+            <!--페이지버튼-->
             <div th:each="tempPage : ${#numbers.sequence(page.startPage, page.endPage)}">
                 <li class="page-item" th:if="${tempPage != page.nowPage}">
-                    <a class="page-link" href="#" th:href="@{/books?page={page}(page=${tempPage})}"
+                    <a class="page-link" href="#" th:href="@{/books?title={title}&page={page} (page=${tempPage}, title=${bookSearch.title})}"
                        th:text="${tempPage}">1</a>
                 </li>
+                <!--현재 페이지 강조-->
                 <li class="page-item active" th:if="${tempPage == page.nowPage}">
                     <span class="page-link" th:text="${tempPage}"></span>
                 </li>
             </div>
-
+            <!--다음 버튼-->
             <li class="page-item">
                 <a aria-label="Next" class="page-link"
-                   href="#" th:href="@{/books?page={nextStartPage}(nextStartPage=${page.nextStartPage})}">
+                   href="#" th:href="@{/books?title={title}&page={nextStartPage} (nextStartPage=${page.nextStartPage}, title=${bookSearch.title})}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
     </nav>
 </div>
+
 </body>
 </html>
