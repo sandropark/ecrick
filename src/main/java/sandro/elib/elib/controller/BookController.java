@@ -2,7 +2,8 @@ package sandro.elib.elib.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +30,20 @@ public class BookController {
 
     @GetMapping
     public String list_SpringDataJpa(@ModelAttribute BookSearch bookSearch,
-                                     @ModelAttribute MyPage myPage,
+                                     @PageableDefault(size = 6) Pageable pageable,
                                      Model model) {
-        Page<Book> page = bookService.findAll(PageRequest.of(0, 24));
+        Page<Book> page = bookService.findAll(pageable);
+        int startPage = page.getNumber() / 10 * 10 + 1;
+        int endPage = Math.min(page.getTotalPages(), page.getNumber() / 10 * 10 + 10);
+        int preStartPage = Math.max(page.getNumber() / 10 * 10 - 10 + 1, 1);
+        int nextStartPage = page.getNumber() / 10 * 10 + 11;
+
         model.addAttribute("page", page);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("preStartPage", preStartPage);
+        model.addAttribute("nextStartPage", nextStartPage);
+
         model.addAttribute("books", page.getContent());
         return "books/list";
     }
