@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import sandro.elib.elib.domain.Book;
 import sandro.elib.elib.domain.BookSearch;
-import sandro.elib.elib.service.Page;
+import sandro.elib.elib.dto.Page;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
