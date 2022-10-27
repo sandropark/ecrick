@@ -1,4 +1,4 @@
-package sandro.elib.elib.logic;
+package sandro.elib.elib.paging;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LogicTest {
+public class PagingTest {
 
     @DisplayName("현재 페이지에 따라서 10개의 페이지 번호 시작 숫자 찾기")
     @ParameterizedTest
