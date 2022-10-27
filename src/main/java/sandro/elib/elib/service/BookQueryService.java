@@ -7,7 +7,7 @@ import sandro.elib.elib.domain.Book;
 import sandro.elib.elib.domain.BookSearch;
 import sandro.elib.elib.dto.BookDto;
 import sandro.elib.elib.dto.BooksDto;
-import sandro.elib.elib.dto.Page;
+import sandro.elib.elib.dto.MyPage;
 import sandro.elib.elib.repository.BookRepository;
 
 import java.util.List;
@@ -20,8 +20,8 @@ public class BookQueryService {
 
     private final BookRepository bookRepository;
 
-    public List<BooksDto> searchBook(BookSearch bookSearch, Page page) {
-        List<Book> books = bookRepository.findAll(bookSearch, page);
+    public List<BooksDto> searchBook(BookSearch bookSearch, MyPage myPage) {
+        List<Book> books = bookRepository.findAll(bookSearch, myPage);
         return books.stream()
                 .map(BooksDto::new)
                 .collect(Collectors.toList());
