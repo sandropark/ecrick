@@ -7,6 +7,7 @@ import sandro.elib.elib.domain.Book;
 import sandro.elib.elib.domain.BookSearch;
 import sandro.elib.elib.dto.BookDto;
 import sandro.elib.elib.dto.BooksDto;
+import sandro.elib.elib.dto.Page;
 import sandro.elib.elib.repository.BookRepository;
 
 import java.util.List;
