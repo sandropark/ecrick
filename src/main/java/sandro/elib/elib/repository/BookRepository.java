@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import sandro.elib.elib.domain.Book;
 import sandro.elib.elib.domain.BookSearch;
-import sandro.elib.elib.dto.Page;
+import sandro.elib.elib.dto.MyPage;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -19,12 +19,12 @@ public class BookRepository {
         return em.find(Book.class, id);
     }
 
-    public List<Book> findAll(BookSearch bookSearch, Page page) {
+    public List<Book> findAll(BookSearch bookSearch, MyPage myPage) {
         String jpql = getJpql(bookSearch);
         TypedQuery<Book> query = setParamAndGetQuery(bookSearch, jpql);
         return query
-                .setFirstResult(page.getFirstResult())
-                .setMaxResults(page.getMaxResult())
+                .setFirstResult(myPage.getFirstResult())
+                .setMaxResults(myPage.getMaxResult())
                 .getResultList();
     }
 

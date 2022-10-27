@@ -3,7 +3,7 @@ package sandro.elib.elib.dto;
 import lombok.Data;
 
 @Data
-public class Page {
+public class MyPage {
     private int page = 1;
     private int size = 24;
     private int nowPage;
