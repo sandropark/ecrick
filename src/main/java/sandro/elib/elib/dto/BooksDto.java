@@ -1,5 +1,6 @@
 package sandro.elib.elib.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import sandro.elib.elib.domain.Book;
 
@@ -15,6 +16,7 @@ public class BooksDto {
     private LocalDateTime publicDate;
     private String imageUrl;
 
+    @QueryProjection
     public BooksDto(Book book) {
         id = book.getId();
         title = book.getTitle();
