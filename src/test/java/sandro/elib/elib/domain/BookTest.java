@@ -3,13 +3,13 @@ package sandro.elib.elib.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import sandro.elib.elib.repository.BookRepository;
+import sandro.elib.elib.repository.BookJPARepository;
 
 @SpringBootTest
 @Transactional(readOnly = true)
 class BookTest {
     @Autowired
-    BookRepository bookRepository;
+    BookJPARepository bookJPARepository;
 
 //    @Test
 //    void createLocation() throws Exception {

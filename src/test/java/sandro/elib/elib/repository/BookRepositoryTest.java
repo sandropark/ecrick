@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BookRepositoryTest {
     @Autowired
-    BookRepository bookRepository;
+    BookJPARepository bookJPARepository;
 
 //    @Test
 //    void findAll() throws Exception {

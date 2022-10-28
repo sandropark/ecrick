@@ -8,7 +8,7 @@ import sandro.elib.elib.domain.BookSearch;
 import sandro.elib.elib.dto.BookDto;
 import sandro.elib.elib.dto.BooksDto;
 import sandro.elib.elib.dto.MyPage;
-import sandro.elib.elib.repository.BookRepository;
+import sandro.elib.elib.repository.BookJPARepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookQueryService {
 
-    private final BookRepository bookRepository;
+    private final BookJPARepository bookJPARepository;
 
     public List<BooksDto> searchBook(BookSearch bookSearch, MyPage myPage) {
-        List<Book> books = bookRepository.findAll(bookSearch, myPage);
+        List<Book> books = bookJPARepository.findAll(bookSearch, myPage);
         return books.stream()
                 .map(BooksDto::new)
                 .collect(Collectors.toList());
     }
 
     public BookDto findById(Long bookId) {
-        Book book = bookRepository.findById(bookId);
+        Book book = bookJPARepository.findById(bookId);
         return new BookDto(book);
     }
 }
