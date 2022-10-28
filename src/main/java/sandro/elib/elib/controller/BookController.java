@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sandro.elib.elib.domain.Book;
 import sandro.elib.elib.domain.BookSearch;
 import sandro.elib.elib.dto.BookDto;
 import sandro.elib.elib.dto.BooksDto;
 import sandro.elib.elib.dto.MyPage;
+import sandro.elib.elib.repository.BookRepository;
 import sandro.elib.elib.service.BookQueryService;
 import sandro.elib.elib.service.BookService;
 
@@ -27,12 +27,13 @@ public class BookController {
 
     private final BookQueryService bookQueryService;
     private final BookService bookService;
+    private final BookRepository bookRepository;
 
     @GetMapping
     public String list_SpringDataJpa(@ModelAttribute BookSearch bookSearch,
-                                     @PageableDefault(size = 6) Pageable pageable,
+                                     @PageableDefault(size = 24) Pageable pageable,
                                      Model model) {
-        Page<Book> page = bookService.findAll(pageable);
+        Page<BookDto> page = bookRepository.searchPage(bookSearch, pageable);
         int startPage = page.getNumber() / 10 * 10 + 1;
         int endPage = Math.min(page.getTotalPages(), page.getNumber() / 10 * 10 + 10);
         int preStartPage = Math.max(page.getNumber() / 10 * 10 - 10 + 1, 1);
