@@ -1,5 +1,6 @@
 package sandro.elib.elib.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import sandro.elib.elib.domain.Book;
 
@@ -9,6 +10,8 @@ import java.util.List;
 @Data
 public class BookDto {
 
+    private Long id;
+
     private String title;
     private String author;
     private String publisher;
@@ -16,7 +19,9 @@ public class BookDto {
     private String imageUrl;
     private List<LibraryServiceDto> location;
 
+    @QueryProjection
     public BookDto(Book book) {
+        id = book.getId();
         title = book.getTitle();
         author = book.getAuthor();
         publisher = book.getPublisher();
