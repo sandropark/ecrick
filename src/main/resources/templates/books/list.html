@@ -10,7 +10,7 @@
 <div class="container">
     <form class="form-inline" th:object="${bookSearch}">
         <div class="input-group w-75">
-            <input class="form-control" placeholder="검색어를 입력하세요." th:field="*{title}" type="text">
+            <input class="form-control" placeholder="검색어를 입력하세요." th:field="*{keyword}" type="text">
             <button class="btn btn-outline-secondary" id="button-addon2" type="submit">검색</button>
         </div>
     </form>
@@ -51,14 +51,14 @@
             <!--이전 버튼-->
             <li class="page-item">
                 <a aria-label="Previous" class="page-link" href="#"
-                   th:href="@{/books?title={title}&page={preStartPage} (title=${bookSearch.title}, preStartPage=${preStartPage})}">
+                   th:href="@{/books?keyword={keyword}&page={preStartPage} (keyword=${bookSearch.keyword}, preStartPage=${preStartPage})}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <!--페이지버튼-->
             <div th:each="tempPage : ${#numbers.sequence(startPage, endPage)}">
                 <li class="page-item" th:if="${tempPage != page.getNumber+1}">
-                    <a class="page-link" href="#" th:href="@{/books?title={title}&page={page} (page=${tempPage}, title=${bookSearch.title})}"
+                    <a class="page-link" href="#" th:href="@{/books?keyword={keyword}&page={page} (page=${tempPage}, keyword=${bookSearch.keyword})}"
                        th:text="${tempPage}">1</a>
                 </li>
                 <!--현재 페이지 강조-->
@@ -69,7 +69,7 @@
             <!--다음 버튼-->
             <li class="page-item">
                 <a aria-label="Next" class="page-link"
-                   href="#" th:href="@{/books?title={title}&page={nextStartPage} (title=${bookSearch.title}, nextStartPage=${nextStartPage})}">
+                   href="#" th:href="@{/books?keyword={keyword}&page={nextStartPage} (keyword=${bookSearch.keyword}, nextStartPage=${nextStartPage})}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

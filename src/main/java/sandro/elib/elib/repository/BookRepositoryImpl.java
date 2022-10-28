@@ -29,19 +29,23 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
         List<BooksDto> content = queryFactory
                 .select(new QBooksDto(book))
                 .from(book)
-                .where(titleEq(bookSearch.getTitle()))
+                .where(bookContains(bookSearch.getKeyword()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
         JPAQuery<Long> countQuery = queryFactory.select(book.count())
                 .from(book)
-                .where(titleEq(bookSearch.getTitle()));
+                .where(bookContains(bookSearch.getKeyword()));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
-    private BooleanExpression titleEq(String title) {
-        return hasText(title) ? book.title.contains(title) : null;
+    private BooleanExpression bookContains(String keyword) {
+        return hasText(keyword)
+                ? book.title.contains(keyword)
+                .or(book.author.contains(keyword))
+                .or(book.publisher.contains(keyword))
+                : null;
     }
 }
