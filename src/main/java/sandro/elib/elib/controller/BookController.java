@@ -13,19 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sandro.elib.elib.domain.BookSearch;
 import sandro.elib.elib.dto.BookDto;
 import sandro.elib.elib.dto.BooksDto;
-import sandro.elib.elib.dto.MyPage;
 import sandro.elib.elib.repository.BookRepository;
-import sandro.elib.elib.service.BookQueryService;
 import sandro.elib.elib.service.BookService;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/books")
 @RequiredArgsConstructor
 public class BookController {
-
-    private final BookQueryService bookQueryService;
     private final BookService bookService;
     private final BookRepository bookRepository;
 
@@ -52,22 +46,6 @@ public class BookController {
     @GetMapping("/{bookId}")
     public String bookDetail_SpringDataJpa(@PathVariable Long bookId, Model model) {
         BookDto book = bookService.findById(bookId);
-        model.addAttribute("book", book);
-        return "books/book-detail";
-    }
-
-    //    @GetMapping
-    public String list(@ModelAttribute BookSearch bookSearch,
-                       @ModelAttribute MyPage myPage, Model model) {
-        List<BooksDto> booksDtos = bookQueryService.searchBook(bookSearch, myPage);
-        myPage.setUp();
-        model.addAttribute("books", booksDtos);
-        return "books/list";
-    }
-
-//    @GetMapping("/{bookId}")
-    public String bookDetail(@PathVariable Long bookId, Model model) {
-        BookDto book = bookQueryService.findById(bookId);
         model.addAttribute("book", book);
         return "books/book-detail";
     }
