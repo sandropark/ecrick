@@ -33,7 +33,7 @@ public class BookController {
     public String list_SpringDataJpa(@ModelAttribute BookSearch bookSearch,
                                      @PageableDefault(size = 24) Pageable pageable,
                                      Model model) {
-        Page<BookDto> page = bookRepository.searchPage(bookSearch, pageable);
+        Page<BooksDto> page = bookRepository.searchPage(bookSearch, pageable);
         int startPage = page.getNumber() / 10 * 10 + 1;
         int endPage = Math.min(page.getTotalPages(), page.getNumber() / 10 * 10 + 10);
         int preStartPage = Math.max(page.getNumber() / 10 * 10 - 10 + 1, 1);
