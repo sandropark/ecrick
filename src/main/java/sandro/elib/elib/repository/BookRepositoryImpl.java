@@ -46,7 +46,7 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     }
 
     private OrderSpecifier<?> bookSort(Pageable pageable) {
-        if (!pageable.getSort().isEmpty()) {
+        if (pageable.getSort().isSorted()) {
             for (Sort.Order order : pageable.getSort()) {
                 Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
                 switch (order.getProperty()) {
@@ -61,7 +61,7 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
                 }
             }
         }
-        return null;
+        return new OrderSpecifier<>(Order.ASC, book.title);
     }
 
     private BooleanExpression bookContains(String keyword) {
