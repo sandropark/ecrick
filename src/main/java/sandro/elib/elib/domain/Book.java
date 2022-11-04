@@ -2,13 +2,11 @@ package sandro.elib.elib.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sandro.elib.elib.dto.LibraryServiceDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -28,7 +26,7 @@ public class Book {
     private LocalDateTime publicDate;
     private String imageUrl;
     @OneToMany(mappedBy = "book")
-    private final List<BookLibraryServiceMap> bookLibraryServices = new ArrayList<>();
+    private final List<Relation> relations = new ArrayList<>();
 
     public Book(String title, String author, String publisher) {
         this.title = title;
@@ -50,9 +48,4 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
-    public List<LibraryServiceDto> createLocation() {
-        return bookLibraryServices.stream()
-                .map(bls -> new LibraryServiceDto(bls.getLibrary().getName(), bls.getService().getName()))
-                .collect(Collectors.toList());
-    }
 }

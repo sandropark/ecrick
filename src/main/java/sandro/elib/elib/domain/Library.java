@@ -4,10 +4,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -22,8 +21,10 @@ public class Library {
     private Long id;
     @Column(name = "library_name")
     private String name;
+    @OneToMany(mappedBy = "library")
+    private final List<Relation> relations = new ArrayList<>();
 
-    public Library(String libraryname) {
-        this.name = libraryname;
+    public Library(String name) {
+        this.name = name;
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 import sandro.elib.elib.domain.BookSearch;
-import sandro.elib.elib.dto.BooksDto;
+import sandro.elib.elib.dto.BookListDto;
 import sandro.elib.elib.dto.QBooksDto;
 
 import javax.persistence.EntityManager;
@@ -28,8 +28,8 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     }
 
     @Override
-    public Page<BooksDto> searchPage(BookSearch bookSearch, Pageable pageable) {
-        List<BooksDto> content = queryFactory
+    public Page<BookListDto> searchPage(BookSearch bookSearch, Pageable pageable) {
+        List<BookListDto> content = queryFactory
                 .select(new QBooksDto(book))
                 .from(book)
                 .where(bookContains(bookSearch.getKeyword()))

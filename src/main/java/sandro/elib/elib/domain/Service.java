@@ -4,10 +4,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -22,6 +22,9 @@ public class Service {
     private Long id;
     @Column(name = "service_name")
     private String name;
+
+    @OneToMany(mappedBy = "service")
+    private final List<Relation> relations = new ArrayList<>();
 
     public Service(String name) {
         this.name = name;

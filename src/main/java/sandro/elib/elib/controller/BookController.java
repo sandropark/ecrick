@@ -40,8 +40,8 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}")
-    public String bookDetail_SpringDataJpa(@PathVariable Long bookId, Model model) {
-        BookDto book = bookService.findById(bookId);
+    public String bookDetail(@PathVariable Long bookId, Model model) {
+        BookDetailDto book = bookService.findById(bookId);
         model.addAttribute("book", book);
         return "books/book-detail";
     }

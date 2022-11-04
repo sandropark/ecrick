@@ -12,11 +12,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BookLibraryServiceMap {
+public class Relation {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "book_library_service_map_id")
+    @Column(name = "relation_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
@@ -31,7 +31,7 @@ public class BookLibraryServiceMap {
     @JoinColumn(name = "service_id")
     private Service service;
 
-    public BookLibraryServiceMap(Book book, Library library, Service service) {
+    public Relation(Book book, Library library, Service service) {
         this.book = book;
         this.library = library;
         this.service = service;
