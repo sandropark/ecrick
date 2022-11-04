@@ -24,22 +24,15 @@ public class BookController {
     private final BookRepository bookRepository;
 
     @GetMapping
-    public String list_SpringDataJpa(@ModelAttribute BookSearch bookSearch,
-                                     @PageableDefault(size = 24) Pageable pageable,
-                                     Model model) {
-        Page<BooksDto> page = bookRepository.searchPage(bookSearch, pageable);
-        int startPage = page.getNumber() / 10 * 10 + 1;
-        int endPage = Math.min(page.getTotalPages(), page.getNumber() / 10 * 10 + 10);
-        int preStartPage = Math.max(page.getNumber() / 10 * 10 - 10 + 1, 1);
-        int nextStartPage = page.getNumber() / 10 * 10 + 11;
-
-        model.addAttribute("page", page);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("preStartPage", preStartPage);
-        model.addAttribute("nextStartPage", nextStartPage);
-
-        model.addAttribute("books", page.getContent());
+    public String bookList(
+            @ModelAttribute BookSearch bookSearch,
+            @PageableDefault(size = 24) Pageable pageable,
+            Model model
+    ) {
+        Page<BookListDto> books = bookRepository.searchPage(bookSearch, pageable);
+        Pagination pagination = paginationService.getPagination(books.getNumber(), books.getTotalPages());
+        model.addAttribute("books", books);
+        model.addAttribute("pagination", pagination);
         return "books/list";
     }
 
