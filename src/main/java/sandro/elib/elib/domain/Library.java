@@ -24,7 +24,4 @@ public class Library {
     @OneToMany(mappedBy = "library")
     private final List<Relation> relations = new ArrayList<>();
 
-    public Library(String name) {
-        this.name = name;
-    }
 }

@@ -31,9 +31,4 @@ public class Relation {
     @JoinColumn(name = "service_id")
     private Service service;
 
-    public Relation(Book book, Library library, Service service) {
-        this.book = book;
-        this.library = library;
-        this.service = service;
-    }
 }

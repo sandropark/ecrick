@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,4 @@ public class Service {
     @OneToMany(mappedBy = "service")
     private final List<Relation> relations = new ArrayList<>();
 
-    public Service(String name) {
-        this.name = name;
-    }
 }

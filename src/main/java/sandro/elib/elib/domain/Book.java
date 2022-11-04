@@ -28,24 +28,4 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private final List<Relation> relations = new ArrayList<>();
 
-    public Book(String title, String author, String publisher) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-    }
-
-    public Book(String title, String author, String publisher, LocalDateTime publicDate) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.publicDate = publicDate;
-    }
-
-    public Book(String title, String author, String publisher, String imageUrl) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.imageUrl = imageUrl;
-    }
-
 }
