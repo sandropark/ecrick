@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sandro.elib.elib.domain.BookSearch;
-import sandro.elib.elib.dto.BookDto;
-import sandro.elib.elib.dto.BooksDto;
+import sandro.elib.elib.dto.BookDetailDto;
+import sandro.elib.elib.dto.BookListDto;
+import sandro.elib.elib.dto.Pagination;
 import sandro.elib.elib.repository.BookRepository;
 import sandro.elib.elib.service.BookService;
+import sandro.elib.elib.service.PaginationService;
 
 @Controller
 @RequestMapping("/books")
@@ -22,6 +24,7 @@ import sandro.elib.elib.service.BookService;
 public class BookController {
     private final BookService bookService;
     private final BookRepository bookRepository;
+    private final PaginationService paginationService;
 
     @GetMapping
     public String bookList(

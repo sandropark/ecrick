@@ -80,32 +80,45 @@
       </div>
     </main>
 
-<!--페이징-->
-<div class="container">
-    <nav aria-label="Page navigation example">
+    <!--페이징-->
+    <div class="container" th:object="${pagination}">
+      <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <!--이전 버튼-->
             <li class="page-item">
                 <a aria-label="Previous" class="page-link" href="#"
-                   th:href="@{/books?keyword={keyword}&page={preStartPage} (keyword=${bookSearch.keyword}, preStartPage=${preStartPage})}">
+                   th:href="@{/books(
+               keyword=${param.keyword},
+               sort=${param.sort},
+               page=*{preStartPage}
+               )}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <!--페이지버튼-->
-            <div th:each="tempPage : ${#numbers.sequence(startPage, endPage)}">
-                <li class="page-item" th:if="${tempPage != page.getNumber+1}">
-                    <a class="page-link" href="#" th:href="@{/books?keyword={keyword}&page={page} (page=${tempPage}, keyword=${bookSearch.keyword})}"
+            <div th:each="tempPage : ${#numbers.sequence(pagination.startPage+1, pagination.endPage)}">
+                <li class="page-item" th:if="${tempPage-1 != books.number}">
+                    <a class="page-link" href="#"
+                       th:href="@{/books(
+                 keyword=${param.keyword},
+                 sort=${param.sort},
+                 page=${tempPage-1}
+                 )}"
                        th:text="${tempPage}">1</a>
                 </li>
                 <!--현재 페이지 강조-->
-                <li class="page-item active" th:if="${tempPage == page.getNumber+1}">
+                <li class="page-item active" th:if="${tempPage-1 == books.number}">
                     <span class="page-link" th:text="${tempPage}"></span>
                 </li>
             </div>
             <!--다음 버튼-->
             <li class="page-item">
-                <a aria-label="Next" class="page-link"
-                   href="#" th:href="@{/books?keyword={keyword}&page={nextStartPage} (keyword=${bookSearch.keyword}, nextStartPage=${nextStartPage})}">
+                <a aria-label="Next" class="page-link" href="#"
+                   th:href="@{/books(
+               keyword=${param.keyword},
+               sort=${param.sort},
+               page=*{nextStartPage}
+               )}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
