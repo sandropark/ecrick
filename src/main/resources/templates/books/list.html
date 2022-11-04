@@ -1,48 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
-<head th:replace="fragments/common :: head('도서검색')"></head>
-<body>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>도서목록</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/sort-menu.css" rel="stylesheet">
+</head>
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
      th:replace="fragments/common :: menu(bookslist)"></nav>
 
-<!--검색창-->
-<div class="container">
+  <!--검색창-->
+  <div class="container">
     <form class="form-inline" th:object="${bookSearch}">
-        <div class="input-group w-75">
-            <input class="form-control" placeholder="검색어를 입력하세요." th:field="*{title}" type="text">
-            <button class="btn btn-outline-secondary" id="button-addon2" type="submit">검색</button>
-        </div>
+      <div class="input-group w-75">
+        <input class="form-control" placeholder="검색어를 입력하세요." th:field="*{keyword}" type="text">
+        <button class="btn btn-outline-secondary" id="button-addon2" type="submit">검색</button>
+      </div>
     </form>
-</div>
+  </div>
+  <main th:object="${books}"}>
+    <!--정렬  -->
+    <div class="container">
+      <div class="row" >
+        <div class="col">결과 총 <span th:text="*{getTotalElements()}"></span> 권</div>
+        <div class="col sort-menu">
+          <a th:href="@{/books (
+            keyword=${param.keyword},
+            sort=title + (*{sort.getOrderFor('title') != null} ? (*{sort.getOrderFor('title').isAscending()} ? ',desc' : '' ) : ''),
+            page=${param.page}
+            )}">제목순</a>
+        </div>
+        <div class="col sort-menu">
+          <a th:href="@{/books (
+            keyword=${param.keyword},
+            sort=author + (*{sort.getOrderFor('author') != null} ? (*{sort.getOrderFor('author').isAscending()} ? ',desc' : '' ) : ''),
+            page=${param.page}
+            )}">저자순</a>
+        </div>
+        <div class="col sort-menu">
+          <a th:href="@{/books (
+            keyword=${param.keyword},
+            sort=publisher + (*{sort.getOrderFor('publisher') != null} ? (*{sort.getOrderFor('publisher').isAscending()} ? ',desc' : '' ) : ''),
+            page=${param.page}
+            )}">출판사순</a></div>
+        <div class="col sort-menu">
+          <a th:href="@{/books (
+            keyword=${param.keyword},
+            sort=publicDate + (*{sort.getOrderFor('publicDate') != null} ? (*{sort.getOrderFor('publicDate').isAscending()} ? ',desc' : '' ) : ''),
+            page=${param.page}
+            )}">출간일순</a></div>
+      </div>
+    </div>
 
     <!--도서목록-->
-<main class="container">
-
-    <div>결과 총 <span th:text="${page.getTotalElements}"></span> 권</div>
-
-    <div class="row row-cols-auto g-4">
-        <div class="col-md-2" th:each="book : ${books}">
-            <div class="card">
-                <a th:href="@{/books/{id} (id=${book.id})}">
-                    <img class="card-img-top" src="" th:src="${book.imageUrl}">
-                </a>
-                <div class="card-body">
-                    <h6 class="card-title" th:text="${book.title}">Card title</h6>
-                    <p>
-                        <span class="card-text">
-                            <small th:text="${book.author}" class="text-muted">하라리</small>
-                        </span>
-                        <span>/</span>
-                        <span class="card-text">
-                            <small th:text="${book.publisher}" class="text-muted">김영사</small>
-                        </span>
-                    </p>
-                </div>
+    <main class="container">
+      <div class="row row-cols-auto g-4">
+        <div class="col-md-2" th:each="book : ${books.content}">
+          <div class="card">
+            <a th:href="@{/books/{id} (id=${book.id})}">
+              <img class="card-img-top" src="" th:src="${book.imageUrl}">
+            </a>
+            <div class="card-body">
+              <h6 class="card-title" th:text="${book.title}">Card title</h6>
+              <p>
+                <span class="card-text">
+                  <small th:text="${book.author}" class="text-muted">하라리</small>
+                </span>
+                <span>/</span>
+                <span class="card-text">
+                  <small th:text="${book.publisher}" class="text-muted">김영사</small>
+                </span>
+              </p>
             </div>
+          </div>
         </div>
-    </div>
-</main>
+      </div>
+    </main>
 
 <!--페이징-->
 <div class="container">
@@ -51,14 +87,14 @@
             <!--이전 버튼-->
             <li class="page-item">
                 <a aria-label="Previous" class="page-link" href="#"
-                   th:href="@{/books?title={title}&page={preStartPage} (title=${bookSearch.title}, preStartPage=${preStartPage})}">
+                   th:href="@{/books?keyword={keyword}&page={preStartPage} (keyword=${bookSearch.keyword}, preStartPage=${preStartPage})}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <!--페이지버튼-->
             <div th:each="tempPage : ${#numbers.sequence(startPage, endPage)}">
                 <li class="page-item" th:if="${tempPage != page.getNumber+1}">
-                    <a class="page-link" href="#" th:href="@{/books?title={title}&page={page} (page=${tempPage}, title=${bookSearch.title})}"
+                    <a class="page-link" href="#" th:href="@{/books?keyword={keyword}&page={page} (page=${tempPage}, keyword=${bookSearch.keyword})}"
                        th:text="${tempPage}">1</a>
                 </li>
                 <!--현재 페이지 강조-->
@@ -69,13 +105,13 @@
             <!--다음 버튼-->
             <li class="page-item">
                 <a aria-label="Next" class="page-link"
-                   href="#" th:href="@{/books?title={title}&page={nextStartPage} (title=${bookSearch.title}, nextStartPage=${nextStartPage})}">
+                   href="#" th:href="@{/books?keyword={keyword}&page={nextStartPage} (keyword=${bookSearch.keyword}, nextStartPage=${nextStartPage})}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
-    </nav>
-</div>
-
+      </nav>
+    </div>
+  </main>
 </body>
 </html>

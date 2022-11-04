@@ -1,10 +1,13 @@
 package sandro.elib.elib.repository;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 import sandro.elib.elib.domain.BookSearch;
 import sandro.elib.elib.dto.BooksDto;
@@ -29,19 +32,43 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
         List<BooksDto> content = queryFactory
                 .select(new QBooksDto(book))
                 .from(book)
-                .where(titleEq(bookSearch.getTitle()))
+                .where(bookContains(bookSearch.getKeyword()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(bookSort(pageable))
                 .fetch();
 
         JPAQuery<Long> countQuery = queryFactory.select(book.count())
                 .from(book)
-                .where(titleEq(bookSearch.getTitle()));
+                .where(bookContains(bookSearch.getKeyword()));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
-    private BooleanExpression titleEq(String title) {
-        return hasText(title) ? book.title.contains(title) : null;
+    private OrderSpecifier<?> bookSort(Pageable pageable) {
+        if (pageable.getSort().isSorted()) {
+            for (Sort.Order order : pageable.getSort()) {
+                Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
+                switch (order.getProperty()) {
+                    case "title":
+                        return new OrderSpecifier<>(direction, book.title);
+                    case "author":
+                        return new OrderSpecifier<>(direction, book.author);
+                    case "publisher":
+                        return new OrderSpecifier<>(direction, book.publisher);
+                    case "publicDate":
+                        return new OrderSpecifier<>(direction, book.publicDate);
+                }
+            }
+        }
+        return new OrderSpecifier<>(Order.ASC, book.title);
+    }
+
+    private BooleanExpression bookContains(String keyword) {
+        return hasText(keyword)
+                ? book.title.contains(keyword)
+                .or(book.author.contains(keyword))
+                .or(book.publisher.contains(keyword))
+                : null;
     }
 }
