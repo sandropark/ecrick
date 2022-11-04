@@ -11,7 +11,6 @@
 <body>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
      th:replace="fragments/common :: menu(bookslist)"></nav>
-
   <!--검색창-->
   <div class="container">
     <form class="form-inline" th:object="${bookSearch}">
@@ -84,44 +83,43 @@
     <div class="container" th:object="${pagination}">
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <!--이전 버튼-->
-            <li class="page-item">
-                <a aria-label="Previous" class="page-link" href="#"
-                   th:href="@{/books(
+          <!--이전 버튼-->
+          <li class="page-item">
+            <a aria-label="Previous" class="page-link" href="#"
+               th:href="@{/books(
                keyword=${param.keyword},
                sort=${param.sort},
                page=*{preStartPage}
                )}">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <!--페이지버튼-->
-            <div th:each="tempPage : ${#numbers.sequence(pagination.startPage+1, pagination.endPage)}">
-                <li class="page-item" th:if="${tempPage-1 != books.number}">
-                    <a class="page-link" href="#"
-                       th:href="@{/books(
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <!--페이지버튼-->
+          <div th:each="page : *{pageNumbers}">
+              <li class="page-item" >
+                  <a class="page-link" href="#" th:if="${page != books.number}"
+                     th:href="@{/books(
+                     keyword=${param.keyword},
+                     sort=${param.sort},
+                     page=${page}
+                     )}" th:text="${page+1}">1</a>
+              </li>
+              <!--현재 페이지 강조-->
+              <li class="page-item active" th:if="${page == books.number}">
+                  <span class="page-link" th:text="${page+1}"></span>
+              </li>
+          </div>
+          <!--다음 버튼-->
+          <li class="page-item">
+              <a aria-label="Next" class="page-link" href="#"
+                 th:href="@{/books(
                  keyword=${param.keyword},
                  sort=${param.sort},
-                 page=${tempPage-1}
-                 )}"
-                       th:text="${tempPage}">1</a>
-                </li>
-                <!--현재 페이지 강조-->
-                <li class="page-item active" th:if="${tempPage-1 == books.number}">
-                    <span class="page-link" th:text="${tempPage}"></span>
-                </li>
-            </div>
-            <!--다음 버튼-->
-            <li class="page-item">
-                <a aria-label="Next" class="page-link" href="#"
-                   th:href="@{/books(
-               keyword=${param.keyword},
-               sort=${param.sort},
-               page=*{nextStartPage}
-               )}">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
+                 page=*{nextStartPage}
+                 )}">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
         </ul>
       </nav>
     </div>

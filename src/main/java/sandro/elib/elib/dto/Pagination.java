@@ -1,12 +1,20 @@
 package sandro.elib.elib.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+import java.util.ArrayList;
+import java.util.List;
+
+@ToString
+@EqualsAndHashCode
+@Getter
+@AllArgsConstructor
 public class Pagination {
 
-    private int startPage;
-    private int endPage;
+    private List<Integer> pageNumbers = new ArrayList<>();
     private int preStartPage;
     private int nextStartPage;
 

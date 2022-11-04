@@ -3,7 +3,12 @@ package sandro.elib.elib.service;
 import org.springframework.stereotype.Service;
 import sandro.elib.elib.dto.Pagination;
 
-import static java.lang.Math.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 @Service
 public class PaginationService {
@@ -11,12 +16,15 @@ public class PaginationService {
     private static final int BAR_LENGTH = 10;
 
     public Pagination getPagination(int currentPage, int totalPages) {
-        Pagination pagination = new Pagination();
-        pagination.setStartPage(getStartPage(currentPage));
-        pagination.setEndPage(getEndPage(currentPage, totalPages));
-        pagination.setPreStartPage(getPreStartPage(currentPage));
-        pagination.setNextStartPage(getNextStartPage(currentPage, totalPages));
-        return pagination;
+        if (totalPages == 0) {
+            return new Pagination(List.of(0), 0, 0);
+        }
+        int startPage = getStartPage(currentPage);
+        int endPage = getEndPage(currentPage, totalPages);
+        List<Integer> barNumbers = IntStream.range(startPage, endPage).boxed().collect(Collectors.toList());
+        int preStartPage = getPreStartPage(currentPage);
+        int nextStartPage = getNextStartPage(currentPage, totalPages);
+        return new Pagination(barNumbers, preStartPage, nextStartPage);
     }
 
     private static int getStartPage(int currentPage) {
