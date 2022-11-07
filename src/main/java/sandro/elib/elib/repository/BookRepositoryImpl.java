@@ -61,7 +61,7 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
                 }
             }
         }
-        return new OrderSpecifier<>(Order.ASC, book.title);
+        return new OrderSpecifier<>(Order.DESC, book.publicDate);
     }
 
     private BooleanExpression bookContains(String keyword) {
