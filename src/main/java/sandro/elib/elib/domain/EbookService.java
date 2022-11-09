@@ -13,16 +13,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Service {
+public class EbookService {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "service_id")
+    @Column(name = "ebook_service_id")
     private Long id;
-    @Column(name = "service_name")
+    @Column(name = "ebook_service_name")
     private String name;
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "ebookService")
     private final List<Relation> relations = new ArrayList<>();
 
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class LibraryServiceDto {
+public class LibraryEbookServiceDto {
     private String library;
-    private String service;
+    private String ebookService;
 }

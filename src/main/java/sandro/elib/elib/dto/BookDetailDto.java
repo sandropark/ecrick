@@ -18,7 +18,7 @@ public class BookDetailDto {
     private String publisher;
     private LocalDateTime publicDate;
     private String imageUrl;
-    private List<LibraryServiceDto> location;
+    private List<LibraryEbookServiceDto> location;
 
     @QueryProjection
     public BookDetailDto(Book entity) {
@@ -29,7 +29,7 @@ public class BookDetailDto {
         publicDate = entity.getPublicDate();
         imageUrl = entity.getImageUrl();
         location = entity.getRelations().stream()
-                .map(relation -> new LibraryServiceDto(relation.getLibrary().getName(), relation.getService().getName()))
+                .map(relation -> new LibraryEbookServiceDto(relation.getLibrary().getName(), relation.getEbookService().getName()))
                 .collect(Collectors.toList());
     }
 

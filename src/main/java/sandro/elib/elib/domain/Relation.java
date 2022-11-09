@@ -28,7 +28,17 @@ public class Relation {
     private Library library;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "service_id")
-    private Service service;
+    @JoinColumn(name = "ebook_service_id")
+    private EbookService ebookService;
+
+    private Relation(Book book, Library library, EbookService ebookService) {
+        this.book = book;
+        this.library = library;
+        this.ebookService = ebookService;
+    }
+
+    public static Relation of(Book book, Library library, EbookService ebookService) {
+        return new Relation(book, library, ebookService);
+    }
 
 }
