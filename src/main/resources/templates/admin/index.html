@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragments/common :: head('관리자 페이지')"></head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
+     th:replace="fragments/common :: menu(bookslist)"></nav>
+
+<ul>
+  <li><a href="admin/library">도서관 관리</a></li>
+</ul>
+
+
+</body>
+</html>
