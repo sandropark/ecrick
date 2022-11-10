@@ -21,16 +21,28 @@ public class BookDetailDto {
     private List<LibraryEbookServiceDto> location;
 
     @QueryProjection
-    public BookDetailDto(Book entity) {
-        id = entity.getId();
-        title = entity.getTitle();
-        author = entity.getAuthor();
-        publisher = entity.getPublisher();
-        publicDate = entity.getPublicDate();
-        imageUrl = entity.getImageUrl();
-        location = entity.getRelations().stream()
-                .map(relation -> new LibraryEbookServiceDto(relation.getLibrary().getName(), relation.getEbookService().getName()))
-                .collect(Collectors.toList());
+    private BookDetailDto(Long id, String title, String author, String publisher, LocalDateTime publicDate, String imageUrl, List<LibraryEbookServiceDto> location) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publicDate = publicDate;
+        this.imageUrl = imageUrl;
+        this.location = location;
+    }
+
+    public static BookDetailDto from(Book entity) {
+        return new BookDetailDto(
+            entity.getId(),
+            entity.getTitle(),
+            entity.getAuthor(),
+            entity.getPublisher(),
+            entity.getPublicDate(),
+            entity.getImageUrl(),
+            entity.getRelations().stream()
+                    .map(relation -> new LibraryEbookServiceDto(relation.getLibrary().getName(), relation.getEbookService().getName()))
+                    .collect(Collectors.toList())
+        );
     }
 
 }

@@ -3,6 +3,7 @@ package sandro.elib.elib.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Library {
+public class Library extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
