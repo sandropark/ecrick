@@ -9,11 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
+import sandro.elib.elib.domain.Book;
 import sandro.elib.elib.domain.BookSearch;
+import sandro.elib.elib.dto.BookDto;
 import sandro.elib.elib.dto.BookListDto;
 import sandro.elib.elib.dto.QBooksDto;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.hasText;
@@ -22,9 +25,11 @@ import static sandro.elib.elib.domain.QBook.book;
 public class BookRepositoryImpl implements BookRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+    private final EntityManager em;
 
     public BookRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
+        this.em = em;
     }
 
     @Override
@@ -43,6 +48,19 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
                 .where(bookContains(bookSearch.getKeyword()));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Book findByDto(BookDto bookDto) {
+        try {
+            return em.createQuery("select b from Book b where b.title = :title and b.author = :author and b.publisher = :publisher", Book.class)
+                    .setParameter("title", bookDto.getTitle())
+                    .setParameter("author", bookDto.getAuthor())
+                    .setParameter("publisher", bookDto.getPublisher())
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     private OrderSpecifier<?> bookSort(Pageable pageable) {

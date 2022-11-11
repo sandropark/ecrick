@@ -7,10 +7,13 @@ import org.springframework.data.repository.query.Param;
 import sandro.elib.elib.domain.Library;
 import sandro.elib.elib.domain.Relation;
 
-public interface RelationRepository extends JpaRepository<Relation, Long> {
+public interface RelationRepository extends JpaRepository<Relation, Long>, RelationRepositoryCustom{
 
     @Modifying
     @Query("delete from Relation r where r.library = :library")
     void deleteByLibrary(@Param("library") Library library);
+
+    @Query("select count(r) from Relation r where r.library = :library")
+    int findSavedBooksByLibrary(@Param("library") Library library);
 
 }
