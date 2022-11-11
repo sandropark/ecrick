@@ -64,9 +64,10 @@ class QueryParam {
     private String keyword;
     private String page;
     private String sort;
+    private String size;
 
     public Map<String, String> toMap() {
-        return Map.of("keyword", keyword, "page", page, "sort", sort);
+        return Map.of("keyword", keyword, "page", page, "sort", sort, "size", size);
     }
 
 }

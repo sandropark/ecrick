@@ -38,18 +38,27 @@
             <th scope="col" class="sort-menu"><a th:href="@{/admin/library (
                 keyword=${param.keyword},
                 sort=id + (*{sort.getOrderFor('id') != null} ? (*{sort.getOrderFor('id').isAscending()} ? ',desc' : '' ) : ''),
-                page=${param.page}
+                page=${param.page},
+                size=${param.size}
                 )}">id</a></th>
             <th scope="col" class="sort-menu"><a th:href="@{/admin/library (
                 keyword=${param.keyword},
                 sort=name + (*{sort.getOrderFor('name') != null} ? (*{sort.getOrderFor('name').isAscending()} ? ',desc' : '' ) : ''),
-                page=${param.page}
+                page=${param.page},
+                size=${param.size}
                 )}">이름</a></th>
             <th scope="col" class="sort-menu"><a th:href="@{/admin/library (
                 keyword=${param.keyword},
                 sort=totalBooks + (*{sort.getOrderFor('totalBooks') != null} ? (*{sort.getOrderFor('totalBooks').isAscending()} ? ',desc' : '' ) : ''),
-                page=${param.page}
+                page=${param.page},
+                size=${param.size}
                 )}">총 도서수</a></th>
+            <th scope="col" class="sort-menu"><a th:href="@{/admin/library (
+                keyword=${param.keyword},
+                sort=savedBooks + (*{sort.getOrderFor('savedBooks') != null} ? (*{sort.getOrderFor('savedBooks').isAscending()} ? ',desc' : '' ) : ''),
+                page=${param.page},
+                size=${param.size}
+                )}">저장된 도서수</a></th>
           </tr>
         </thead>
         <tbody th:each="library : ${libraries.content}">
@@ -57,11 +66,13 @@
             <th scope="row" th:text="${library.id}">1</th>
             <td th:text="${library.name}">중랑구립도서관</td>
             <td th:text="${library.totalBooks}">3000권</td>
+            <td th:text="${library.savedBooks}">3000권</td>
             <td>
               <form method="post" th:action="@{|/admin/library/${library.id}/delete|}">
                 <input type="hidden" name="keyword" th:value="${param.keyword}">
                 <input type="hidden" name="page" th:value="${param.page}">
                 <input type="hidden" name="sort" th:value="${param.sort}">
+                <input type="hidden" name="size" th:value="${param.size}">
                 <button type="submit" class="btn btn-danger">삭제</button>
               </form>
             </td>
@@ -80,7 +91,8 @@
                th:href="@{/admin/library(
                  keyword=${param.keyword},
                  sort=${param.sort},
-                 page=*{preStartPage}
+                 page=*{preStartPage},
+                 size=${param.size}
                  )}">
               <span aria-hidden="true">&laquo;</span>
             </a>
@@ -92,7 +104,8 @@
                  th:href="@{/admin/library(
                        keyword=${param.keyword},
                        sort=${param.sort},
-                       page=${page}
+                       page=${page},
+                       size=${param.size}
                        )}" th:text="${page+1}">1</a>
             </li>
             <!--현재 페이지 강조-->
@@ -106,7 +119,8 @@
                th:href="@{/admin/library(
                    keyword=${param.keyword},
                    sort=${param.sort},
-                   page=*{nextStartPage}
+                   page=*{nextStartPage},
+                   size=${param.size}
                    )}">
               <span aria-hidden="true">&raquo;</span>
             </a>
