@@ -9,9 +9,14 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(uniqueConstraints = {
+        @UniqueConstraint(
+                columnNames = {"book_id", "library_id", "ebook_service_id"}
+        )
+})
+@Entity
 public class Relation {
 
     @Id
