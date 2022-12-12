@@ -28,28 +28,24 @@
         <div class="col sort-menu">
           <a th:href="@{/books (
             keyword=${param.keyword},
-            sort=title + (*{sort.getOrderFor('title') != null} ? (*{sort.getOrderFor('title').isAscending()} ? ',desc' : '' ) : ''),
-            page=${param.page}
+            sort=title + (*{sort.getOrderFor('title') != null} ? (*{sort.getOrderFor('title').isAscending()} ? ',desc' : '' ) : '')
             )}">제목순</a>
         </div>
         <div class="col sort-menu">
           <a th:href="@{/books (
             keyword=${param.keyword},
-            sort=author + (*{sort.getOrderFor('author') != null} ? (*{sort.getOrderFor('author').isAscending()} ? ',desc' : '' ) : ''),
-            page=${param.page}
+            sort=author + (*{sort.getOrderFor('author') != null} ? (*{sort.getOrderFor('author').isAscending()} ? ',desc' : '' ) : '')
             )}">저자순</a>
         </div>
         <div class="col sort-menu">
           <a th:href="@{/books (
             keyword=${param.keyword},
-            sort=publisher + (*{sort.getOrderFor('publisher') != null} ? (*{sort.getOrderFor('publisher').isAscending()} ? ',desc' : '' ) : ''),
-            page=${param.page}
+            sort=publisher + (*{sort.getOrderFor('publisher') != null} ? (*{sort.getOrderFor('publisher').isAscending()} ? ',desc' : '' ) : '')
             )}">출판사순</a></div>
         <div class="col sort-menu">
           <a th:href="@{/books (
             keyword=${param.keyword},
-            sort=publicDate + (*{sort.getOrderFor('publicDate') != null} ? (*{sort.getOrderFor('publicDate').isAscending()} ? ',desc' : '' ) : ''),
-            page=${param.page}
+            sort=publicDate + (*{sort.getOrderFor('publicDate') != null} ? (*{sort.getOrderFor('publicDate').isAscending()} ? ',desc' : '' ) : '')
             )}">출간일순</a></div>
       </div>
     </div>
