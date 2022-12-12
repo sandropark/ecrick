@@ -3,7 +3,6 @@ package sandro.elib.elib;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +11,7 @@ class LogicTest {
     @Test
     void localDateTest() throws Exception {
         String date = "2022-11-30";
-        LocalDate parse = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate parse = LocalDate.parse(date);
         System.out.println("parse = " + parse);
     }
 

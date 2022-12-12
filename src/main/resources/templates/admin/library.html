@@ -23,6 +23,19 @@
     </form>
   </div>
 
+  <div class="container">
+    <form method="post">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <input type="hidden" name="keyword" th:value="${param.keyword}">
+        <input type="hidden" name="page" th:value="${param.page}">
+        <input type="hidden" name="sort" th:value="${param.sort}">
+        <input type="hidden" name="size" th:value="${param.size}">
+        <button type="submit" class="btn btn-primary">새로고침</button>
+      </div>
+    </form>
+  </div>
+
+
   <main th:object="${libraries}"}>
     <div class="container">
       <div class="row" >
@@ -67,6 +80,7 @@
             <td th:text="${library.name}">중랑구립도서관</td>
             <td th:text="${library.totalBooks}">3000권</td>
             <td th:text="${library.savedBooks}">3000권</td>
+            <td th:text="${library.contentType}">json or xml</td>
             <td>
               <form method="post" th:action="@{|/admin/library/${library.id}/delete|}">
                 <input type="hidden" name="keyword" th:value="${param.keyword}">
@@ -74,6 +88,33 @@
                 <input type="hidden" name="sort" th:value="${param.sort}">
                 <input type="hidden" name="size" th:value="${param.size}">
                 <button type="submit" class="btn btn-danger">삭제</button>
+              </form>
+            </td>
+            <td>
+              <form method="post" th:action="@{|/admin/library/${library.id}/delete-books|}">
+                <input type="hidden" name="keyword" th:value="${param.keyword}">
+                <input type="hidden" name="page" th:value="${param.page}">
+                <input type="hidden" name="sort" th:value="${param.sort}">
+                <input type="hidden" name="size" th:value="${param.size}">
+                <button type="submit" class="btn btn-danger">연관관계 삭제</button>
+              </form>
+            </td>
+            <td>
+              <form method="post" th:action="@{|/admin/library/${library.id}/crawl|}">
+                <input type="hidden" name="keyword" th:value="${param.keyword}">
+                <input type="hidden" name="page" th:value="${param.page}">
+                <input type="hidden" name="sort" th:value="${param.sort}">
+                <input type="hidden" name="size" th:value="${param.size}">
+                <button type="submit" class="btn btn-primary">크롤링</button>
+              </form>
+            </td>
+            <td>
+              <form method="post" th:action="@{|/admin/library/${library.id}/update|}">
+                <input type="hidden" name="keyword" th:value="${param.keyword}">
+                <input type="hidden" name="page" th:value="${param.page}">
+                <input type="hidden" name="sort" th:value="${param.sort}">
+                <input type="hidden" name="size" th:value="${param.size}">
+                <button type="submit" class="btn btn-primary">도서수 업데이트</button>
               </form>
             </td>
           </tr>
