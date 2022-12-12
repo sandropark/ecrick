@@ -11,9 +11,6 @@ public interface RelationRepository extends JpaRepository<Relation, Long>, Relat
 
     @Modifying
     @Query("delete from Relation r where r.library = :library")
-    void deleteByLibrary(@Param("library") Library library);
-
-    @Query("select count(r) from Relation r where r.library = :library")
-    int findSavedBooksByLibrary(@Param("library") Library library);
+    int deleteByLibrary(@Param("library") Library library);
 
 }
