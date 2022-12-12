@@ -6,7 +6,7 @@ import sandro.elib.elib.domain.Book;
 
 import java.util.Optional;
 
-public interface BookRepository extends JpaRepository<Book, Long>,BookRepositoryCustom {
+public interface BookRepository extends JpaRepository<Book, Long>, BookRepositoryCustom {
     @Override
     @EntityGraph(attributePaths = {"relations"})
     Optional<Book> findById(Long aLong);

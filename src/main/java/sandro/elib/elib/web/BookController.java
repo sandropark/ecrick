@@ -1,4 +1,4 @@
-package sandro.elib.elib.controller;
+package sandro.elib.elib.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sandro.elib.elib.domain.BookSearch;
 import sandro.elib.elib.dto.BookDetailDto;
 import sandro.elib.elib.dto.BookListDto;
 import sandro.elib.elib.dto.Pagination;
 import sandro.elib.elib.repository.BookRepository;
 import sandro.elib.elib.service.BookService;
 import sandro.elib.elib.service.PaginationService;
+import sandro.elib.elib.web.dto.BookSearch;
 
 @Controller
 @RequestMapping("/books")

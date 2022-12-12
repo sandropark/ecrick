@@ -10,9 +10,9 @@ import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class EbookService {
 
     @Id
@@ -24,5 +24,13 @@ public class EbookService {
 
     @OneToMany(mappedBy = "ebookService")
     private final List<Relation> relations = new ArrayList<>();
+
+    private EbookService(String name) {
+        this.name = name;
+    }
+
+    public static EbookService of(String name) {
+        return new EbookService(name);
+    }
 
 }

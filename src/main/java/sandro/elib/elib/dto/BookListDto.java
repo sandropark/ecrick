@@ -4,7 +4,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import sandro.elib.elib.domain.Book;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class BookListDto {
@@ -13,7 +13,7 @@ public class BookListDto {
     private String title;
     private String author;
     private String publisher;
-    private LocalDateTime publicDate;
+    private LocalDate publicDate;
     private String imageUrl;
 
     @QueryProjection

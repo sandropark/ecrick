@@ -1,4 +1,4 @@
-package sandro.elib.elib.domain;
+package sandro.elib.elib.web.dto;
 
 import lombok.Data;
 

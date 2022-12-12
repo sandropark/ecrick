@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import sandro.elib.elib.domain.Book;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -14,10 +14,10 @@ public class BookDto {
     private String title;
     private String author;
     private String publisher;
-    private LocalDateTime publicDate;
+    private LocalDate publicDate;
     private String imageUrl;
 
-    public static BookDto of(String title, String author, String publisher, LocalDateTime publicDate, String imageUrl) {
+    public static BookDto of(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
         return new BookDto(title, author, publisher, publicDate, imageUrl);
     }
 

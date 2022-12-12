@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,12 +29,12 @@ public class Book {
     private String title;
     private String author;
     private String publisher;
-    private LocalDateTime publicDate;
+    private LocalDate publicDate;
     private String imageUrl;
     @OneToMany(mappedBy = "book")
     private final List<Relation> relations = new ArrayList<>();
 
-    private Book(String title, String author, String publisher, LocalDateTime publicDate, String imageUrl) {
+    private Book(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
@@ -42,11 +42,20 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
-    public static Book of(String title, String author, String publisher, LocalDateTime publicDate, String imageUrl) {
+    private Book(String title) {
+        this.title = title;
+    }
+
+    public static Book of(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
         return new Book(title, author, publisher, publicDate, imageUrl);
     }
 
-    public void updatePublicDate(LocalDateTime publicDate) {
+    public static Book of(String title) {
+        return new Book(title);
+    }
+
+
+    public void updatePublicDate(LocalDate publicDate) {
         this.publicDate = publicDate;
     }
 
