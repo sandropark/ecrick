@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Getter
 @Setter
 public class JsonDto implements ResponseDto {
@@ -37,9 +39,12 @@ public class JsonDto implements ResponseDto {
                     values.get("cttsHnglName"),
                     values.get("sntnAuthName"),
                     values.get("pbcmName"),
-                    LocalDate.parse(values.get("publDate")).atTime(0, 0),
+                    getParsedDate(values.get("publDate")),
                     values.get("coverImage"));
         }).collect(Collectors.toList());
+    }
 
+    private LocalDate getParsedDate(String date) {
+        return hasText(date) ? LocalDate.parse(date) : null;
     }
 }

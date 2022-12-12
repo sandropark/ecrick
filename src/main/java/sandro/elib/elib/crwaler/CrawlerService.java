@@ -2,21 +2,22 @@ package sandro.elib.elib.crwaler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sandro.elib.elib.domain.Book;
+import sandro.elib.elib.crwaler.dto.JsonDto;
+import sandro.elib.elib.crwaler.dto.ResponseDto;
 import sandro.elib.elib.domain.EbookService;
 import sandro.elib.elib.domain.Library;
-import sandro.elib.elib.domain.Relation;
-import sandro.elib.elib.dto.BookDto;
-import sandro.elib.elib.repository.BookRepository;
-import sandro.elib.elib.repository.EBookServiceRepository;
+import sandro.elib.elib.repository.EbookServiceRepository;
 import sandro.elib.elib.repository.LibraryRepository;
-import sandro.elib.elib.repository.RelationRepository;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import static java.util.stream.Collectors.toList;
+import static sandro.elib.elib.crwaler.CrawlUtil.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,68 +25,56 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class CrawlerService {
 
-    private final BookRepository bookRepository;
+    private final EbookServiceRepository ebookServiceRepository;
     private final LibraryRepository libraryRepository;
-    private final EBookServiceRepository EBookServiceRepository;
-    private final RelationRepository relationRepository;
-    private final Crawler crawler;
+    private final ObjectProvider<Crawler> crawlerProvider;
 
     @Transactional
-    public void crawl(Library library) {
-        // TODO : save 시 벌크 연산 적용하기
-        EbookService service = EBookServiceRepository.findByName("교보");
-        List<BookDto> bookDtos = crawler.crawlByLibrary(library);
-        if (bookDtos.isEmpty()) {
+    public void crawl(Long libraryId) {
+        Library library = libraryRepository.findById(libraryId)
+                .orElse(null);
+        if (library == null) {
             return;
         }
-        List<Book> books = bookDtos.stream().map(bookDto -> {
-            Book book = bookRepository.findByDto(bookDto);
-            if (book == null) {
-                Book bookFromDto = bookDto.toEntity();
-                bookRepository.save(bookFromDto);
-                return bookFromDto;
-            }
-            if (book.getPublicDate() == null && bookDto.getPublicDate() != null) {
-                book.updatePublicDate(bookDto.getPublicDate());
-            }
-            return book;
-        }).collect(toList());
 
-        books.forEach(book -> {
-            Relation relation = Relation.of(book, library, service);
-            if (relationRepository.notExist(relation)) {
-                relationRepository.save(relation);
-            }
-        });
+        JsonDto JsonDto;
+        try {
+            JsonDto = getJsonDto(requestUrlAndGetResponse(library));
+        } catch (IOException e) {
+            return;
+        }
+        List<String> detailUrls = getDetailUrls(JsonDto.getTotalBooks(), library.getApiUrl());
 
-        int savedBooks = relationRepository.findSavedBooksByLibrary(library);
-        library.setSavedBooks(savedBooks);
+        execute(library, detailUrls);
     }
 
-//    @Transactional
-//    public void updateTotalBooks() {
-//        /* 1. 도서관 전체 가져오기
-//         * 2. api url을 이용해서 전체 도서수 가져오기.
-//         * 3. 도서관 엔티티 수정
-//         */
-//
-//        List<Library> libraries = libraryRepository.findAll().stream()
-//                .filter(library -> library.getTotalBooks() == null)
-//                .collect(toList());
-//
-//        libraries.forEach(library -> {
-//            try {
-//                Response response = crawler.requestUrlAndGetResponse(library.getApiUrl());
-//                ResponseDto responseDto = crawler.getResponseDto(response);
-//                library.setTotalBooks(responseDto.getTotalBooks());
-//            } catch (JsonProcessingException e) {
-//                log.warn("Json 파싱 실패 - 도서관 = {}", library.getName());
-//            } catch (JAXBException e) {
-//                log.warn("xml 파싱 실패 - 도서관 = {}", library.getName());
-//            } catch (IOException e) {
-//                log.warn("url 접속 실패 - url을 확인하세요. 도서관 = {}, url = {}, apiUrl = {}", library.getName(), library.getUrl(), library.getApiUrl());
-//            }
-//        });
-//    }
+    @Transactional
+    public void crawl(String libraryName) {
+        Library library = libraryRepository.findByName(libraryName)
+                .orElse(null);
+        if (library == null) {
+            return;
+        }
+
+        ResponseDto responseDto;
+        try {
+            responseDto = getJsonDto(requestUrlAndGetResponse(library));
+        } catch (IOException e) {
+            return;
+        }
+        List<String> detailUrls = getDetailUrls(responseDto.getTotalBooks(), library.getApiUrl());
+
+        execute(library, detailUrls);
+    }
+
+    private void execute(Library library, List<String> detailUrls) {
+        ExecutorService es = Executors.newFixedThreadPool(40);     // 스레드 풀
+        EbookService service = ebookServiceRepository.findByName("교보"); // TODO : 도서관 서비스 확장시 수정
+        detailUrls.forEach(url -> {
+            Crawler crawler = crawlerProvider.getObject();
+            crawler.init(url, library, service);
+            es.submit(crawler);   // task를 입력
+        });
+    }
 
 }
