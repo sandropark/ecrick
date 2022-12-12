@@ -1,11 +1,19 @@
 package sandro.elib.elib.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import sandro.elib.elib.domain.Relation;
 
-@Data
-@AllArgsConstructor
+@Getter
 public class LibraryEbookServiceDto {
-    private String library;
-    private String ebookService;
+    private final String library;
+    private final String ebookService;
+
+    private LibraryEbookServiceDto(String library, String ebookService) {
+        this.library = library;
+        this.ebookService = ebookService;
+    }
+
+    public static LibraryEbookServiceDto from(Relation relation) {
+        return new LibraryEbookServiceDto(relation.getLibrary().getName(), relation.getEbookService().getName());
+    }
 }

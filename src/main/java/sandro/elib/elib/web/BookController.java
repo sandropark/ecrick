@@ -41,7 +41,7 @@ public class BookController {
 
     @GetMapping("/{bookId}")
     public String bookDetail(@PathVariable Long bookId, Model model) {
-        BookDetailDto book = bookService.findById(bookId);
+        BookDetailDto book = bookService.findBookDetail(bookId);
         model.addAttribute("book", book);
         return "books/book-detail";
     }
