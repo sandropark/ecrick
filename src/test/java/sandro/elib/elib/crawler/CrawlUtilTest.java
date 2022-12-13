@@ -2,6 +2,7 @@ package sandro.elib.elib.crawler;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.jsoup.Jsoup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sandro.elib.elib.crawler.dto.JsonDto;
@@ -15,6 +16,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -159,6 +161,22 @@ class CrawlUtilTest {
         for (BookDto bookDto : bookDtos) {
             System.out.println("bookDto = " + bookDto);
         }
+    }
+
+    @DisplayName("Jsoup으로 요청하는 헤더를 브라우저로 요청하는 헤더와 같게 만든다.")
+    @Test
+    void request() throws Exception {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+        headers.put("Accept-Encoding", "gzip, deflate");
+        headers.put("Accept-Language", "ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7");
+        headers.put("Upgrade-Insecure-Requests", "1");
+        headers.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.5249.207 Whale/3.17.145.18 Safari/537.36");
+
+        Response response = Jsoup.connect("http://localhost:8080")
+                .headers(headers)
+                .execute();
+        assertThat(response.statusCode()).isEqualTo(200);
     }
 
 }

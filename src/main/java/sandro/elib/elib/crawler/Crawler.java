@@ -49,7 +49,7 @@ public class Crawler implements Runnable {
             log.error("파싱 예외 발생 쓰레드 종료 url = {}", detailUrl, e);
             return;
         } catch (IOException e) {
-            log.error("예외 발생 쓰레드 종료", e);
+            log.error("예외 발생 쓰레드 종료 url = {}", detailUrl, e);
             return;
         }
 
