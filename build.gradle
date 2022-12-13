@@ -43,6 +43,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'		// 테스트용
 
 	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'	// 테스트시 롬복 사용
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
