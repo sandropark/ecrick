@@ -1,5 +1,6 @@
 package sandro.elib.elib.crawler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
@@ -12,11 +13,12 @@ import sandro.elib.elib.dto.BookDto;
 import sandro.elib.elib.repository.BookRepository;
 import sandro.elib.elib.repository.RelationRepository;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.List;
 
-import static sandro.elib.elib.crwaler.CrawlUtil.getJsonDto;
-import static sandro.elib.elib.crwaler.CrawlUtil.requestDetailUrlAndGetResponse;
+import static sandro.elib.elib.crawler.CrawlUtil.responseToDto;
+import static sandro.elib.elib.crawler.CrawlUtil.requestDetailUrlAndGetResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -42,12 +44,15 @@ public class Crawler implements Runnable {
         List<BookDto> bookDtos;
 
         try {
-            bookDtos = getJsonDto(requestDetailUrlAndGetResponse(detailUrl, library)).toBookDto();
+            bookDtos = responseToDto(requestDetailUrlAndGetResponse(detailUrl, library)).toBookDto();
+        } catch (JsonProcessingException | JAXBException e) {
+            log.error("파싱 예외 발생 쓰레드 종료 url = {}", detailUrl, e);
+            return;
         } catch (IOException e) {
-            log.info("예외 발생 쓰레드 종료 url = {}", detailUrl);
+            log.error("예외 발생 쓰레드 종료", e);
             return;
         }
-        log.info("데이터 요청 완료");
+
         save(bookDtos);
         log.info("작업 완료 쓰레드 종료");
     }
@@ -58,7 +63,7 @@ public class Crawler implements Runnable {
             if (book == null) {
                 book = bookDto.toEntity();
                 bookRepository.save(book);
-            } else if (book.getPublicDate() == null && bookDto.getPublicDate() != null) {
+            } else if (book.hasNotPublicDate() && bookDto.hasPublicDate()) {
                 book.updatePublicDate(bookDto.getPublicDate());
             }
             Relation relation = Relation.of(book, library, service);

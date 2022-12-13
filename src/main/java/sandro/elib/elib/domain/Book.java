@@ -59,6 +59,10 @@ public class Book {
         this.publicDate = publicDate;
     }
 
+    public boolean hasNotPublicDate() {
+        return publicDate == null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,23 +1,24 @@
 package sandro.elib.elib.crawler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sandro.elib.elib.crwaler.dto.JsonDto;
-import sandro.elib.elib.crwaler.dto.ResponseDto;
+import sandro.elib.elib.crawler.dto.ResponseDto;
 import sandro.elib.elib.domain.EbookService;
 import sandro.elib.elib.domain.Library;
 import sandro.elib.elib.repository.EbookServiceRepository;
 import sandro.elib.elib.repository.LibraryRepository;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static sandro.elib.elib.crwaler.CrawlUtil.*;
+import static sandro.elib.elib.crawler.CrawlUtil.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -37,13 +38,19 @@ public class CrawlerService {
             return;
         }
 
-        JsonDto JsonDto;
+        log.info("CrawlerService 작업 시작 library = {}", library.getName());
+
+        ResponseDto responseDto;
         try {
-            JsonDto = getJsonDto(requestUrlAndGetResponse(library));
+            responseDto = responseToDto(requestUrlAndGetResponse(library));
+        } catch (JsonProcessingException | JAXBException e) {
+            log.error("파싱 오류", e);
+            return;
         } catch (IOException e) {
+            log.error("error", e);
             return;
         }
-        List<String> detailUrls = getDetailUrls(JsonDto.getTotalBooks(), library.getApiUrl());
+        List<String> detailUrls = getDetailUrls(responseDto, library.getApiUrl());
 
         execute(library, detailUrls);
     }
@@ -58,17 +65,17 @@ public class CrawlerService {
 
         ResponseDto responseDto;
         try {
-            responseDto = getJsonDto(requestUrlAndGetResponse(library));
-        } catch (IOException e) {
+            responseDto = responseToDto(requestUrlAndGetResponse(library));
+        } catch (IOException | JAXBException e) {
             return;
         }
-        List<String> detailUrls = getDetailUrls(responseDto.getTotalBooks(), library.getApiUrl());
+        List<String> detailUrls = getDetailUrls(responseDto, library.getApiUrl());
 
         execute(library, detailUrls);
     }
 
     private void execute(Library library, List<String> detailUrls) {
-        ExecutorService es = Executors.newFixedThreadPool(40);     // 스레드 풀
+        ExecutorService es = Executors.newFixedThreadPool(50);     // 스레드 풀
         EbookService service = ebookServiceRepository.findByName("교보"); // TODO : 도서관 서비스 확장시 수정
         detailUrls.forEach(url -> {
             Crawler crawler = crawlerProvider.getObject();

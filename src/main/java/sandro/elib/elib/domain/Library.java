@@ -33,8 +33,18 @@ public class Library extends BaseEntity {
         this.name = name;
     }
 
+    private Library(String name, String apiUrl, String referrer) {
+        this.name = name;
+        this.apiUrl = apiUrl;
+        this.referrer = referrer;
+    }
+
     public static Library of(String name) {
         return new Library(name);
+    }
+
+    public static Library of(String name, String apiUrl, String referrer) {
+        return new Library(name, apiUrl, referrer);
     }
 
     @Override

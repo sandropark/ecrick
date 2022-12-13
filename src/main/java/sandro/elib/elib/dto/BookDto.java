@@ -24,4 +24,8 @@ public class BookDto {
     public Book toEntity() {
         return Book.of(title, author, publisher, publicDate, imageUrl);
     }
+
+    public boolean hasPublicDate() {
+        return publicDate != null;
+    }
 }
