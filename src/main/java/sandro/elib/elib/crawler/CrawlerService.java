@@ -1,4 +1,4 @@
-package sandro.elib.elib.crwaler;
+package sandro.elib.elib.crawler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

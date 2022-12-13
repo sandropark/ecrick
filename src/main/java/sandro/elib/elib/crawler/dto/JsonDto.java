@@ -1,4 +1,4 @@
-package sandro.elib.elib.crwaler.dto;
+package sandro.elib.elib.crawler.dto;
 
 import lombok.Getter;
 import lombok.Setter;

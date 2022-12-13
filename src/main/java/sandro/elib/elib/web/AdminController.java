@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sandro.elib.elib.crwaler.CrawlerService;
+import sandro.elib.elib.crawler.CrawlerService;
 import sandro.elib.elib.domain.Library;
 import sandro.elib.elib.dto.Pagination;
 import sandro.elib.elib.repository.LibraryRepository;
