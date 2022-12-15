@@ -1,9 +1,8 @@
 package sandro.elib.elib.domain;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,39 +11,59 @@ import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
 public class Library extends BaseEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "library_id") private Long id;
-    @Column(name = "library_name") private String name;
+    @Column(name = "library_name", nullable = false) private String name;
     private String url;
     private String apiUrl;
-    @Setter private String referrer;
     private Integer totalBooks;
-    @Setter private Integer savedBooks;
+    private Integer savedBooks;
     private String contentType;
     @OneToMany(mappedBy = "library")
     private final List<Relation> relations = new ArrayList<>();
 
-    private Library(String name) {
-        this.name = name;
-    }
+    protected Library() {}
 
-    private Library(String name, String apiUrl, String referrer) {
+    private Library(String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {
         this.name = name;
+        this.url = url;
         this.apiUrl = apiUrl;
-        this.referrer = referrer;
+        this.totalBooks = totalBooks;
+        this.savedBooks = savedBooks;
+        this.contentType = contentType;
     }
 
     public static Library of(String name) {
-        return new Library(name);
+        return new Library(name, null, null, null, null, null);
     }
 
-    public static Library of(String name, String apiUrl, String referrer) {
-        return new Library(name, apiUrl, referrer);
+    public static Library of(String name, String apiUrl) {
+        return new Library(name, apiUrl, null, null, null, null);
+    }
+
+    public static Library of(String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {
+        return new Library(name, url, apiUrl, totalBooks, savedBooks, contentType);
+    }
+
+    public static Library of(Long id, String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {
+        return new Library(id, name, url, apiUrl, totalBooks, savedBooks, contentType);
+    }
+
+    public void update(Library library) {
+        url = library.getUrl();
+        apiUrl = library.getApiUrl();
+        totalBooks = library.getTotalBooks();
+        savedBooks = library.getSavedBooks();
+        contentType = library.getContentType();
+    }
+
+    public void updateTotalBooks(Integer totalBooks) {
+        this.totalBooks = totalBooks;
     }
 
     @Override
@@ -59,5 +78,4 @@ public class Library extends BaseEntity {
     public int hashCode() {
         return Objects.hash(getId());
     }
-
 }

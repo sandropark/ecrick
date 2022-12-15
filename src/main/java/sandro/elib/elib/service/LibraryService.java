@@ -2,9 +2,17 @@ package sandro.elib.elib.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sandro.elib.elib.domain.Library;
+import sandro.elib.elib.dto.LibraryDto;
 import sandro.elib.elib.repository.LibraryRepository;
+import sandro.elib.elib.repository.RelationRepository;
+import sandro.elib.elib.web.dto.LibraryAddFormDto;
+
+import javax.persistence.EntityNotFoundException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -12,10 +20,22 @@ import sandro.elib.elib.repository.LibraryRepository;
 @Service
 public class LibraryService {
     private final LibraryRepository libraryRepository;
+    private final RelationRepository relationRepository;
+
+    public Page<LibraryDto> searchLibrary(Pageable pageable) {
+        return libraryRepository.findAll(pageable)
+                .map(LibraryDto::from);
+    }
+
+    public LibraryDto getLibraryDto(Long libraryId) {
+        return libraryRepository.findById(libraryId)
+                .map(LibraryDto::from)
+                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
+    }
 
     @Transactional
-    public void updateAllSavedBooks() {
-        libraryRepository.updateAllSavedBooks();
+    public void save(LibraryAddFormDto dto) {
+        libraryRepository.save(dto.toEntity());
     }
 
     @Transactional
@@ -23,4 +43,18 @@ public class LibraryService {
         libraryRepository.updateSavedBooks(libraryId);
     }
 
+    @Transactional
+    public void update(LibraryDto dto) {
+        Library library = libraryRepository.findById(dto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + dto.getId()));
+        library.update(dto.toEntity());
+    }
+
+    @Transactional
+    public void delete(Long libraryId) {
+        Library library = libraryRepository.findById(libraryId)
+                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
+        relationRepository.deleteByLibrary(library);
+        libraryRepository.delete(library);
+    }
 }

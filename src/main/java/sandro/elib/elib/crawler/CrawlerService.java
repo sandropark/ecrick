@@ -12,71 +12,77 @@ import sandro.elib.elib.domain.Library;
 import sandro.elib.elib.repository.EbookServiceRepository;
 import sandro.elib.elib.repository.LibraryRepository;
 
+import javax.persistence.EntityNotFoundException;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static sandro.elib.elib.crawler.CrawlUtil.*;
+import static sandro.elib.elib.crawler.CrawlUtil.requestUrl;
+import static sandro.elib.elib.crawler.CrawlUtil.responseToDto;
 
 @Slf4j
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 @Service
-public class CrawlerService {
+public class CrawlerService implements Runnable {
 
     private final EbookServiceRepository ebookServiceRepository;
     private final LibraryRepository libraryRepository;
     private final ObjectProvider<Crawler> crawlerProvider;
+    private Long libraryId;
+    private boolean singleCrawler;
 
-    @Transactional
-    public void crawl(Long libraryId) {
+    public void init(Long libraryId, boolean singleCrawler) {
+        this.libraryId = libraryId;
+        this.singleCrawler = singleCrawler;
+    }
+
+    @Override
+    public void run() {
         Library library = libraryRepository.findById(libraryId)
-                .orElse(null);
-        if (library == null) {
-            return;
-        }
+                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
+        EbookService service = ebookServiceRepository.findByName("교보"); // TODO : 도서관 서비스 확장시 수정
 
-        log.info("CrawlerService 작업 시작 library = {}", library.getName());
+        log.info("{}", library.getName());
 
         ResponseDto responseDto;
         try {
-            responseDto = responseToDto(requestUrlAndGetResponse(library));
+            responseDto = responseToDto(requestUrl(library.getApiUrl()));
         } catch (JsonProcessingException | JAXBException e) {
-            log.error("파싱 오류", e);
+            log.error("CrawlerService 파싱 오류 library = {}",library.getName(), e);
             return;
         } catch (IOException e) {
             log.error("error", e);
             return;
         }
-        List<String> detailUrls = getDetailUrls(responseDto, library.getApiUrl());
+        updateLibraryTotalBooks(library, responseDto);
 
-        execute(library, detailUrls);
+        List<String> detailUrls = responseDto.getDetailUrl(library.getApiUrl());
+
+        if (singleCrawler) {
+            singleCrawl(detailUrls, library, service);
+        } else {
+            MultiCrawl(detailUrls, library, service);
+        }
     }
 
     @Transactional
-    public void crawl(String libraryName) {
-        Library library = libraryRepository.findByName(libraryName)
-                .orElse(null);
-        if (library == null) {
-            return;
-        }
-
-        ResponseDto responseDto;
-        try {
-            responseDto = responseToDto(requestUrlAndGetResponse(library));
-        } catch (IOException | JAXBException e) {
-            return;
-        }
-        List<String> detailUrls = getDetailUrls(responseDto, library.getApiUrl());
-
-        execute(library, detailUrls);
+    private void updateLibraryTotalBooks(Library library, ResponseDto responseDto) {
+        library.updateTotalBooks(responseDto.getTotalBooks());
+        libraryRepository.save(library);
     }
 
-    private void execute(Library library, List<String> detailUrls) {
+    private void singleCrawl(List<String> detailUrls, Library library, EbookService service) {
+        Crawler crawler = crawlerProvider.getObject();
+        detailUrls.forEach(url -> {
+            crawler.init(url, library, service, false);
+            crawler.run();
+        });
+    }
+
+    private void MultiCrawl(List<String> detailUrls, Library library, EbookService service) {
         ExecutorService es = Executors.newFixedThreadPool(50);     // 스레드 풀
-        EbookService service = ebookServiceRepository.findByName("교보"); // TODO : 도서관 서비스 확장시 수정
         detailUrls.forEach(url -> {
             Crawler crawler = crawlerProvider.getObject();
             crawler.init(url, library, service);

@@ -95,15 +95,13 @@ class CrawlUtilTest {
     void requestAndToDto() throws Exception {
         // Given
         Library xmlLibrary = Library.of("구미시립도서관",
-                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?",
-                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Kyobo_T3_Mobile/Tablet/Main/Ebook_List.asp?");
+                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?");
         Library jsonLibrary = Library.of("송파구통합도서관",
-                "http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001",
-                "http://ebook.splib.or.kr:8090/elibrary-front/content/contentList.ink?cttsDvsnCode=001");
+                "http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001");
 
         // When
-        Response xmlResponse = requestUrlAndGetResponse(xmlLibrary);
-        Response jsonResponse = requestUrlAndGetResponse(jsonLibrary);
+        Response xmlResponse = requestUrl(xmlLibrary.getUrl());
+        Response jsonResponse = requestUrl(jsonLibrary.getUrl());
 
         System.out.println("xmlResponse.contentType() = " + xmlResponse.contentType());
         System.out.println("xmlResponse.statusCode() = " + xmlResponse.statusCode());
@@ -120,37 +118,15 @@ class CrawlUtilTest {
     }
 
     @Test
-    void getDetailUrlTest() throws Exception {
-        // Given
-        XmlDto xmlDto = mock(XmlDto.class);
-        JsonDto jsonDto = mock(JsonDto.class);
-
-        given(xmlDto.getTotalBooks()).willReturn(100);
-        given(jsonDto.getTotalBooks()).willReturn(100);
-
-        String xmlApiUrl = "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?";
-        String jsonApiUrl = "http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001";
-
-        // When
-        List<String> xmlDetailUrls = getDetailUrls(xmlDto, xmlApiUrl);
-        List<String> jsonDetailUrls = getDetailUrls(jsonDto, jsonApiUrl);
-
-        // Then
-        System.out.println("xmlDetailUrls = " + xmlDetailUrls);
-        System.out.println("jsonDetailUrls = " + jsonDetailUrls);
-    }
-
-    @Test
     void requestDetailUrl() throws Exception {
         // Given
         String detailUrl = "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?paging=2";
 
         Library xmlLibrary = Library.of("구미시립도서관",
-                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?",
-                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Kyobo_T3_Mobile/Tablet/Main/Ebook_List.asp?");
+                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?");
 
         // When
-        Response response = requestDetailUrlAndGetResponse(detailUrl, xmlLibrary);
+        Response response = requestUrl(detailUrl);
         assertThat(response.statusCode()).isEqualTo(200);
 
         ResponseDto responseDto = responseToDto(response);

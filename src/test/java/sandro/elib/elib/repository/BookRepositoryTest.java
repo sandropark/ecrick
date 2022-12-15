@@ -18,8 +18,8 @@ class BookRepositoryTest {
 
     @Test
     void unique() throws Exception {
-        Book book1 = Book.of("사피엔스", "하라리", "믿음", null, null);
-        Book book2 = Book.of("사피엔스", "하라리", "믿음사", null, null);
+        Book book1 = Book.of("사피엔스", "하라리", "믿음사", null, null);
+        Book book2 = Book.of("사피엔스", "하라리", "믿음", null, null);
 
         bookRepository.save(book1);
         bookRepository.save(book2);

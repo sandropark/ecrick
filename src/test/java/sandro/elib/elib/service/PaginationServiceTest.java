@@ -1,5 +1,6 @@
 package sandro.elib.elib.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 class PaginationServiceTest {
 
     PaginationService paginationService = new PaginationService();

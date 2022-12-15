@@ -1,7 +1,6 @@
 package sandro.elib.elib.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,15 +9,9 @@ import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@NoArgsConstructor(access = PROTECTED)
-@Table(uniqueConstraints = {
-        @UniqueConstraint(
-                columnNames = {"title", "author", "publisher"}
-        )
-})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author", "publisher"})})
 @Entity
 public class Book {
 
@@ -42,16 +35,14 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
-    private Book(String title) {
-        this.title = title;
-    }
+    protected Book() {}
 
     public static Book of(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
         return new Book(title, author, publisher, publicDate, imageUrl);
     }
 
     public static Book of(String title) {
-        return new Book(title);
+        return new Book(title, null, null, null, null);
     }
 
 

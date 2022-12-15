@@ -5,6 +5,7 @@ import sandro.elib.elib.dto.BookDto;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,14 +40,26 @@ public class XmlDto implements ResponseDto {
                 .collect(Collectors.toList());
     }
 
-    @Getter
-    static class Item {
-        @XmlElement(name = "item")
-        private Content content;
+    @Override
+    public List<String> getDetailUrl(String apiUrl) {
+        ArrayList<String> detailUrls = new ArrayList<>();
+        int size = 20;
+        int maxPage = (getTotalBooks() / size) + 2;
+        for (int page = 1; page < maxPage; page++) {
+            detailUrls.add(apiUrl + "paging=" + page);
+        }
+        return detailUrls;
     }
 
     @Getter
+    static class Item {
+
+        @XmlElement(name = "item")
+        private Content content;
+    }
+    @Getter
     static class Content {
+
         @XmlElement(name = "image")
         private String imageUrl;
         @XmlElement(name = "product_nm_kr")

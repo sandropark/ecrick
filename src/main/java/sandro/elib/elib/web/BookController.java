@@ -39,9 +39,9 @@ public class BookController {
         return "books/list";
     }
 
-    @GetMapping("/{bookId}")
+    @GetMapping("/{bookId}")    // TODO : 도서관 / 서비스 보여줄 때 테이블로 보여주기
     public String bookDetail(@PathVariable Long bookId, Model model) {
-        BookDetailDto book = bookService.findBookDetail(bookId);
+        BookDetailDto book = bookService.getBookDetail(bookId);
         model.addAttribute("book", book);
         return "books/book-detail";
     }

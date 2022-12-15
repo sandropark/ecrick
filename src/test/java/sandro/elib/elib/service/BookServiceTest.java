@@ -49,7 +49,7 @@ class BookServiceTest {
     void findBookDetail() throws Exception {
         em.clear();
 
-        BookDetailDto bookDetail = bookService.findBookDetail(book.getId());
+        BookDetailDto bookDetail = bookService.getBookDetail(book.getId());
         List<LibraryEbookServiceDto> location = bookDetail.getLocation();
         for (LibraryEbookServiceDto libraryEbookServiceDto : location) {
             System.out.println("libraryEbookServiceDto.getEbookService() = " + libraryEbookServiceDto.getEbookService());

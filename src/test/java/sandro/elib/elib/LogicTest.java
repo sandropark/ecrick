@@ -1,11 +1,15 @@
 package sandro.elib.elib;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.Random;
 
+import static java.lang.Math.abs;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 class LogicTest {
 
     @Test
@@ -29,6 +33,17 @@ class LogicTest {
         for (String s : split) {
             System.out.println("s = " + s);
         }
+    }
+
+    @Test
+    void random() throws Exception {
+        Random random = new Random();
+        for (int j = 0; j < 10; j++) {
+            int i = abs(random.nextInt(30));
+            System.out.println("i = " + i);
+        }
+        Thread.sleep(3000);
+        System.out.println("!!");
     }
 
 }

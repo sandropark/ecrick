@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import sandro.elib.elib.dto.BookDetailDto;
 import sandro.elib.elib.repository.BookRepository;
 
+import javax.persistence.EntityNotFoundException;
+
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -13,10 +15,10 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public BookDetailDto findBookDetail(Long bookId) {
+    public BookDetailDto getBookDetail(Long bookId) {
         return bookRepository.findById(bookId)
                 .map(BookDetailDto::from)
-                .orElse(null);
+                .orElseThrow(() -> new EntityNotFoundException("책을 찾을 수 없습니다 - bookId: " + bookId));
     }
 
 }
