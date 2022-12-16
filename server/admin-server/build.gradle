@@ -1,7 +1,6 @@
 
-apply from: "../web-common.gradle"
+apply from: "../server-common.gradle"
 
 dependencies {
-	implementation project(":core-core")	// 도메인 의존
 	implementation project(":core-crawler")	// 크롤러 의존
 }

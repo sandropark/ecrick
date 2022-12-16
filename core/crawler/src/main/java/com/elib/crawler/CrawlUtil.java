@@ -15,7 +15,6 @@ import java.io.StringReader;
 import java.util.HashMap;
 
 import static org.jsoup.Connection.Response;
-import static org.springframework.http.MediaType.TEXT_XML_VALUE;
 
 public class CrawlUtil {
     private static final HashMap<String, String> headers = new HashMap<>() {{
@@ -36,7 +35,7 @@ public class CrawlUtil {
     }
 
     public static ResponseDto responseToDto(Response response) throws JsonProcessingException, JAXBException {
-        if (response.contentType().contains(TEXT_XML_VALUE)) {
+        if (response.contentType().contains("text/xml")) {
             Unmarshaller unmarshaller = JAXBContext.newInstance(XmlDto.class).createUnmarshaller();
             return (ResponseDto) unmarshaller.unmarshal(new StringReader(response.body()));
         } else {

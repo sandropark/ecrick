@@ -1,5 +1,12 @@
 package com.elib.web;
 
+import com.elib.controller.AdminController;
+import com.elib.crawler.CrawlerService;
+import com.elib.crawler.UpdateCrawlerService;
+import com.elib.dto.LibraryDto;
+import com.elib.dto.Pagination;
+import com.elib.service.LibraryService;
+import com.elib.service.PaginationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,23 +16,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import com.elib.crawler.CrawlerService;
-import com.elib.crawler.UpdateCrawlerService;
-import com.elib.dto.LibraryDto;
-import com.elib.dto.Pagination;
-import com.elib.service.LibraryService;
-import com.elib.service.PaginationService;
-import com.elib.web.dto.LibraryAddFormDto;
 
 import java.util.List;
 
+import static com.elib.controller.AdminController.ADMIN_LIBRARIES;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static com.elib.web.AdminController.ADMIN_LIBRARIES;
 
 @WebMvcTest(AdminController.class)
 class AdminControllerTest {
@@ -47,7 +46,7 @@ class AdminControllerTest {
         mvc.perform(get(ADMIN_LIBRARIES))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("admin/libraries/index"))
+                .andExpect(view().name("index"))
                 .andExpect(model().attributeExists("libraries"))
                 .andExpect(model().attributeExists("pagination"));
 
@@ -68,7 +67,7 @@ class AdminControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("library"))
-                .andExpect(view().name("admin/libraries/detail"));
+                .andExpect(view().name("detail"));
 
         // Then
         then(libraryService).should().getLibraryDto(libraryId);
@@ -136,7 +135,7 @@ class AdminControllerTest {
         mvc.perform(get(ADMIN_LIBRARIES + "/form"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("library"))
-                .andExpect(view().name("admin/libraries/add-form"));
+                .andExpect(view().name("add-form"));
     }
 
     @DisplayName("[POST] 도서관 저장")
@@ -166,7 +165,7 @@ class AdminControllerTest {
         mvc.perform(get(ADMIN_LIBRARIES + "/" + libraryId + "/form"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("library"))
-                .andExpect(view().name("admin/libraries/edit-form"));
+                .andExpect(view().name("edit-form"));
 
         // Then
         then(libraryService).should().getLibraryDto(libraryId);

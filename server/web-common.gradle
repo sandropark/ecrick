@@ -1,7 +1,0 @@
-
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation "${spring}.data:spring-data-commons" // 페이지 네이션을 위해서
-    implementation "$boot:spring-boot-starter-thymeleaf"
-}
