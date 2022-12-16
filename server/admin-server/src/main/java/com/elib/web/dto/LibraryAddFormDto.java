@@ -1,6 +1,7 @@
 package com.elib.web.dto;
 
 import com.elib.domain.Library;
+import com.elib.dto.LibraryDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,10 @@ public class LibraryAddFormDto {
 
     public static LibraryAddFormDto of(String name) {
         return new LibraryAddFormDto(name, null, null, null, null, null);
+    }
+
+    public LibraryDto toLibraryDto() {
+        return LibraryDto.of(name, url, apiUrl, totalBooks, savedBooks, contentType);
     }
 
     public Library toEntity() {

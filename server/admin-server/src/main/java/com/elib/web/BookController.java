@@ -2,11 +2,10 @@ package com.elib.web;
 
 import com.elib.dto.BookDetailDto;
 import com.elib.dto.BookListDto;
+import com.elib.dto.BookSearch;
 import com.elib.dto.Pagination;
-import com.elib.repository.BookRepository;
 import com.elib.service.BookService;
 import com.elib.service.PaginationService;
-import com.elib.web.dto.BookSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    private final BookRepository bookRepository;
     private final PaginationService paginationService;
 
     @GetMapping
@@ -32,7 +30,7 @@ public class BookController {
             @PageableDefault(size = 24) Pageable pageable,
             Model model
     ) {
-        Page<BookListDto> books = bookRepository.searchPage(bookSearch, pageable);
+        Page<BookListDto> books = bookService.searchPage(bookSearch, pageable);
         Pagination pagination = paginationService.getPagination(books.getNumber(), books.getTotalPages());
         model.addAttribute("books", books);
         model.addAttribute("pagination", pagination);

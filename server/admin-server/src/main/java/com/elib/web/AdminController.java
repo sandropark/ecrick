@@ -3,10 +3,11 @@ package com.elib.web;
 import com.elib.crawler.CrawlerService;
 import com.elib.crawler.UpdateCrawlerService;
 import com.elib.dto.LibraryDto;
+import com.elib.dto.LibrarySearch;
 import com.elib.dto.Pagination;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
-import com.elib.web.dto.LibrarySearch;
+import com.elib.web.dto.LibraryAddFormDto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.elib.web.dto.LibraryAddFormDto;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 import static com.elib.web.AdminController.ADMIN_LIBRARIES;
@@ -57,8 +56,8 @@ public class AdminController {
     }
 
     @PostMapping("/form")
-    public String saveLibrary(@ModelAttribute LibraryAddFormDto dto, HttpServletRequest request) {
-        libraryService.save(dto);
+    public String saveLibrary(@ModelAttribute LibraryAddFormDto dto) {
+        libraryService.save(dto.toLibraryDto());
         return "redirect:" + ADMIN_LIBRARIES;
     }
 

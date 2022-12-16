@@ -1,34 +1,7 @@
-buildscript {
-	ext {
-		queryDslVersion = "5.0.0"
-	}
-}
 
-plugins {
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
-}
+apply from: "../web-common.gradle"
 
 dependencies {
-
-	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
-
-	// jsoup HTML parser library @ https://jsoup.org/
-	implementation 'org.jsoup:jsoup:1.15.3'
-
-}
-
-def querydslDir = "$buildDir/generated/querydsl"
-querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
-}
-sourceSets {
-	main.java.srcDir querydslDir
-}
-configurations {
-	querydsl.extendsFrom compileClasspath
-}
-compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
+	implementation project(":core-core")	// 도메인 의존
+	implementation project(":core-crawler")	// 크롤러 의존
 }

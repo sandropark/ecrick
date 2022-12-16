@@ -143,7 +143,7 @@ class AdminControllerTest {
     @Test
     void save() throws Exception {
         // Given
-        willDoNothing().given(libraryService).save(any(LibraryAddFormDto.class));
+        willDoNothing().given(libraryService).save(any(LibraryDto.class));
 
         // When
         mvc.perform(post(ADMIN_LIBRARIES + "/form")
@@ -152,7 +152,7 @@ class AdminControllerTest {
                 .andExpect(redirectedUrl(ADMIN_LIBRARIES));
 
         // Then
-        then(libraryService).should().save(any(LibraryAddFormDto.class));
+        then(libraryService).should().save(any(LibraryDto.class));
     }
 
     @DisplayName("[GET] 도서관 수정 페이지")

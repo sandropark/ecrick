@@ -1,0 +1,10 @@
+
+
+dependencies {
+    implementation project(":core-core")
+
+    // jsoup HTML parser library @ https://jsoup.org/
+    implementation 'org.jsoup:jsoup:1.15.3'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
