@@ -1,0 +1,5 @@
+/* 정렬 버튼 */
+.sort-menu > a {
+  text-decoration: none;
+  color: black;
+}
