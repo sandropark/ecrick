@@ -1,0 +1,123 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서 목록</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" th:href="@{/}">전자도서관 통합검색</a>
+    </div>
+  </nav>
+  
+  <main>
+    <div class="card" th:each="book : ${books.content}">
+      <a th:href="@{|/books/${book.id}|}">    
+        <table>
+          <tbody>
+            <tr>
+              <td width="110">
+                <img src="https://image.aladin.co.kr/product/30684/36/cover200/k712830231_1.jpg" width="102" style="margin: 10;"
+                th:src="${book.imageUrl}"
+                >
+              </td>
+              <td align="left" valign="top">
+                <div class="card-body">
+                  <h6 class="card-title"
+                  th:text="${book.title}">사피엔스</h6>
+                  <p class="card-text">
+                    <span th:text="${book.author}">유발 하라리</span>
+                    <span>/</span>
+                    <span th:text="${book.publisher}">김영사</span>
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </a>
+    </div>
+    <div class="card">
+      <table>
+        <tbody>
+          <tr>
+            <td width="110">
+              <img src="https://image.aladin.co.kr/product/30684/36/cover200/k712830231_1.jpg" width="102" style="margin: 10;">
+            </td>
+            <td align="left" valign="top">
+              <div class="card-body">
+                <h6>사피엔스</h6>
+                <p>
+                  <span>유발 하라리</span>
+                  <span>/</span>
+                  <span>김영사</span>
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+<!--페이징-->
+<div class="container" style="padding: 15 0;" th:object="${pagination}" >
+  <nav>
+    <ul class="pagination justify-content-center">
+      <!--이전 버튼-->
+      <li class="page-item">
+        <a aria-label="Previous" class="page-link" href="#"
+           th:href="@{/books/mobile(
+           keyword=${param.keyword},
+           sort=${param.sort},
+           page=*{preStartPage}
+           )}">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <!--페이지버튼
+      - 현재 페이지가 5이하 일 때는 이전 버튼 안 보이기
+      -->
+      <div th:each="page : *{pageNumbers}">
+          <li class="page-item" >
+              <a class="page-link" href="#" th:if="${page != books.number}"
+                 th:href="@{/books/mobile(
+                 keyword=${param.keyword},
+                 sort=${param.sort},
+                 page=${page}
+                 )}" th:text="${page+1}">1</a>
+          </li>
+          <!--현재 페이지 강조-->
+          <li class="page-item active" th:if="${page == books.number}">
+              <span class="page-link" th:text="${page+1}"></span>
+          </li>
+      </div>
+      <!--다음 버튼-->
+      <li class="page-item">
+          <a aria-label="Next" class="page-link" href="#"
+             th:href="@{/books/mobile(
+             keyword=${param.keyword},
+             sort=${param.sort},
+             page=*{nextStartPage}
+             )}">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  <div style="text-align: center;">
+    <a href="#" class="btn btn-outline-secondary"
+       style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">pc버전</a>
+  </div>
+
+
+  <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
