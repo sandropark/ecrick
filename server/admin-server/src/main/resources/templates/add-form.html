@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymleaf.org">
-<head th:replace="common :: head('도서관 추가')"></head>
+<head th:replace="fragment/common :: head('도서관 추가')"></head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
-     th:replace="common :: menu(bookslist)"></nav>
+
+<nav th:replace="fragment/navbar :: nav"></nav>
 
 <main class="container" th:object="${library}">
   <h3>도서관 추가</h3>
@@ -38,5 +38,4 @@
 
 </main>
 
-</body>
-</html>
+</body></html>

@@ -53,7 +53,7 @@ public class CrawlerService implements Runnable {
             log.error("CrawlerService 파싱 오류 library = {}",library.getName(), e);
             return;
         } catch (IOException e) {
-            log.error("error", e);
+            log.error("{} error", library.getName(), e);
             return;
         }
         updateLibraryTotalBooks(library, responseDto);

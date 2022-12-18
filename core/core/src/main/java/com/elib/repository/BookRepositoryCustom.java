@@ -5,10 +5,9 @@ import org.springframework.data.domain.Pageable;
 import com.elib.domain.Book;
 import com.elib.dto.BookDto;
 import com.elib.dto.BookListDto;
-import com.elib.dto.BookSearch;
 
 public interface BookRepositoryCustom {
-    Page<BookListDto> searchPage(BookSearch bookSearch, Pageable pageable);
+    Page<BookListDto> searchPage(String keyword, Pageable pageable);
 
     Book findByDto(BookDto bookDto);
 }

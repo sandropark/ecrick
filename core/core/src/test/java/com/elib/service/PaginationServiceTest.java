@@ -2,14 +2,8 @@ package com.elib.service;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import com.elib.dto.Pagination;
-
-import java.util.List;
-import java.util.stream.Stream;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,62 +12,42 @@ class PaginationServiceTest {
 
     PaginationService paginationService = new PaginationService();
 
-    @DisplayName("컨텐츠가 없는 경우 (현재 페이지 0, 총 페이지 0)")
-    @Test
-    void noResult() throws Exception {
-        Pagination pagination = paginationService.getPagination(0, 0);
-        assertThat(pagination).isEqualTo(new Pagination(List.of(0), 0 ,0));
-    }
+    int maxBarLengthOfDesktop = 10;
 
-    @DisplayName("현재 페이지가 9이하, 총 페이지가 10 이상")
-    @MethodSource
+    @DisplayName("시작 페이지 - 데스크탑")
     @ParameterizedTest
-    void test(
-            int currentPage,
-            int totalPages,
-            Pagination expected
-    ) throws Exception {
-        Pagination actual = paginationService.getPagination(currentPage, totalPages);
-        assertThat(actual).isEqualTo(expected);
+    @CsvSource({"0, 0", "9, 0", "10, 10", "19, 10", "20, 20", "29, 20"})
+    void DesktopStartPage(int currentPage, int expected) throws Exception {
+        int startPage = paginationService.getStartPage(maxBarLengthOfDesktop, currentPage);
+
+        assertThat(startPage).isEqualTo(expected);
     }
 
-    static Stream<Arguments> test() {
-        return Stream.of(
-                Arguments.of(0, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9)),
-                Arguments.of(1, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9)),
-                Arguments.of(2, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9)),
-                Arguments.of(3, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9)),
-                Arguments.of(4, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9)),
-                Arguments.of(5, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9)),
-                Arguments.of(8, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9)),
-                Arguments.of(9, 10, new Pagination(List.of(0,1,2,3,4,5,6,7,8,9), 0, 9))
-        );
-    }
-
-    @DisplayName("현재 페이지가 9이하, 총 페이지가 9 이하")
-    @MethodSource
+    @DisplayName("끝 페이지 - 데스크탑")
     @ParameterizedTest
-    void test2(
-            int currentPage,
-            int totalPages,
-            Pagination expected
-    ) throws Exception {
-        Pagination actual = paginationService.getPagination(currentPage, totalPages);
-        assertThat(actual).isEqualTo(expected);
+    @CsvSource({"0, 1, 0", "0, 10, 9", "0, 11, 9", "10, 1, 10", "10, 10, 19", "10, 11, 19"})
+    void DesktopEndPage(int currentPage, int totalPages, int expected) throws Exception {
+        int endPage = paginationService.getEndPage(maxBarLengthOfDesktop, currentPage, totalPages);
+
+        assertThat(endPage).isEqualTo(expected);
     }
 
-    static Stream<Arguments> test2() {
-        return Stream.of(
-                Arguments.of(0, 1, new Pagination(List.of(0), 0, 0)),
-                Arguments.of(1, 2, new Pagination(List.of(0, 1), 0, 1)),
-                Arguments.of(2, 3, new Pagination(List.of(0, 1,2), 0, 2)),
-                Arguments.of(3, 4, new Pagination(List.of(0, 1,2,3), 0, 3)),
-                Arguments.of(4, 5, new Pagination(List.of(0, 1,2,3,4), 0, 4)),
-                Arguments.of(5, 6, new Pagination(List.of(0, 1,2,3,4,5), 0, 5)),
-                Arguments.of(8, 7, new Pagination(List.of(0, 1,2,3,4,5,6), 0, 6)),
-                Arguments.of(9, 8, new Pagination(List.of(0, 1,2,3,4,5,6,7), 0, 7)),
-                Arguments.of(9, 9, new Pagination(List.of(0, 1,2,3,4,5,6,7,8), 0, 8))
-        );
+    @DisplayName("이전 현재 페이지 - 데스크탑")
+    @ParameterizedTest
+    @CsvSource({"0, -1", "9, -1", "10, 9", "19, 9", "20, 19", "29, 19"})
+    void preCurrentPage(int currentPage, int expected) throws Exception {
+        int preCurrentPage = paginationService.getPreCurrentPage(maxBarLengthOfDesktop, currentPage);
+
+        assertThat(preCurrentPage).isEqualTo(expected);
+    }
+
+    @DisplayName("다음 현재 페이지 - 데스크탑")
+    @ParameterizedTest
+    @CsvSource({"0, 1, -1", "0, 10, -1", "0, 11, 10", "10, 1, -1", "10, 11, 20"})
+    void nextCurrentPage(int currentPage, int totalPages, int expected) throws Exception {
+        int nextCurrentPage = paginationService.getNextCurrentPage(maxBarLengthOfDesktop, currentPage, totalPages);
+
+        assertThat(nextCurrentPage).isEqualTo(expected);
     }
 
 }

@@ -7,40 +7,41 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 @Service
 public class PaginationService {
 
-    private static final int BAR_LENGTH = 10;
-
-    public Pagination getPagination(int currentPage, int totalPages) {
-        if (totalPages == 0) {
-            return new Pagination(List.of(0), 0, 0);
-        }
-        int startPage = getStartPage(currentPage);
-        int endPage = getEndPage(currentPage, totalPages);
-        List<Integer> barNumbers = IntStream.range(startPage, endPage).boxed().collect(Collectors.toList());
-        int preStartPage = getPreStartPage(currentPage);
-        int nextStartPage = getNextStartPage(currentPage, totalPages);
-        return new Pagination(barNumbers, preStartPage, nextStartPage);
+    public Pagination getDesktopPagination(int currentPage, int totalPages) {
+        return getPagination(10, currentPage, totalPages);
+    }
+    public Pagination getMobilePagination(int currentPage, int totalPages) {
+        return getPagination(5, currentPage, totalPages);
     }
 
-    private static int getStartPage(int currentPage) {
-        return currentPage / BAR_LENGTH * BAR_LENGTH;
+    private Pagination getPagination(int maxBarLength, int currentPage, int totalPages) {
+        int startPage = getStartPage(maxBarLength, currentPage);
+        int endPage = getEndPage(maxBarLength, currentPage, totalPages);
+        int preCurrentPage = getPreCurrentPage(maxBarLength, currentPage);
+        int nextCurrentPage = getNextCurrentPage(maxBarLength, currentPage, totalPages);
+        List<Integer> barNumbers = IntStream.range(startPage, endPage+1).boxed().collect(Collectors.toList());
+
+        return new Pagination(barNumbers, preCurrentPage, nextCurrentPage);
     }
 
-    private static int getEndPage(int currentPage, int totalPages) {
-        return min(totalPages, currentPage / BAR_LENGTH * BAR_LENGTH + BAR_LENGTH);
+    protected int getStartPage(int maxBarLength, int currentPage) {
+        return currentPage / maxBarLength * maxBarLength;
     }
 
-    private static int getPreStartPage(int currentPage) {
-        return max(currentPage / BAR_LENGTH * BAR_LENGTH - BAR_LENGTH, 0);
+    protected int getEndPage(int maxBarLength, int currentPage, int totalPages) {
+        return min(totalPages, maxBarLength) - 1 + getStartPage(maxBarLength, currentPage);
     }
 
-    private static int getNextStartPage(int currentPage, int totalPages) {
-        return min(totalPages-1, currentPage / BAR_LENGTH * BAR_LENGTH + 10);
+    protected int getPreCurrentPage(int maxBarLength, int currentPage) {
+        return currentPage < maxBarLength ? -1 : getStartPage(maxBarLength, currentPage) - 1;
     }
 
+    protected int getNextCurrentPage(int maxBarLength, int currentPage, int totalPages) {
+        return totalPages <= maxBarLength ? -1 : getEndPage(maxBarLength, currentPage, totalPages) + 1;
+    }
 }

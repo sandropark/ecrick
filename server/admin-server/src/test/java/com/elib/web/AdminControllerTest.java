@@ -40,7 +40,7 @@ class AdminControllerTest {
     void libraries() throws Exception {
         // Given
         given(libraryService.searchLibrary(any(Pageable.class))).willReturn(Page.empty());
-        given(paginationService.getPagination(anyInt(), anyInt())).willReturn(new Pagination(List.of(), 0, 0));
+        given(paginationService.getDesktopPagination(anyInt(), anyInt())).willReturn(new Pagination(List.of(), 0, 0));
 
         // When
         mvc.perform(get(ADMIN_LIBRARIES))
@@ -52,7 +52,7 @@ class AdminControllerTest {
 
         // Then
         then(libraryService).should().searchLibrary(any(Pageable.class));
-        then(paginationService).should().getPagination(anyInt(), anyInt());
+        then(paginationService).should().getDesktopPagination(anyInt(), anyInt());
     }
 
     @DisplayName("[GET] 도서관 상세페이지")

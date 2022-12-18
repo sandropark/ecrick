@@ -2,7 +2,6 @@ package com.elib.web;
 
 import com.elib.dto.BookDetailDto;
 import com.elib.dto.BookListDto;
-import com.elib.dto.BookSearch;
 import com.elib.dto.Pagination;
 import com.elib.service.BookService;
 import com.elib.service.PaginationService;
@@ -26,15 +25,14 @@ public class BookController {
 
     @GetMapping
     public String bookList(
-            @ModelAttribute BookSearch bookSearch,
             @PageableDefault(size = 24) Pageable pageable,
-            Model model
+            @ModelAttribute Search search, Model model
     ) {
-        Page<BookListDto> books = bookService.searchPage(bookSearch, pageable);
-        Pagination pagination = paginationService.getPagination(books.getNumber(), books.getTotalPages());
+        Page<BookListDto> books = bookService.searchPage(search.getKeyword(), pageable);
+        Pagination pagination = paginationService.getDesktopPagination(books.getNumber(), books.getTotalPages());
         model.addAttribute("books", books);
         model.addAttribute("pagination", pagination);
-        return "list";
+        return "desktop/list";
     }
 
     @GetMapping("/{bookId}")    // TODO : 도서관 / 서비스 보여줄 때 테이블로 보여주기
@@ -44,4 +42,15 @@ public class BookController {
         return "book-detail";
     }
 
+    @GetMapping("/mobile")
+    public String mobileBookList(
+            @PageableDefault(size = 20) Pageable pageable,
+            String keyword, Model model
+    ) {
+        Page<BookListDto> books = bookService.searchPage(keyword, pageable);
+        Pagination pagination = paginationService.getMobilePagination(books.getNumber(), books.getTotalPages());
+        model.addAttribute("books", books);
+        model.addAttribute("pagination", pagination);
+        return "mobile/list";
+    }
 }

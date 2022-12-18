@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymleaf.org">
-<head th:replace="common :: head('도서정보')"></head>
+<html lang="ko">
+<head th:replace="fragment/common :: head('도서정보')"></head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
-     th:replace="common :: menu(bookslist)"></nav>
+<nav th:replace="fragment/navbar :: nav"></nav>
 
 <main class="container">
-    <div class="card mb-3" style="max-width: 560px;">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img alt="..." class="img-fluid rounded-start" src="..." th:src="${book.imageUrl}">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${book.title}">Card title</h5>
-                    <p>
-                        <span class="card-text" th:text="${book.author}">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</span>
-                        <span>/</span>
-                        <span class="card-text" th:text="${book.publisher}"></span>
-                    </p>
-                    <div th:each="location : ${book.location}">
-                        <span th:text="${location.library}"></span>
-                        <span>/</span>
-                        <span th:text="${location.ebookService}"></span>
-                    </div>
-                </div>
-            </div>
+  <div class="card mb-3" style="max-width: 560px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img alt="..." class="img-fluid rounded-start" src="http://ebook.seocholib.or.kr/upload/20553/content/ebook/4808901098272/L4808901098272.jpg" th:src="${book.imageUrl}">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${book.title}">스틱</h5>
+          <p>
+            <span class="card-text" th:text="${book.author}">칩 히스</span>
+            <span>/</span>
+            <span class="card-text" th:text="${book.publisher}">웅진윙스</span>
+          </p>
+          <div th:each="location : ${book.location}">
+            <span th:text="${location.library}">서초도서관</span>
+            <span>/</span>
+            <span th:text="${location.ebookService}">교보</span>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </main>
-</body>
-</html>
+
+
+</body></html>

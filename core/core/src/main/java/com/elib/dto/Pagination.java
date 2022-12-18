@@ -15,7 +15,15 @@ import java.util.List;
 public class Pagination {
 
     private List<Integer> pageNumbers = new ArrayList<>();
-    private int preStartPage;
-    private int nextStartPage;
+    private int preCurrentPage;
+    private int nextCurrentPage;
+
+    public boolean hasPrePages() {
+        return preCurrentPage > -1;
+    }
+
+    public boolean hasNextPages() {
+        return nextCurrentPage > -1;
+    }
 
 }

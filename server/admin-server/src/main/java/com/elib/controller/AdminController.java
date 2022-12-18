@@ -3,10 +3,10 @@ package com.elib.controller;
 import com.elib.crawler.CrawlerService;
 import com.elib.crawler.UpdateCrawlerService;
 import com.elib.dto.LibraryDto;
-import com.elib.dto.LibrarySearch;
 import com.elib.dto.Pagination;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
+import com.elib.web.Search;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,12 +36,11 @@ public class AdminController {
 
     @GetMapping
     public String libraries(
-            @ModelAttribute LibrarySearch librarySearch,
             @PageableDefault(size = 12, sort = "totalBooks") Pageable pageable,
-            Model model) {
+            @ModelAttribute Search search, Model model) {
         // TODO : 검색 기능 구현
         Page<LibraryDto> libraries = libraryService.searchLibrary(pageable);
-        Pagination pagination = paginationService.getPagination(libraries.getNumber(), libraries.getTotalPages());
+        Pagination pagination = paginationService.getDesktopPagination(libraries.getNumber(), libraries.getTotalPages());
 
         model.addAttribute("libraries", libraries);
         model.addAttribute("pagination", pagination);

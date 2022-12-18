@@ -1,7 +1,6 @@
 package com.elib.service;
 
 import com.elib.dto.BookListDto;
-import com.elib.dto.BookSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +24,7 @@ public class BookService {
                 .orElseThrow(() -> new EntityNotFoundException("책을 찾을 수 없습니다 - bookId: " + bookId));
     }
 
-    public Page<BookListDto> searchPage(BookSearch bookSearch, Pageable pageable) {
-        return bookRepository.searchPage(bookSearch, pageable);
+    public Page<BookListDto> searchPage(String keyword, Pageable pageable) {
+        return bookRepository.searchPage(keyword, pageable);
     }
 }

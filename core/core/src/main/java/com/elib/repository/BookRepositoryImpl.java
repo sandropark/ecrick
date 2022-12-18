@@ -4,7 +4,6 @@ import com.elib.domain.Book;
 import com.elib.domain.QBook;
 import com.elib.dto.BookDto;
 import com.elib.dto.BookListDto;
-import com.elib.dto.BookSearch;
 import com.elib.dto.QBookListDto;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -33,11 +32,11 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     }
 
     @Override
-    public Page<BookListDto> searchPage(BookSearch bookSearch, Pageable pageable) {
+    public Page<BookListDto> searchPage(String keyword, Pageable pageable) {
         List<BookListDto> content = queryFactory
                 .select(new QBookListDto(QBook.book))
                 .from(QBook.book)
-                .where(bookContains(bookSearch.getKeyword()))
+                .where(bookContains(keyword))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(bookSort(pageable))
@@ -45,7 +44,7 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
 
         JPAQuery<Long> countQuery = queryFactory.select(QBook.book.count())
                 .from(QBook.book)
-                .where(bookContains(bookSearch.getKeyword()));
+                .where(bookContains(keyword));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
