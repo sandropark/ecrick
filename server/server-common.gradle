@@ -1,7 +1,0 @@
-
-
-dependencies {
-    implementation project(":web-site-service")
-
-    runtimeOnly 'mysql:mysql-connector-java'
-}

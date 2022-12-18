@@ -1,7 +1,0 @@
-
-
-apply from: "../server-common.gradle"
-
-dependencies {
-
-}

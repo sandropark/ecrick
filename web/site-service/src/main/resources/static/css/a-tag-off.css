@@ -1,5 +1,0 @@
-/* 하위 a태그 텍스트의 파란색, 밑줄 제거 */
-.a-tag-off a {
-  text-decoration: none;
-  color: black;
-}
