@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel>
+  <strType><![CDATA[]]></strType>
+  <strKeyWord><![CDATA[]]></strKeyWord>
+  <strSortType><![CDATA[1]]></strSortType>
+  <strClassCode><![CDATA[]]></strClassCode>
+  <strCategoryName><![CDATA[]]></strCategoryName>
+  <strBorrowRadio><![CDATA[]]></strBorrowRadio>
+  <strUserID><![CDATA[]]></strUserID>
+
+  <listCount>143</listCount>
+  <paging>1</paging>
+  <viewCount>20</viewCount>
+
+
+  <list>
+    <item>
+      <idx>1</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801196067695/M4801196067695.jpg" alt="12가지 인생의 법칙" ]]></image>
+      <product_nm_kr><![CDATA[12가지 인생의 법칙]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[조던 B. 피터슨]]></text_author_nm>
+      <barcode>4801196067695</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[메이븐]]></cp_nm1>
+      <cp_cd1>38058</cp_cd1>
+      <epub_file_size>16990448</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>1232</category_id>
+      <category_nm><![CDATA[인문교양]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>2</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4808931011012/M4808931011012.jpg" alt="19호실로 가다" ]]></image>
+      <product_nm_kr><![CDATA[19호실로 가다]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[도리스 레싱]]></text_author_nm>
+      <barcode>4808931011012</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[문예출판사]]></cp_nm1>
+      <cp_cd1>02160</cp_cd1>
+      <epub_file_size>20620176</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>060301</category_id>
+      <category_nm><![CDATA[영미소설일반]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>3</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4808974256531/M4808974256531.jpg" alt="1등 엄마의 말 품격" ]]></image>
+      <product_nm_kr><![CDATA[1등 엄마의 말 품격]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[오수향]]></text_author_nm>
+      <barcode>4808974256531</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[국일미디어]]></cp_nm1>
+      <cp_cd1>00667</cp_cd1>
+      <epub_file_size>39795024</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>2813</category_id>
+      <category_nm><![CDATA[부모교육]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>4</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801155361260/M4801155361260.jpg" alt="1일 1개 버리기" ]]></image>
+      <product_nm_kr><![CDATA[1일 1개 버리기]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[미쉘]]></text_author_nm>
+      <barcode>4801155361260</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[즐거운상상]]></cp_nm1>
+      <cp_cd1>16548</cp_cd1>
+      <epub_file_size>74687456</epub_file_size>
+      <pdf_file_size>23350416</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>2815</category_id>
+      <category_nm><![CDATA[홈인테리어]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>15</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>5</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801187289457/M4801187289457.jpg" alt="2019 트렌드 노트" ]]></image>
+      <product_nm_kr><![CDATA[2019 트렌드 노트]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[김정구]]></text_author_nm>
+      <barcode>4801187289457</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[북스톤]]></cp_nm1>
+      <cp_cd1>33954</cp_cd1>
+      <epub_file_size>39250976</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>0215</category_id>
+      <category_nm><![CDATA[경제일반/경제이론]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>6</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801162540184/M4801162540184.jpg" alt="27년 동안 영어 공부에 실패했던 39세 김과장은 어떻게 3개월 만에 영어 천재가 됐을까" ]]></image>
+      <product_nm_kr><![CDATA[27년 동안 영어 공부에 실패했던 39세 김과장은 어떻게 3개월 만에 영어 천재가 됐을까]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[김영익]]></text_author_nm>
+      <barcode>4801162540184</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>1</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[비즈니스북스]]></cp_nm1>
+      <cp_cd1>15538</cp_cd1>
+      <epub_file_size>19136592</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>040301</category_id>
+      <category_nm><![CDATA[자기능력계발 일반]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>7</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801155428499/M4801155428499.jpg" alt="35세 인서울 청약의 법칙" ]]></image>
+      <product_nm_kr><![CDATA[35세 인서울 청약의 법칙]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[박지민]]></text_author_nm>
+      <barcode>4801155428499</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[매일경제신문사]]></cp_nm1>
+      <cp_cd1>01974</cp_cd1>
+      <epub_file_size>33156528</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>021305</category_id>
+      <category_nm><![CDATA[부동산]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>8</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801161720624/M4801161720624.jpg" alt="4차 산업 혁명이 바꾸는 미래 세상" ]]></image>
+      <product_nm_kr><![CDATA[4차 산업 혁명이 바꾸는 미래 세상]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[연유진]]></text_author_nm>
+      <barcode>4801161720624</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[풀빛]]></cp_nm1>
+      <cp_cd1>06986</cp_cd1>
+      <epub_file_size>12297920</epub_file_size>
+      <pdf_file_size>21967232</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>420701</category_id>
+      <category_nm><![CDATA[과학]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>15</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>9</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4808950973131/M4808950973131.jpg" alt="7일 공부법" ]]></image>
+      <product_nm_kr><![CDATA[7일 공부법]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[스즈키 히데아키]]></text_author_nm>
+      <barcode>4808950973131</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[21세기북스]]></cp_nm1>
+      <cp_cd1>00007</cp_cd1>
+      <epub_file_size>39188176</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>040101</category_id>
+      <category_nm><![CDATA[자기혁신/자기관리]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>10</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801188248675/M4801188248675.jpg" alt="90년생이 온다" ]]></image>
+      <product_nm_kr><![CDATA[90년생이 온다]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[임홍택]]></text_author_nm>
+      <barcode>4801188248675</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>1</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[웨일북(whalebooks)]]></cp_nm1>
+      <cp_cd1>35533</cp_cd1>
+      <epub_file_size>11685328</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>0215</category_id>
+      <category_nm><![CDATA[경제일반/경제이론]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>11</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801196164431/M4801196164431.jpg" alt="B급 며느리" ]]></image>
+      <product_nm_kr><![CDATA[B급 며느리]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[선호빈]]></text_author_nm>
+      <barcode>4801196164431</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[믹스커피]]></cp_nm1>
+      <cp_cd1>39687</cp_cd1>
+      <epub_file_size>5328592</epub_file_size>
+      <pdf_file_size>42608928</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>100301</category_id>
+      <category_nm><![CDATA[한국에세이]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>15</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>12</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/480D180108710/M480D180108710.jpg" alt="가장 빨리 부자 되는 법" ]]></image>
+      <product_nm_kr><![CDATA[가장 빨리 부자 되는 법]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[알렉스 베커]]></text_author_nm>
+      <barcode>480D180108710</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[유노북스]]></cp_nm1>
+      <cp_cd1>33660</cp_cd1>
+      <epub_file_size>17683824</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>021301</category_id>
+      <category_nm><![CDATA[재테크전략]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>13</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801157061267/M4801157061267.jpg" alt="강원국의 글쓰기" ]]></image>
+      <product_nm_kr><![CDATA[강원국의 글쓰기]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[강원국]]></text_author_nm>
+      <barcode>4801157061267</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[메디치미디어]]></cp_nm1>
+      <cp_cd1>24832</cp_cd1>
+      <epub_file_size>14701088</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>1217</category_id>
+      <category_nm><![CDATA[글쓰기]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>14</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801186276601/M4801186276601.jpg" alt="걱정이 많아서 걱정인 당신에게" ]]></image>
+      <product_nm_kr><![CDATA[걱정이 많아서 걱정인 당신에게]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[한창욱]]></text_author_nm>
+      <barcode>4801186276601</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>1</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[정민미디어]]></cp_nm1>
+      <cp_cd1>10101</cp_cd1>
+      <epub_file_size>19020288</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>040101</category_id>
+      <category_nm><![CDATA[자기혁신/자기관리]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>15</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801162207551/M4801162207551.jpg" alt="곁에 남아 있는 사람" ]]></image>
+      <product_nm_kr><![CDATA[곁에 남아 있는 사람]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[임경선]]></text_author_nm>
+      <barcode>4801162207551</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[위즈덤하우스]]></cp_nm1>
+      <cp_cd1>13167</cp_cd1>
+      <epub_file_size>15293392</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>060101</category_id>
+      <category_nm><![CDATA[한국소설일반]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>16</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801162205045/M4801162205045.jpg" alt="고단백 저탄수화물 다이어트 레시피" ]]></image>
+      <product_nm_kr><![CDATA[고단백 저탄수화물 다이어트 레시피]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[박지우]]></text_author_nm>
+      <barcode>4801162205045</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[위즈덤하우스]]></cp_nm1>
+      <cp_cd1>13167</cp_cd1>
+      <epub_file_size>60607904</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>281901</category_id>
+      <category_nm><![CDATA[생활요리]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>17</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4808959894987/M4808959894987.jpg" alt="고수의 질문법" ]]></image>
+      <product_nm_kr><![CDATA[고수의 질문법]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[한근태]]></text_author_nm>
+      <barcode>4808959894987</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[미래의창]]></cp_nm1>
+      <cp_cd1>13363</cp_cd1>
+      <epub_file_size>12206016</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>0409</category_id>
+      <category_nm><![CDATA[화술/협상]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>18</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801187498385/M4801187498385.jpg" alt="고요할수록 밝아지는 것들(100쇄 기념 에디션)" ]]></image>
+      <product_nm_kr><![CDATA[고요할수록 밝아지는 것들(100쇄 기념 에디션)]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[혜민 스님]]></text_author_nm>
+      <barcode>4801187498385</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[수오서재]]></cp_nm1>
+      <cp_cd1>32891</cp_cd1>
+      <epub_file_size>15102000</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>100301</category_id>
+      <category_nm><![CDATA[한국에세이]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>19</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4808965962823/M4808965962823.jpg" alt="골든아워. 1" ]]></image>
+      <product_nm_kr><![CDATA[골든아워. 1]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[이국종]]></text_author_nm>
+      <barcode>4808965962823</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>1</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[흐름출판]]></cp_nm1>
+      <cp_cd1>18140</cp_cd1>
+      <epub_file_size>10784848</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>100301</category_id>
+      <category_nm><![CDATA[한국에세이]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+  <list>
+    <item>
+      <idx>20</idx>
+      <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4808965962830/M4808965962830.jpg" alt="골든아워. 2" ]]></image>
+      <product_nm_kr><![CDATA[골든아워. 2]]></product_nm_kr>
+      <product_cd>001</product_cd>
+      <text_author_nm><![CDATA[이국종]]></text_author_nm>
+      <barcode>4808965962830</barcode>
+      <seq_barcode></seq_barcode>
+      <audio_count>0</audio_count>
+      <audio_time>0</audio_time>
+      <borrow_count>0</borrow_count>
+      <license_count>3</license_count>
+      <reserve_count>0</reserve_count>
+      <borrow_id></borrow_id>
+      <reserve_id></reserve_id>
+      <comcode>KB</comcode>
+      <com_nm><![CDATA[교보문고]]></com_nm>
+      <cp_nm1><![CDATA[흐름출판]]></cp_nm1>
+      <cp_cd1>18140</cp_cd1>
+      <epub_file_size>10860848</epub_file_size>
+      <pdf_file_size>0</pdf_file_size>
+      <adult_yn>N</adult_yn>
+      <statis>0</statis>
+      <statis_count>0</statis_count>
+      <category_id>100301</category_id>
+      <category_nm><![CDATA[한국에세이]]></category_nm>
+      <education>0</education>
+      <tts_yn>Y</tts_yn>
+      <use_condition>5</use_condition>
+      <audio_size></audio_size>
+    </item>
+  </list>
+
+
+</channel>

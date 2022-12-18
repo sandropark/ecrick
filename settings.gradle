@@ -1,0 +1,40 @@
+rootProject.name = 'elib'
+
+// 디렉토리를 생성하고 하위 프로젝트로 설정
+["server", "core", "web"].each {
+
+    def compDir = new File(rootDir, it)
+    if(!compDir.exists()){
+        compDir.mkdirs()
+    }
+
+    compDir.eachDir {subDir ->
+
+        def gradleFile = new File(subDir.absolutePath, "build.gradle")
+        if(!gradleFile.exists()){
+            gradleFile.text =
+                    """
+                    
+                    dependencies {
+                
+                    }
+                
+                    """.stripIndent(20)
+        }
+        [
+                "src/main/java/com/elib",
+                "src/main/resources",
+                "src/test/java/com/elib",
+                "src/test/resources"
+        ].each {srcDir->
+            def srcFolder = new File(subDir.absolutePath, srcDir)
+            if(!srcFolder.exists()){
+                srcFolder.mkdirs()
+            }
+        }
+
+        def projectName = ":${it}-${subDir.name}";
+        include projectName
+        project(projectName).projectDir = subDir
+    }
+}

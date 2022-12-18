@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragment/common :: head('도서관 수정')"></head>
+<body>
+<nav th:replace="fragment/navbar :: nav"></nav>
+
+<main class="container" th:object="${library}">
+  <h3 th:text="*{name}">전자도서관</h3>
+
+  <form th:action th:method="post">
+    <input type="hidden" th:field="*{id}">
+    <div class="mb-3">
+      <label for="url" class="form-label">url</label>
+      <input type="url" th:field="*{url}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="apiUrl" class="form-label">apiUrl</label>
+      <input type="url" th:field="*{apiUrl}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="totalBooks" class="form-label">totalBooks</label>
+      <input type="text" th:field="*{totalBooks}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="savedBooks" class="form-label">savedBooks</label>
+      <input type="text" th:field="*{savedBooks}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="contentType" class="form-label">contentType</label>
+      <input type="text" th:field="*{contentType}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">저장</button>
+  </form>
+</main>
+
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html><html>
+
+<head th:fragment="head(title)">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title th:text="${title}">Hello!</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/a-tag-off.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav th:fragment="navbar(collapse)" class="navbar navbar-expand-sm navbar-dark bg-dark mb-2">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" th:href="@{/}">전자도서관 통합검색</a>
+    <th:block th:replace="${collapse}"/>
+  </div>
+</nav>
+
+<div id="search-bar" class="container">
+  <form class="form-inline mb-2" th:object="${search}">
+    <div class="input-group">
+      <input class="form-control" th:field="*{keyword}" placeholder="검색어를 입력하세요." type="text">
+      <button class="btn btn-outline-secondary" type="submit">검색</button>
+    </div>
+  </form>
+</div>
+
+<nav th:fragment="pagination(path)" aria-label="pagination" class="mt-2">
+  <ul class="pagination justify-content-center">
+    <li aria-label="previous btn" class="page-item" th:if="${pagination.hasPrePages()}">
+      <a th:href="@{${path} (keyword=${param.keyword}, sort=${param.sort}, page=${pagination.preCurrentPage}, size=${param.size})}"
+         class="page-link" href="#">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li aria-label="page btn" class="page-item" th:each="page : ${pagination.pageNumbers}" th:classappend="${page} == *{number} ? 'active'">
+      <a th:href="@{${path} (keyword=${param.keyword}, sort=${param.sort}, page=${page}, size=${param.size})}"
+         class="page-link" href="#" th:text="${page+1}">1</a>
+    </li>
+    <li aria-label="next btn" class="page-item" th:if="${pagination.hasNextPages()}">
+      <a th:href="@{${path} (keyword=${param.keyword}, sort=${param.sort}, page=${pagination.nextCurrentPage}, size=${param.size})}"
+         class="page-link" href="#">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+</body></html>

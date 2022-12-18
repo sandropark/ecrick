@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragment/common :: head('도서목록')"></head>
+<body>
+
+<nav th:replace="fragment/navbar :: nav"></nav>
+<div th:replace="fragment/common :: #search-bar" class="container"></div>
+
+<main th:remove="all-but-first">
+    <div class="card a-tag-off" th:each="book : ${books.content}">
+      <a th:href="@{|/books/${book.id}|}">
+        <table>
+          <tbody>
+          <tr>
+            <td width="110">
+              <img src="https://image.aladin.co.kr/product/30684/36/cover200/k712830231_1.jpg" width="102" style="margin: 10;"
+                   th:src="${book.imageUrl}"
+              >
+            </td>
+            <td align="left" valign="top">
+              <div class="card-body">
+                <h6 class="card-title"
+                    th:text="${book.title}">사피엔스</h6>
+                <p class="card-text">
+                  <span th:text="${book.author}">유발 하라리</span>
+                  <span>/</span>
+                  <span th:text="${book.publisher}">김영사</span>
+                </p>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </a>
+    </div>
+    <div class="card">
+      <table>
+        <tbody>
+        <tr>
+          <td width="110">
+            <img src="https://image.aladin.co.kr/product/30684/36/cover200/k712830231_1.jpg" width="102" style="margin: 10;">
+          </td>
+          <td align="left" valign="top">
+            <div class="card-body">
+              <h6>사피엔스</h6>
+              <p>
+                <span>유발 하라리</span>
+                <span>/</span>
+                <span>김영사</span>
+              </p>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <table>
+        <tbody>
+        <tr>
+          <td width="110">
+            <img src="https://image.aladin.co.kr/product/30684/36/cover200/k712830231_1.jpg" width="102" style="margin: 10;">
+          </td>
+          <td align="left" valign="top">
+            <div class="card-body">
+              <h6>사피엔스</h6>
+              <p>
+                <span>유발 하라리</span>
+                <span>/</span>
+                <span>김영사</span>
+              </p>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+<nav th:replace="fragment/common :: pagination(path='/books/mobile')"></nav>
+
+<div class="mb-2" style="text-align: center;">
+  <a href="#" class="btn btn-outline-secondary"
+     th:href="@{/books}"
+     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">pc버전</a>
+</div>
+
+<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body></html>

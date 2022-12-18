@@ -1,0 +1,8 @@
+
+dependencies {
+    api project(":core-core")   // core <- web <- server로 의존한다. web에서 api로 core를 의존하는 경우 server에서 core를 따로 의존하지 않더라도 의존성이 전파된다.
+
+    api 'org.springframework.boot:spring-boot-starter-web'
+    api "$boot:spring-boot-starter-thymeleaf"
+}
+
