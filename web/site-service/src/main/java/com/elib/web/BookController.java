@@ -45,9 +45,9 @@ public class BookController {
     @GetMapping("/mobile")
     public String mobileBookList(
             @PageableDefault(size = 20) Pageable pageable,
-            String keyword, Model model
+            @ModelAttribute Search search, Model model
     ) {
-        Page<BookListDto> books = bookService.searchPage(keyword, pageable);
+        Page<BookListDto> books = bookService.searchPage(search.getKeyword(), pageable);
         Pagination pagination = paginationService.getMobilePagination(books.getNumber(), books.getTotalPages());
         model.addAttribute("books", books);
         model.addAttribute("pagination", pagination);
