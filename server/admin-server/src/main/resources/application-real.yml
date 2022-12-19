@@ -1,0 +1,4 @@
+spring:
+  profiles.include: real-db
+  jpa.properties.hibernate.dialect: org.hibernate.dialect.MYSQL5InnoDBDialect
+  session.store-type: jdbc

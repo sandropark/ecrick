@@ -1,5 +1,7 @@
 
 
+apply from: "../core-common.gradle"
+
 dependencies {
     implementation project(":core-core")
 

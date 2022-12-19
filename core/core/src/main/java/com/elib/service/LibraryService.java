@@ -56,4 +56,9 @@ public class LibraryService {
         relationRepository.deleteByLibrary(library);
         libraryRepository.delete(library);
     }
+
+    public Library findByName(String name) {
+        return libraryRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryName = " + name));
+    }
 }

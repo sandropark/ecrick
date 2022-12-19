@@ -4,5 +4,6 @@ dependencies {
 
     api 'org.springframework.boot:spring-boot-starter-web'
     api "$boot:spring-boot-starter-thymeleaf"
+    api "${spring}.data:spring-data-commons"
 }
 
