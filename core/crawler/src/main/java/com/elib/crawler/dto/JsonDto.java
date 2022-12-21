@@ -1,12 +1,11 @@
 package com.elib.crawler.dto;
 
+import com.elib.dto.BookDto;
 import lombok.Getter;
 import lombok.Setter;
-import com.elib.dto.BookDto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,38 +14,30 @@ import static org.springframework.util.StringUtils.hasText;
 
 @Getter
 @Setter
-public class JsonDto implements ResponseDto {
+public class JsonDto extends StringUtil implements ResponseDto {
     private String orderByKey;
     private int viewCnt;
     private Map<String, Integer> paging;
     private String contentAll;
     private String listType;
-    private List<Map<String, Object>> contentList;
+    private List<Map<String, String>> contentList;
 
+    @Override
     public Integer getTotalBooks() {
         return paging.get("total");
     }
 
+    @Override
     public List<BookDto> toBookDto() {
-        List<String> fieldNames = List.of("cttsHnglName", "sntnAuthName", "pbcmName", "publDate", "coverImage");
-        return contentList.stream().map(content -> {
-            Map<String, String> values = new HashMap<>();
-            content.forEach((k, v) -> {
-                if (fieldNames.contains(k)) {
-                    values.put(k, String.valueOf(v));
-                }
-            });
-            return BookDto.of(
-                    values.get("cttsHnglName"),
-                    values.get("sntnAuthName"),
-                    values.get("pbcmName"),
-                    getParsedDate(values.get("publDate")),
-                    values.get("coverImage"));
-        }).collect(Collectors.toList());
-    }
-
-    private LocalDate getParsedDate(String date) {
-        return hasText(date) ? LocalDate.parse(date) : null;
+        return contentList.stream()
+                .map(content -> BookDto.of(
+                    clean(content.get("cttsHnglName")),
+                    cleanAuthor(content.get("sntnAuthName")),
+                    clean(content.get("pbcmName")),
+                    getParsedDate(clean(content.get("publDate"))),
+                    clean(content.get("coverImage"))
+                )
+            ).collect(Collectors.toList());
     }
 
     @Override
@@ -59,4 +50,9 @@ public class JsonDto implements ResponseDto {
         }
         return detailUrls;
     }
+
+    private LocalDate getParsedDate(String date) {
+        return hasText(date) ? LocalDate.parse(date) : null;
+    }
+
 }

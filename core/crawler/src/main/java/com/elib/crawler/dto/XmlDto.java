@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @XmlRootElement(name = "channel")
-public class XmlDto implements ResponseDto {
+public class XmlDto extends StringUtil implements ResponseDto {
 
     @XmlElement(name = "listCount")
     private Integer totalCount;
@@ -25,18 +25,18 @@ public class XmlDto implements ResponseDto {
     }
 
     @Override
-    public List<BookDto> toBookDto() { // TODO : 메시지를 보내는 방식으로 개선
+    public List<BookDto> toBookDto() {
         if (contents == null) {
             return List.of();
         }
         return contents.stream()
                 .map(Item::getContent)
                 .map(content -> BookDto.of(
-                        content.getTitle(),
-                        content.getAuthor(),
-                        content.getPublisher(),
+                        clean(content.getTitle()),
+                        cleanAuthor(content.getAuthor()),
+                        clean(content.getPublisher()),
                         null,
-                        content.parseUrl()))
+                        clean(content.parseUrl())))
                 .collect(Collectors.toList());
     }
 
