@@ -8,6 +8,7 @@ import com.elib.service.PaginationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +17,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("/books")
 @RequiredArgsConstructor
+@RequestMapping("/books")
+@Controller
 public class BookController {
     private final BookService bookService;
     private final PaginationService paginationService;
 
     @GetMapping
     public String bookList(
-            @PageableDefault(size = 24) Pageable pageable,
+            @PageableDefault(size = 24, sort = {"publicDate"}, direction = Sort.Direction.DESC) Pageable pageable,
             @ModelAttribute Search search, Model model
     ) {
         Page<BookListDto> books = bookService.searchPage(search.getKeyword(), pageable);
@@ -44,7 +45,7 @@ public class BookController {
 
     @GetMapping("/mobile")
     public String mobileBookList(
-            @PageableDefault(size = 20) Pageable pageable,
+            @PageableDefault(size = 20, sort = {"publicDate"}, direction = Sort.Direction.DESC) Pageable pageable,
             @ModelAttribute Search search, Model model
     ) {
         Page<BookListDto> books = bookService.searchPage(search.getKeyword(), pageable);

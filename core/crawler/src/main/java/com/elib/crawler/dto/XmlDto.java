@@ -1,7 +1,7 @@
 package com.elib.crawler.dto;
 
-import lombok.Getter;
 import com.elib.dto.BookDto;
+import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

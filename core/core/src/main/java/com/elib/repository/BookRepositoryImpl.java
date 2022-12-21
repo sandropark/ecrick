@@ -49,19 +49,6 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
-    @Override
-    public Book findByDto(BookDto bookDto) {
-        try {
-            return em.createQuery("select b from Book b where b.title = :title and b.author = :author and b.publisher = :publisher", Book.class)
-                    .setParameter("title", bookDto.getTitle())
-                    .setParameter("author", bookDto.getAuthor())
-                    .setParameter("publisher", bookDto.getPublisher())
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
     private OrderSpecifier<?> bookSort(Pageable pageable) {
         if (pageable.getSort().isSorted()) {
             for (Sort.Order order : pageable.getSort()) {
@@ -79,6 +66,19 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
             }
         }
         return new OrderSpecifier<>(Order.DESC, QBook.book.publicDate);
+    }
+
+    @Override
+    public Book findByDto(BookDto bookDto) {
+        try {
+            return em.createQuery("select b from Book b where b.title = :title and b.author = :author and b.publisher = :publisher", Book.class)
+                    .setParameter("title", bookDto.getTitle())
+                    .setParameter("author", bookDto.getAuthor())
+                    .setParameter("publisher", bookDto.getPublisher())
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     private BooleanExpression bookContains(String keyword) {

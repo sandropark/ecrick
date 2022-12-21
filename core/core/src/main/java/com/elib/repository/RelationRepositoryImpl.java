@@ -1,7 +1,7 @@
 package com.elib.repository;
 
-import lombok.RequiredArgsConstructor;
 import com.elib.domain.Relation;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

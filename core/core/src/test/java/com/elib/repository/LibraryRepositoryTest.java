@@ -1,21 +1,20 @@
 package com.elib.repository;
 
+import com.elib.domain.Book;
+import com.elib.domain.EbookService;
+import com.elib.domain.Library;
+import com.elib.domain.Relation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import com.elib.domain.Book;
-import com.elib.domain.EbookService;
-import com.elib.domain.Library;
-import com.elib.domain.Relation;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@DataJpaTest(showSql = false)
 class LibraryRepositoryTest {
 
     @Autowired
@@ -70,19 +69,4 @@ class LibraryRepositoryTest {
         assertThat(findLibrary.getSavedBooks()).isEqualTo(2);
     }
 
-    @DisplayName("모든 도서관의 저장된 도서수를 업데이트한다.")
-    @Test
-    void updateAllSavedBooks() throws Exception {
-        // When
-        libraryRepository.updateAllSavedBooks();
-
-        em.flush();
-        em.clear();
-
-        // Then
-        List<Library> all = libraryRepository.findAll();
-
-        assertThat(all.get(0).getSavedBooks()).isEqualTo(2);
-        assertThat(all.get(1).getSavedBooks()).isEqualTo(1);
-    }
 }
