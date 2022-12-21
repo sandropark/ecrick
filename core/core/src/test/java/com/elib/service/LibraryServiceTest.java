@@ -1,39 +1,53 @@
 package com.elib.service;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import com.elib.dto.LibraryDto;
+import com.elib.domain.Book;
+import com.elib.domain.EbookService;
+import com.elib.domain.Library;
+import com.elib.domain.Relation;
+import com.elib.repository.BookRepository;
+import com.elib.repository.EbookServiceRepository;
 import com.elib.repository.LibraryRepository;
+import com.elib.repository.RelationRepository;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import javax.persistence.EntityManager;
 
-@ExtendWith(MockitoExtension.class)
+@Transactional
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class LibraryServiceTest {
+    @Autowired LibraryService libraryService;
+    @Autowired LibraryRepository libraryRepository;
+    @Autowired BookRepository bookRepository;
+    @Autowired EbookServiceRepository ebookServiceRepository;
+    @Autowired RelationRepository relationRepository;
+    @Autowired EntityManager em;
 
-    @InjectMocks LibraryService libraryService;
-    @Mock LibraryRepository libraryRepository;
-
+    @DisplayName("도서관을 삭제하면 해당 도서관의 연관관계도 함께 삭제된다.")
     @Test
-    void test() throws Exception {
+    void delete_cascade() throws Exception {
         // Given
-        Pageable pageable = PageRequest.of(1, 20);
-        given(libraryRepository.findAll(pageable)).willReturn(Page.empty());
+        Library library = Library.of("산들도서관");
+        this.libraryRepository.saveAndFlush(library);
+        Book book = Book.of("사피엔스");
+        this.bookRepository.saveAndFlush(book);
+        EbookService ebookService = EbookService.of("교보");
+        this.ebookServiceRepository.saveAndFlush(ebookService);
+        Relation relation = Relation.of(book, library, ebookService);
+        this.relationRepository.saveAndFlush(relation);
+        this.em.clear();
 
         // When
-        Page<LibraryDto> libraries = libraryService.searchLibrary(pageable);
+        this.libraryService.delete(library.getId());
+        this.em.flush();
+        this.em.clear();
 
         // Then
-        Assertions.assertThat(libraries).isNotNull();
-        then(libraryRepository).should().findAll(pageable);
+        Assertions.assertThat(this.relationRepository.findAll()).hasSize(0);
+        Assertions.assertThat(this.libraryRepository.findAll()).hasSize(0);
     }
-
 }

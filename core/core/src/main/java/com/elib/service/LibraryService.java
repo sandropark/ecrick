@@ -38,11 +38,6 @@ public class LibraryService {
     }
 
     @Transactional
-    public void updateSavedBooks(Long libraryId) {
-        libraryRepository.updateSavedBooks(libraryId);
-    }
-
-    @Transactional
     public void update(LibraryDto dto) {
         Library library = libraryRepository.findById(dto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + dto.getId()));
@@ -51,14 +46,7 @@ public class LibraryService {
 
     @Transactional
     public void delete(Long libraryId) {
-        Library library = libraryRepository.findById(libraryId)
-                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
-        relationRepository.deleteByLibrary(library);
-        libraryRepository.delete(library);
+        libraryRepository.deleteById(libraryId);
     }
 
-    public Library findByName(String name) {
-        return libraryRepository.findByName(name)
-                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryName = " + name));
-    }
 }

@@ -24,7 +24,7 @@ public class Library extends BaseEntity {
     private Integer totalBooks;
     private Integer savedBooks;
     private String contentType;
-    @OneToMany(mappedBy = "library")
+    @OneToMany(mappedBy = "library", cascade = {CascadeType.REMOVE})
     private final List<Relation> relations = new ArrayList<>();
 
     protected Library() {}
