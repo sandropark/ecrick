@@ -19,9 +19,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.elib.crawler.CrawlUtil.requestUrl;
-import static com.elib.crawler.CrawlUtil.responseToDto;
-
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -31,39 +28,38 @@ public class CrawlerService implements Runnable {
     private final LibraryRepository libraryRepository;
     private final ObjectProvider<Crawler> crawlerProvider;
     private Long libraryId;
-    private boolean singleCrawler;
+    private int threadNum;
+    private int sleepTime;
 
-    public void init(Long libraryId, boolean singleCrawler) {
+    public void init(Long libraryId, int threadNum, int sleepTime) {
         this.libraryId = libraryId;
-        this.singleCrawler = singleCrawler;
+        this.threadNum = threadNum;
+        this.sleepTime = sleepTime;
     }
 
     @Override
     public void run() {
-        Library library = libraryRepository.findById(libraryId)
-                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
-        EbookService service = ebookServiceRepository.findByName("교보"); // TODO : 도서관 서비스 확장시 수정
-
+        Library library = libraryRepository.findById(libraryId).orElseThrow(() ->
+            new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
+        EbookService service = ebookServiceRepository.findByName("교보");
         log.info("{}", library.getName());
+        ResponseDto responseDto = getResponseDto(library);
+        if (responseDto != null) {
+            updateLibraryTotalBooks(library, responseDto);
+            List<String> detailUrls = responseDto.getDetailUrl(library.getApiUrl());
+            crawl(detailUrls, library, service);
+        }
+    }
 
-        ResponseDto responseDto;
+    private ResponseDto getResponseDto(Library library) {
         try {
-            responseDto = responseToDto(requestUrl(library.getApiUrl()));
-        } catch (JsonProcessingException | JAXBException e) {
-            log.error("CrawlerService 파싱 오류 library = {}",library.getName(), e);
-            return;
+            return CrawlerUtil.responseToDto(CrawlerUtil.requestUrl(library.getApiUrl()));
+        } catch (JAXBException | JsonProcessingException e) {
+            log.error("CrawlerService 파싱 오류 library = {}", library.getName(), e);
+            return null;
         } catch (IOException e) {
             log.error("{} error", library.getName(), e);
-            return;
-        }
-        updateLibraryTotalBooks(library, responseDto);
-
-        List<String> detailUrls = responseDto.getDetailUrl(library.getApiUrl());
-
-        if (singleCrawler) {
-            singleCrawl(detailUrls, library, service);
-        } else {
-            MultiCrawl(detailUrls, library, service);
+            return null;
         }
     }
 
@@ -73,20 +69,12 @@ public class CrawlerService implements Runnable {
         libraryRepository.save(library);
     }
 
-    private void singleCrawl(List<String> detailUrls, Library library, EbookService service) {
-        Crawler crawler = crawlerProvider.getObject();
-        detailUrls.forEach(url -> {
-            crawler.init(url, library, service, false);
-            crawler.run();
-        });
-    }
-
-    private void MultiCrawl(List<String> detailUrls, Library library, EbookService service) {
-        ExecutorService es = Executors.newFixedThreadPool(50);     // 스레드 풀
-        detailUrls.forEach(url -> {
+    private void crawl(List<String> detailUrls, Library library, EbookService service) {
+        ExecutorService es = Executors.newFixedThreadPool(threadNum);
+        detailUrls.forEach((url) -> {
             Crawler crawler = crawlerProvider.getObject();
-            crawler.init(url, library, service);
-            es.submit(crawler);   // task를 입력
+            crawler.init(url, library, service, sleepTime);
+            es.submit(crawler);
         });
     }
 

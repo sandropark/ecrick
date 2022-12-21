@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 import static org.jsoup.Connection.Response;
 
-public class CrawlUtil {
+public class CrawlerUtil {
     private static final HashMap<String, String> headers = new HashMap<>() {{
         put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
         put("Accept-Encoding", "gzip, deflate");

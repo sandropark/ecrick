@@ -16,11 +16,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.elib.crawler.CrawlUtil.requestUrl;
-import static com.elib.crawler.CrawlUtil.responseToDto;
+import static com.elib.crawler.CrawlerUtil.requestUrl;
+import static com.elib.crawler.CrawlerUtil.responseToDto;
 import static org.jsoup.Connection.Response;
 
-class CrawlUtilTest {
+class CrawlerUtilTest {
 
     @DisplayName("실제로 크롤링에서 사용할 DTO 변환 테스트")
     @Test

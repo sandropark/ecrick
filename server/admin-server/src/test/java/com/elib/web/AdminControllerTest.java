@@ -2,7 +2,7 @@ package com.elib.web;
 
 import com.elib.controller.AdminController;
 import com.elib.crawler.CrawlerService;
-import com.elib.crawler.UpdateCrawlerService;
+import com.elib.crawler.LibraryUpdateService;
 import com.elib.dto.LibraryDto;
 import com.elib.dto.Pagination;
 import com.elib.service.LibraryService;
@@ -33,7 +33,7 @@ class AdminControllerTest {
     @MockBean PaginationService paginationService;
     @MockBean LibraryService libraryService;
     @MockBean CrawlerService crawlerService;
-    @MockBean UpdateCrawlerService updateCrawlerService;
+    @MockBean LibraryUpdateService libraryUpdateService;
 
     @DisplayName("[GET] 관리자-도서관 목록 조회")
     @Test
@@ -53,6 +53,31 @@ class AdminControllerTest {
         // Then
         then(libraryService).should().searchLibrary(any(Pageable.class));
         then(paginationService).should().getDesktopPagination(anyInt(), anyInt());
+    }
+
+    @DisplayName("[GET] 도서관 추가 페이지")
+    @Test
+    void addForm() throws Exception {
+        // When & Then
+        mvc.perform(get(ADMIN_LIBRARIES + "/form"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("library"))
+                .andExpect(view().name("add-form"));
+    }
+
+    @DisplayName("[POST] 도서관 저장")
+    @Test
+    void saveLibrary() throws Exception {
+        // Given
+        willDoNothing().given(libraryService).save(any(LibraryDto.class));
+
+        // When
+        mvc.perform(post(ADMIN_LIBRARIES + "/form"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:" + ADMIN_LIBRARIES));
+
+        // Then
+        then(libraryService).should().save(any(LibraryDto.class));
     }
 
     @DisplayName("[GET] 도서관 상세페이지")
@@ -87,71 +112,6 @@ class AdminControllerTest {
 
         // Then
         then(libraryService).should().delete(libraryId);
-    }
-
-    @DisplayName("[POST] 해당 도서관 크롤링")
-    @Test
-    void crawl() throws Exception {
-        // Given
-//        willDoNothing().given(crawlerService).run();
-
-        // When
-        mvc.perform(post(ADMIN_LIBRARIES + "/1/crawl")
-                        .param("keyword", "")
-                        .param("page", "")
-                        .param("sort", "")
-                        .param("size", ""))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:" + ADMIN_LIBRARIES));
-
-        // Then
-//        then(crawlerService).should().run();
-    }
-
-    @DisplayName("[POST] 해당 도서관 저장된 도서수 업데이트")
-    @Test
-    void updateSavedBooks() throws Exception {
-        // Given
-        Long libraryId = 1L;
-        willDoNothing().given(libraryService).updateSavedBooks(libraryId);
-
-        // When
-        mvc.perform(post(ADMIN_LIBRARIES + "/" + libraryId + "/saved-update")
-                        .param("keyword", "")
-                        .param("page", "")
-                        .param("sort", "")
-                        .param("size", ""))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:" + ADMIN_LIBRARIES));
-
-        // Then
-        then(libraryService).should().updateSavedBooks(libraryId);
-    }
-
-    @DisplayName("[GET] 도서관 추가 페이지")
-    @Test
-    void addForm() throws Exception {
-        // When & Then
-        mvc.perform(get(ADMIN_LIBRARIES + "/form"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("library"))
-                .andExpect(view().name("add-form"));
-    }
-
-    @DisplayName("[POST] 도서관 저장")
-    @Test
-    void save() throws Exception {
-        // Given
-        willDoNothing().given(libraryService).save(any(LibraryDto.class));
-
-        // When
-        mvc.perform(post(ADMIN_LIBRARIES + "/form")
-                        .param("name", "서울"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(ADMIN_LIBRARIES));
-
-        // Then
-        then(libraryService).should().save(any(LibraryDto.class));
     }
 
     @DisplayName("[GET] 도서관 수정 페이지")
