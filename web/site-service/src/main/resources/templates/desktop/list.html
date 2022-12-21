@@ -4,7 +4,6 @@
 <body>
 
 <nav th:replace="fragment/navbar :: nav"></nav>
-
 <div th:replace="fragment/common :: #search-bar"></div>
 
 <main th:object="${books}">
@@ -61,5 +60,6 @@
   <a class="btn btn-outline-secondary" role="button" th:href="@{/books/mobile}">모바일 버전</a>
 </div>
 
+<script th:replace="fragment/common :: #script"></script>
 </body>
 </html>
