@@ -1,8 +1,6 @@
 package com.elib.domain;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +9,6 @@ import java.util.List;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class EbookService {
 
@@ -24,6 +21,8 @@ public class EbookService {
 
     @OneToMany(mappedBy = "ebookService")
     private final List<Relation> relations = new ArrayList<>();
+
+    protected EbookService() {}
 
     private EbookService(String name) {
         this.name = name;

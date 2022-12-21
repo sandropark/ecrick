@@ -1,5 +1,7 @@
 package com.elib.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -11,7 +13,7 @@ import java.util.Objects;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author", "publisher"})})
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Book {
 
@@ -27,22 +29,14 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private final List<Relation> relations = new ArrayList<>();
 
-    private Book(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.publicDate = publicDate;
-        this.imageUrl = imageUrl;
-    }
-
     protected Book() {}
 
     public static Book of(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
-        return new Book(title, author, publisher, publicDate, imageUrl);
+        return new Book(null, title, author, publisher, publicDate, imageUrl);
     }
 
     public static Book of(String title) {
-        return new Book(title, null, null, null, null);
+        return new Book(null, title, null, null, null, null);
     }
 
 

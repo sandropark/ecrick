@@ -29,25 +29,16 @@ public class Library extends BaseEntity {
 
     protected Library() {}
 
-    private Library(String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {
-        this.name = name;
-        this.url = url;
-        this.apiUrl = apiUrl;
-        this.totalBooks = totalBooks;
-        this.savedBooks = savedBooks;
-        this.contentType = contentType;
-    }
-
     public static Library of(String name) {
-        return new Library(name, null, null, null, null, null);
+        return new Library(null, name, null, null, null, null, null);
     }
 
     public static Library of(String name, String apiUrl) {
-        return new Library(name, apiUrl, null, null, null, null);
+        return new Library(null, name, apiUrl, null, null, null, null);
     }
 
     public static Library of(String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {
-        return new Library(name, url, apiUrl, totalBooks, savedBooks, contentType);
+        return new Library(null, name, url, apiUrl, totalBooks, savedBooks, contentType);
     }
 
     public static Library of(Long id, String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {

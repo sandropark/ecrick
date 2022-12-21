@@ -1,8 +1,8 @@
 package com.elib.domain;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,12 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(uniqueConstraints = {
-        @UniqueConstraint(
-                columnNames = {"book_id", "library_id", "ebook_service_id"}
-        )
-})
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Relation {
 
@@ -36,14 +31,10 @@ public class Relation {
     @JoinColumn(name = "ebook_service_id")
     private EbookService ebookService;
 
-    private Relation(Book book, Library library, EbookService ebookService) {
-        this.book = book;
-        this.library = library;
-        this.ebookService = ebookService;
-    }
+    protected Relation() {}
 
     public static Relation of(Book book, Library library, EbookService ebookService) {
-        return new Relation(book, library, ebookService);
+        return new Relation(null, book, library, ebookService);
     }
 
 }
