@@ -1,4 +1,4 @@
-package com.elib.web;
+package com.elib.controller;
 
 import com.elib.dto.BookDetailDto;
 import com.elib.dto.BookListDto;

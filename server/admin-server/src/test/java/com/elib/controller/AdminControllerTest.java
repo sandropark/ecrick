@@ -1,6 +1,5 @@
-package com.elib.web;
+package com.elib.controller;
 
-import com.elib.controller.AdminController;
 import com.elib.crawler.CrawlerService;
 import com.elib.crawler.LibraryUpdateService;
 import com.elib.dto.LibraryDto;

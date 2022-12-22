@@ -3,6 +3,5 @@
 dependencies {
     implementation project(":web-site-service")
 
-    runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 }

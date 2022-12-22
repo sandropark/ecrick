@@ -1,4 +1,4 @@
-package com.elib.web;
+package com.elib.controller;
 
 import lombok.Getter;
 import lombok.Setter;
