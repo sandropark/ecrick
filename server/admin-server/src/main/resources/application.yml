@@ -5,7 +5,7 @@ spring:
   jpa:
     open-in-view: false
     properties.hibernate:
-        format_sql: true
-        default_batch_fetch_size: 100
+      format_sql: true
+      default_batch_fetch_size: 100
 
 logging.level.org.hibernate.SQL: debug

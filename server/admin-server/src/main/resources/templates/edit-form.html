@@ -14,8 +14,8 @@
       <input type="url" th:field="*{url}" class="form-control">
     </div>
     <div class="mb-3">
-      <label for="apiUrl" class="form-label">apiUrl</label>
-      <input type="url" th:field="*{apiUrl}" class="form-control">
+      <label for="param" class="form-label">param</label>
+      <input type="text" th:field="*{param}" class="form-control">
     </div>
     <div class="mb-3">
       <label for="totalBooks" class="form-label">totalBooks</label>
@@ -28,6 +28,10 @@
     <div class="mb-3">
       <label for="contentType" class="form-label">contentType</label>
       <input type="text" th:field="*{contentType}" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="service" class="form-label">service</label>
+      <input type="text" th:field="*{service}" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">저장</button>
   </form>

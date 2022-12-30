@@ -1,36 +1,31 @@
 package com.elib.controller;
 
-import com.elib.domain.Library;
 import com.elib.dto.LibraryDto;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter @Setter
+@Builder
 public class LibraryAddFormDto {
     private String name;
     private String url;
-    private String apiUrl;
+    private String param;
     private Integer totalBooks;
     private Integer savedBooks;
     private String contentType;
-
-    private LibraryAddFormDto() {}
-
-    public static LibraryAddFormDto of() {
-        return new LibraryAddFormDto();
-    }
-
-    public static LibraryAddFormDto of(String name) {
-        return new LibraryAddFormDto(name, null, null, null, null, null);
-    }
+    private String service;
 
     public LibraryDto toLibraryDto() {
-        return LibraryDto.of(name, url, apiUrl, totalBooks, savedBooks, contentType);
+        return LibraryDto.builder()
+                .name(name)
+                .url(url)
+                .param(param)
+                .totalBooks(totalBooks)
+                .savedBooks(savedBooks)
+                .contentType(contentType)
+                .service(service)
+                .build();
     }
 
-    public Library toEntity() {
-        return Library.of(name, url, apiUrl, totalBooks, savedBooks, contentType);
-    }
 }

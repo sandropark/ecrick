@@ -5,6 +5,7 @@ import com.elib.crawler.dto.ResponseDto;
 import com.elib.crawler.dto.XmlDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 
 import javax.xml.bind.JAXBContext;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 import static org.jsoup.Connection.Response;
 
+@Slf4j
 public class CrawlerUtil {
     private static final HashMap<String, String> headers = new HashMap<>() {{
         put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
@@ -32,6 +34,18 @@ public class CrawlerUtil {
                 .timeout(300000)
                 .ignoreContentType(true)
                 .execute();
+    }
+
+    public static ResponseDto getResponseDto(String url) {
+        try {
+            return responseToDto(requestUrl(url));
+        } catch (JAXBException | JsonProcessingException e) {
+            log.error("파싱 오류 {}", url, e);
+            return null;
+        } catch (IOException e) {
+            log.error("예외 발생 {}", url, e);
+            return null;
+        }
     }
 
     public static ResponseDto responseToDto(Response response) throws JsonProcessingException, JAXBException {

@@ -59,7 +59,7 @@ public class LibraryUpdateService implements Runnable {
 
     private ResponseDto getResponseDto(Library library) {
         try {
-            return CrawlerUtil.responseToDto(CrawlerUtil.requestUrl(library.getApiUrl()));
+            return CrawlerUtil.responseToDto(CrawlerUtil.requestUrl(library.getUrl()));
         } catch (JAXBException | JsonProcessingException e) {
             log.error("CrawlerService 파싱 오류 library = {}", library.getName(), e);
             return null;

@@ -24,6 +24,7 @@ public class PaginationService {
         int endPage = getEndPage(maxBarLength, currentPage, totalPages);
         int preCurrentPage = getPreCurrentPage(maxBarLength, currentPage);
         int nextCurrentPage = getNextCurrentPage(maxBarLength, currentPage, totalPages);
+
         List<Integer> barNumbers = IntStream.range(startPage, endPage+1).boxed().collect(Collectors.toList());
 
         return new Pagination(barNumbers, preCurrentPage, nextCurrentPage);

@@ -21,8 +21,8 @@
         <td><a th:text="*{url}" th:href="*{url}" target="_blank">http://naver.com</a></td>
       </tr>
       <tr>
-        <th scope="row">apiUrl</th>
-        <td><a th:text="*{apiUrl}" th:href="*{apiUrl}" target="_blank">http://naver.com</a></td>
+        <th scope="row">param</th>
+        <td th:text="*{param}">page=1</td>
       </tr>
       <tr>
         <th scope="row">totalBooks</th>
@@ -35,6 +35,10 @@
       <tr>
         <th scope="row">contentType</th>
         <td th:text="*{contentType}">text/xml</td>
+      </tr>
+      <tr>
+        <th scope="row">service</th>
+        <td th:text="*{service}">교보</td>
       </tr>
     </tbody>
   </table>

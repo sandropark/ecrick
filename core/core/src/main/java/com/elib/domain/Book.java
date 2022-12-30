@@ -1,7 +1,6 @@
 package com.elib.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -13,32 +12,32 @@ import java.util.Objects;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Book {
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "book_id")
     private Long id;
     private String title;
     private String author;
     private String publisher;
     private LocalDate publicDate;
-    private String imageUrl;
+    private String coverUrl;
+    private String description;
     @OneToMany(mappedBy = "book")
     private final List<Relation> relations = new ArrayList<>();
 
     protected Book() {}
 
-    public static Book of(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
-        return new Book(null, title, author, publisher, publicDate, imageUrl);
+    @Builder
+    public Book(Long id, String title, String author, String publisher, LocalDate publicDate, String coverUrl, String description) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publicDate = publicDate;
+        this.coverUrl = coverUrl;
+        this.description = description;
     }
-
-    public static Book of(String title) {
-        return new Book(null, title, null, null, null, null);
-    }
-
 
     public void updatePublicDate(LocalDate publicDate) {
         this.publicDate = publicDate;

@@ -41,12 +41,12 @@ public class JsonDto extends StringUtil implements ResponseDto {
     }
 
     @Override
-    public List<String> getDetailUrl(String apiUrl) {
+    public List<String> getDetailUrl(String url) {
         ArrayList<String> detailUrls = new ArrayList<>();
-        int size = 150;
+        int size = 500;
         int maxPage = (getTotalBooks() / size) + 2;
         for (int page = 1; page < maxPage; page++) {
-            detailUrls.add(apiUrl + "&pageIndex=" + page + "&recordCount=" + size);
+            detailUrls.add(url + "&pageIndex=" + page + "&recordCount=" + size);
         }
         return detailUrls;
     }

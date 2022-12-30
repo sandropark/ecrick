@@ -14,8 +14,8 @@ public class RelationService {
 
     @Transactional
     public void saveNotExists(Relation relation) {
-        if (this.relationRepository.notExist(relation)) {
-            this.relationRepository.save(relation);
+        if (!relationRepository.existsByBookAndLibraryAndEbookService(relation.getBook(), relation.getLibrary(), relation.getEbookService())) {
+            relationRepository.save(relation);
         }
     }
 }

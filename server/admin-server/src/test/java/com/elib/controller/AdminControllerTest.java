@@ -84,7 +84,7 @@ class AdminControllerTest {
     void libraryDetail() throws Exception {
         // Given
         Long libraryId = 1L;
-        given(libraryService.getLibraryDto(libraryId)).willReturn(LibraryDto.of());
+        given(libraryService.getLibraryDto(libraryId)).willReturn(LibraryDto.builder().build());
 
         // When
         mvc.perform(get(ADMIN_LIBRARIES + "/" + libraryId))
@@ -118,7 +118,7 @@ class AdminControllerTest {
     void editForm() throws Exception {
         // Given
         Long libraryId = 1L;
-        given(libraryService.getLibraryDto(libraryId)).willReturn(LibraryDto.of());
+        given(libraryService.getLibraryDto(libraryId)).willReturn(LibraryDto.builder().build());
 
         // When
         mvc.perform(get(ADMIN_LIBRARIES + "/" + libraryId + "/form"))

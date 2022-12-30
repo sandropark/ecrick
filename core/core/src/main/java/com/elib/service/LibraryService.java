@@ -1,6 +1,5 @@
 package com.elib.service;
 
-import com.elib.domain.Library;
 import com.elib.dto.LibraryDto;
 import com.elib.repository.LibraryRepository;
 import com.elib.repository.RelationRepository;
@@ -39,13 +38,14 @@ public class LibraryService {
 
     @Transactional
     public void update(LibraryDto dto) {
-        Library library = libraryRepository.findById(dto.getId())
-                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + dto.getId()));
-        library.update(dto.toEntity());
+        libraryRepository.findById(dto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + dto.getId()))
+                .update(dto.toEntity());
     }
 
     @Transactional
     public void delete(Long libraryId) {
+        relationRepository.deleteByLibraryId(libraryId);
         libraryRepository.deleteById(libraryId);
     }
 

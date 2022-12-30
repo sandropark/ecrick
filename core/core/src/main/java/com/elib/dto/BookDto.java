@@ -15,14 +15,20 @@ public class BookDto {
     private String author;
     private String publisher;
     private LocalDate publicDate;
-    private String imageUrl;
+    private String coverUrl;
 
-    public static BookDto of(String title, String author, String publisher, LocalDate publicDate, String imageUrl) {
-        return new BookDto(title, author, publisher, publicDate, imageUrl);
+    public static BookDto of(String title, String author, String publisher, LocalDate publicDate, String coverUrl) {
+        return new BookDto(title, author, publisher, publicDate, coverUrl);
     }
 
     public Book toEntity() {
-        return Book.of(title, author, publisher, publicDate, imageUrl);
+        return Book.builder()
+                .title(title)
+                .author(author)
+                .publisher(publisher)
+                .publicDate(publicDate)
+                .coverUrl(coverUrl)
+                .build();
     }
 
     public boolean hasPublicDate() {

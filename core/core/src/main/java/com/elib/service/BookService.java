@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -32,11 +33,14 @@ public class BookService {
 
     @Transactional
     public Book saveBookDto(BookDto bookDto) {
-        Book book = this.bookRepository.findByDto(bookDto);
-        if (book == null) {
-            book = bookDto.toEntity();
-            this.bookRepository.save(book);
-        } else if (book.hasNotPublicDate() && bookDto.hasPublicDate()) {
+        Optional<Book> findBook = bookRepository.findByTitleAndAuthorAndPublisher(bookDto.getTitle(), bookDto.getAuthor(), bookDto.getPublisher());
+
+        if (findBook.isEmpty()) {
+            return bookRepository.save(bookDto.toEntity());
+        }
+
+        Book book = findBook.get();
+        if (book.hasNotPublicDate() && bookDto.hasPublicDate()) {
             book.updatePublicDate(bookDto.getPublicDate());
         }
         return book;

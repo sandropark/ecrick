@@ -48,7 +48,7 @@ public class AdminController {
 
     @GetMapping("/form")
     public String libraryAddForm(Model model) {
-        model.addAttribute("library", LibraryAddFormDto.of());
+        model.addAttribute("library", LibraryAddFormDto.builder().build());
         return "add-form";
     }
 
@@ -60,8 +60,7 @@ public class AdminController {
 
     @GetMapping("/{libraryId}")
     public String libraryDetail(@PathVariable Long libraryId, Model model) {
-        LibraryDto library = libraryService.getLibraryDto(libraryId);
-        model.addAttribute("library", library);
+        model.addAttribute("library", libraryService.getLibraryDto(libraryId));
         return "detail";
     }
 
@@ -111,8 +110,7 @@ public class AdminController {
 
     @GetMapping("/{libraryId}/form")
     public String libraryEditForm(@PathVariable Long libraryId, Model model) {
-        LibraryDto dto = libraryService.getLibraryDto(libraryId);
-        model.addAttribute("library", dto);
+        model.addAttribute("library", libraryService.getLibraryDto(libraryId));
         return "edit-form";
     }
 

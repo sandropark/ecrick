@@ -23,17 +23,22 @@
       <tr>
         <th scope="col"><a th:href="@{/admin/libraries (
               sort=id + (*{sort.getOrderFor('id') != null} ? (*{sort.getOrderFor('id').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword}, page=${param.page}, size=${param.size})}">id</a></th>
+              keyword=${param.keyword})}">id</a></th>
         <th scope="col"><a th:href="@{/admin/libraries (
               sort=name + (*{sort.getOrderFor('name') != null} ? (*{sort.getOrderFor('name').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword}, page=${param.page}, size=${param.size})}">이름</a></th>
+              keyword=${param.keyword})}">이름</a></th>
         <th scope="col"><a th:href="@{/admin/libraries (
               sort=totalBooks + (*{sort.getOrderFor('totalBooks') != null} ? (*{sort.getOrderFor('totalBooks').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword}, page=${param.page}, size=${param.size})}">총 도서수</a></th>
+              keyword=${param.keyword})}">총 도서수</a></th>
         <th scope="col"><a th:href="@{/admin/libraries (
               sort=savedBooks + (*{sort.getOrderFor('savedBooks') != null} ? (*{sort.getOrderFor('savedBooks').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword}, page=${param.page}, size=${param.size})}">저장된 도서수</a></th>
-        <th>응답 컨텐츠 타입</th>
+              keyword=${param.keyword})}">저장된 도서수</a></th>
+        <th><a th:href="@{/admin/libraries (
+              sort=contentType + (*{sort.getOrderFor('contentType') != null} ? (*{sort.getOrderFor('contentType').isAscending()} ? ',desc' : '' ) : ''),
+              keyword=${param.keyword})}">컨텐츠 타입</a></th>
+        <th><a th:href="@{/admin/libraries (
+              sort=service + (*{sort.getOrderFor('service') != null} ? (*{sort.getOrderFor('service').isAscending()} ? ',desc' : '' ) : ''),
+              keyword=${param.keyword})}">서비스</a></th>
         <th>크롤링</th>
         <th>총 도서수</th>
         <th>저장된 도서수</th>
@@ -46,6 +51,7 @@
         <td th:text="${library.totalBooks}">3000권</td>
         <td th:text="${library.savedBooks}">3000권</td>
         <td th:text="${library.contentType}">json or xml</td>
+        <td th:text="${library.service}">교보</td>
         <td>
           <form method="post" th:action="@{|/admin/libraries/${library.id}/crawl|}">
             <input type="hidden" name="keyword" th:value="${param.keyword}">

@@ -37,7 +37,7 @@
       <div class="col-md-2" th:each="book : ${books.content}">
         <div class="card">
           <a th:href="@{|/books/${book.id}|}">
-            <img class="card-img-top" src="" th:src="${book.imageUrl}">
+            <img class="card-img-top" src="" th:src="${book.coverUrl}">
           </a>
           <div class="card-body">
             <h6 class="card-title" th:text="${book.title}">Card title</h6>

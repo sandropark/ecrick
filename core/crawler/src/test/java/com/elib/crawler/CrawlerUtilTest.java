@@ -43,10 +43,14 @@ class CrawlerUtilTest {
     @Test
     void requestAndToDto() throws Exception {
         // Given
-        Library xmlLibrary = Library.of("구미시립도서관",
-                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?");
-        Library jsonLibrary = Library.of("송파구통합도서관",
-                "http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001");
+        Library xmlLibrary = Library.builder()
+                .name("구미시립도서관")
+                .url("http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?")
+                .build();
+        Library jsonLibrary = Library.builder()
+                .name("송파구통합도서관")
+                .url("http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001")
+                .build();
 
         // When
         Response xmlResponse = requestUrl(xmlLibrary.getUrl());
@@ -71,8 +75,10 @@ class CrawlerUtilTest {
         // Given
         String detailUrl = "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?paging=2";
 
-        Library xmlLibrary = Library.of("구미시립도서관",
-                "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?");
+        Library xmlLibrary = Library.builder()
+                .name("구미시립도서관")
+                .url("http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?")
+                .build();
 
         // When
         Response response = requestUrl(detailUrl);

@@ -14,7 +14,7 @@ public class BookListDto {
     private String author;
     private String publisher;
     private LocalDate publicDate;
-    private String imageUrl;
+    private String coverUrl;
 
     @QueryProjection
     public BookListDto(Book book) {
@@ -23,7 +23,7 @@ public class BookListDto {
         author = book.getAuthor();
         publisher = book.getPublisher();
         publicDate = book.getPublicDate();
-        imageUrl = book.getImageUrl();
+        coverUrl = book.getCoverUrl();
     }
 
 }

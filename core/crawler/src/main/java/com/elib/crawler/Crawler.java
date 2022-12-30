@@ -1,5 +1,6 @@
 package com.elib.crawler;
 
+import com.elib.crawler.dto.ResponseDto;
 import com.elib.domain.Book;
 import com.elib.domain.EbookService;
 import com.elib.domain.Library;
@@ -7,15 +8,14 @@ import com.elib.domain.Relation;
 import com.elib.dto.BookDto;
 import com.elib.service.BookService;
 import com.elib.service.RelationService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
 import java.util.List;
+
+import static com.elib.crawler.CrawlerUtil.getResponseDto;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,40 +39,31 @@ public class Crawler implements Runnable {
 
     @Override
     public void run() {
-        log.info("{} 쓰레드 작업 시작", this.library.getName());
+        log.info("{} 쓰레드 작업 시작", library.getName());
         sleep();
-        List<BookDto> bookDtos = this.getBookDtos();
-        if (bookDtos != null) {
-            this.save(bookDtos);
+
+        ResponseDto responseDto = getResponseDto(detailUrl);
+
+        if (responseDto != null) {
+            save(responseDto.toBookDto());
         }
 
-        log.info("{} 작업 완료 쓰레드 종료", this.library.getName());
-    }
-
-    private List<BookDto> getBookDtos() {
-        try {
-            return CrawlerUtil.responseToDto(CrawlerUtil.requestUrl(detailUrl)).toBookDto();
-        } catch (JAXBException | JsonProcessingException e) {
-            log.error("파싱 예외 발생 쓰레드 종료 url = {}", detailUrl, e);
-            return null;
-        } catch (IOException e) {
-            log.error("예외 발생 쓰레드 종료 url = {}", detailUrl, e);
-            return null;
-        }
+        log.info("{} 작업 완료 쓰레드 종료", library.getName());
     }
 
     private void save(List<BookDto> bookDtos) {
-        bookDtos.forEach((bookDto) -> {
-            Book book = bookService.saveBookDto(bookDto);
-            relationService.saveNotExists(Relation.of(book, library, service));
+        bookDtos.forEach(bookDto -> {
+            Book book = bookService.saveBookDto(bookDto);   // DB에 해당 도서가 없으면 저장
+            relationService.saveNotExists(Relation.of(book, library, service)); // DB에 해당 관계가 없으면 저장
         });
     }
 
     private void sleep() {
         try {
             Thread.sleep(sleepTime);
-        } catch (InterruptedException var2) {
-            throw new RuntimeException(var2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
+
 }

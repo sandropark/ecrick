@@ -1,7 +1,6 @@
 package com.elib.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -12,7 +11,6 @@ import java.util.Objects;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Library extends BaseEntity {
 
@@ -20,37 +18,35 @@ public class Library extends BaseEntity {
     @Column(name = "library_id") private Long id;
     @Column(name = "library_name", nullable = false) private String name;
     private String url;
-    private String apiUrl;
+    private String param;
     private Integer totalBooks;
     private Integer savedBooks;
     private String contentType;
-    @OneToMany(mappedBy = "library", cascade = {CascadeType.REMOVE})
+    private String service;
+    @OneToMany(mappedBy = "library")
     private final List<Relation> relations = new ArrayList<>();
 
     protected Library() {}
 
-    public static Library of(String name) {
-        return new Library(null, name, null, null, null, null, null);
-    }
-
-    public static Library of(String name, String apiUrl) {
-        return new Library(null, name, apiUrl, null, null, null, null);
-    }
-
-    public static Library of(String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {
-        return new Library(null, name, url, apiUrl, totalBooks, savedBooks, contentType);
-    }
-
-    public static Library of(Long id, String name, String url, String apiUrl, Integer totalBooks, Integer savedBooks, String contentType) {
-        return new Library(id, name, url, apiUrl, totalBooks, savedBooks, contentType);
+    @Builder
+    private Library(Long id, String name, String url, String param, Integer totalBooks, Integer savedBooks, String contentType, String service) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.param = param;
+        this.totalBooks = totalBooks;
+        this.savedBooks = savedBooks;
+        this.contentType = contentType;
+        this.service = service;
     }
 
     public void update(Library library) {
         url = library.getUrl();
-        apiUrl = library.getApiUrl();
+        param = library.getParam();
         totalBooks = library.getTotalBooks();
         savedBooks = library.getSavedBooks();
         contentType = library.getContentType();
+        service = library.getService();
     }
 
     public void updateTotalBooks(Integer totalBooks) {

@@ -31,9 +31,9 @@ class LibraryServiceTest {
     @Test
     void delete_cascade() throws Exception {
         // Given
-        Library library = Library.of("산들도서관");
+        Library library = Library.builder().name("산들도서관").build();
         this.libraryRepository.saveAndFlush(library);
-        Book book = Book.of("사피엔스");
+        Book book = Book.builder().title("사피엔스").build();
         this.bookRepository.saveAndFlush(book);
         EbookService ebookService = EbookService.of("교보");
         this.ebookServiceRepository.saveAndFlush(ebookService);

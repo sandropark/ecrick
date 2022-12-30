@@ -1,8 +1,6 @@
 package com.elib.repository;
 
-import com.elib.domain.Book;
 import com.elib.domain.QBook;
-import com.elib.dto.BookDto;
 import com.elib.dto.BookListDto;
 import com.elib.dto.QBookListDto;
 import com.querydsl.core.types.Order;
@@ -16,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.hasText;
@@ -66,19 +63,6 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
             }
         }
         return new OrderSpecifier<>(Order.DESC, QBook.book.publicDate);
-    }
-
-    @Override
-    public Book findByDto(BookDto bookDto) {
-        try {
-            return em.createQuery("select b from Book b where b.title = :title and b.author = :author and b.publisher = :publisher", Book.class)
-                    .setParameter("title", bookDto.getTitle())
-                    .setParameter("author", bookDto.getAuthor())
-                    .setParameter("publisher", bookDto.getPublisher())
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
     }
 
     private BooleanExpression bookContains(String keyword) {

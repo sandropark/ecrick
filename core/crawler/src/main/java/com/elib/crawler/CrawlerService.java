@@ -5,7 +5,6 @@ import com.elib.domain.EbookService;
 import com.elib.domain.Library;
 import com.elib.repository.EbookServiceRepository;
 import com.elib.repository.LibraryRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -13,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static com.elib.crawler.CrawlerUtil.getResponseDto;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -41,25 +40,13 @@ public class CrawlerService implements Runnable {
     public void run() {
         Library library = libraryRepository.findById(libraryId).orElseThrow(() ->
             new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
-        EbookService service = ebookServiceRepository.findByName("교보");
+        EbookService service = ebookServiceRepository.findByName(library.getService());
         log.info("{}", library.getName());
-        ResponseDto responseDto = getResponseDto(library);
+        ResponseDto responseDto = getResponseDto(library.getUrl());
         if (responseDto != null) {
             updateLibraryTotalBooks(library, responseDto);
-            List<String> detailUrls = responseDto.getDetailUrl(library.getApiUrl());
+            List<String> detailUrls = responseDto.getDetailUrl(library.getUrl());
             crawl(detailUrls, library, service);
-        }
-    }
-
-    private ResponseDto getResponseDto(Library library) {
-        try {
-            return CrawlerUtil.responseToDto(CrawlerUtil.requestUrl(library.getApiUrl()));
-        } catch (JAXBException | JsonProcessingException e) {
-            log.error("CrawlerService 파싱 오류 library = {}", library.getName(), e);
-            return null;
-        } catch (IOException e) {
-            log.error("{} error", library.getName(), e);
-            return null;
         }
     }
 

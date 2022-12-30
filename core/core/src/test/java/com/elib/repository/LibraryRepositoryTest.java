@@ -32,13 +32,13 @@ class LibraryRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Book book1 = Book.of("사피엔스");
-        Book book2 = Book.of("사피엔스2");
+        Book book1 = Book.builder().title("사피엔스").build();
+        Book book2 = Book.builder().title("사피엔스2").build();
         bookRepository.save(book1);
         bookRepository.save(book2);
 
-        library = Library.of("산들도서관");
-        library2 = Library.of("들도서관");
+        library = Library.builder().name("산들도서관").build();
+        library2 = Library.builder().name("들도서관").build();
         libraryRepository.save(library);
         libraryRepository.save(library2);
 

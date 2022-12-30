@@ -41,12 +41,12 @@ public class XmlDto extends StringUtil implements ResponseDto {
     }
 
     @Override
-    public List<String> getDetailUrl(String apiUrl) {
+    public List<String> getDetailUrl(String url) {
         ArrayList<String> detailUrls = new ArrayList<>();
         int size = 20;
         int maxPage = (getTotalBooks() / size) + 2;
         for (int page = 1; page < maxPage; page++) {
-            detailUrls.add(apiUrl + "paging=" + page);
+            detailUrls.add(url + "paging=" + page);
         }
         return detailUrls;
     }
@@ -61,7 +61,7 @@ public class XmlDto extends StringUtil implements ResponseDto {
     static class Content {
 
         @XmlElement(name = "image")
-        private String imageUrl;
+        private String coverUrl;
         @XmlElement(name = "product_nm_kr")
         private String title;
         @XmlElement(name = "text_author_nm")
@@ -70,7 +70,7 @@ public class XmlDto extends StringUtil implements ResponseDto {
         private String publisher;
 
         public String parseUrl() {
-            return imageUrl.split("\"")[1];
+            return coverUrl.split("\"")[1];
         }
     }
 }
