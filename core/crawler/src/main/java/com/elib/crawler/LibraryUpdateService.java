@@ -3,15 +3,14 @@ package com.elib.crawler;
 import com.elib.crawler.dto.ResponseDto;
 import com.elib.domain.Library;
 import com.elib.repository.LibraryRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
+
+import static com.elib.crawler.CrawlerUtil.getResponseDto;
 
 @Slf4j
 @Transactional(readOnly = true)
@@ -49,24 +48,10 @@ public class LibraryUpdateService implements Runnable {
         Library library = libraryRepository.findById(libraryId)
                 .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
         log.info("{} 총 도서수 업데이트", library.getName());
-        ResponseDto responseDto = getResponseDto(library);
-        if (responseDto != null) {
-            updateLibraryTotalBooks(library, responseDto);
-        }
+
+        getResponseDto(library.getUrl(), library).ifPresent(responseDto -> updateLibraryTotalBooks(library, responseDto));
 
         log.info("{} 총 도서수 업데이트 종료", library.getName());
-    }
-
-    private ResponseDto getResponseDto(Library library) {
-        try {
-            return CrawlerUtil.responseToDto(CrawlerUtil.requestUrl(library.getUrl()));
-        } catch (JAXBException | JsonProcessingException e) {
-            log.error("CrawlerService 파싱 오류 library = {}", library.getName(), e);
-            return null;
-        } catch (IOException e) {
-            log.error("{} error", library.getName(), e);
-            return null;
-        }
     }
 
     @Transactional

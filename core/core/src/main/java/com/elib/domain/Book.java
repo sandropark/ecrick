@@ -1,50 +1,50 @@
 package com.elib.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @Entity
-public class Book {
+public class Book extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "book_id")
     private Long id;
+    @Column(nullable = false)
     private String title;
     private String author;
     private String publisher;
     private LocalDate publicDate;
     private String coverUrl;
-    private String description;
-    @OneToMany(mappedBy = "book")
-    private final List<Relation> relations = new ArrayList<>();
+    private String vendor;
+    private String category;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "library_id")
+    private Library library;
 
     protected Book() {}
 
-    @Builder
-    public Book(Long id, String title, String author, String publisher, LocalDate publicDate, String coverUrl, String description) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
+    public Date publicDateToDate() {
+        if (publicDate != null) {
+            return Date.valueOf(publicDate);
+        }
+        return null;
+    }
+
+    public void update(LocalDate publicDate, String coverUrl) {
         this.publicDate = publicDate;
         this.coverUrl = coverUrl;
-        this.description = description;
-    }
-
-    public void updatePublicDate(LocalDate publicDate) {
-        this.publicDate = publicDate;
-    }
-
-    public boolean hasNotPublicDate() {
-        return publicDate == null;
     }
 
     @Override
@@ -59,4 +59,5 @@ public class Book {
     public int hashCode() {
         return Objects.hash(getTitle(), getAuthor(), getPublisher());
     }
+
 }

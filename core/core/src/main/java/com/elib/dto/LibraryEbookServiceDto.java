@@ -14,6 +14,7 @@ public class LibraryEbookServiceDto {
     }
 
     public static LibraryEbookServiceDto from(Relation relation) {
-        return new LibraryEbookServiceDto(relation.getLibrary().getName(), relation.getEbookService().getName());
+//        return new LibraryEbookServiceDto(relation.getLibrary().getName(), relation.getVendor().getName());
+        return null;
     }
 }

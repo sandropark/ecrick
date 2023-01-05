@@ -2,10 +2,12 @@ package com.elib.controller;
 
 import com.elib.crawler.CrawlerService;
 import com.elib.crawler.LibraryUpdateService;
+import com.elib.domain.ContentType;
 import com.elib.dto.LibraryDto;
 import com.elib.dto.Pagination;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
+import com.elib.service.VendorService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,7 @@ import static com.elib.controller.AdminController.ADMIN_LIBRARIES;
 public class AdminController {
 
     public static final String ADMIN_LIBRARIES = "/admin/libraries";
+    private final VendorService vendorService;
     private final PaginationService paginationService;
     private final LibraryService libraryService;
     private final CrawlerService crawlerService;
@@ -38,6 +41,8 @@ public class AdminController {
             @PageableDefault(size = 12, sort = "totalBooks") Pageable pageable,
             @ModelAttribute Search search, Model model) {
         // TODO : 검색 기능 구현
+        // TODO : 다중 정렬 구현
+        // TODO : 필터 구현
         Page<LibraryDto> libraries = libraryService.searchLibrary(pageable);
         Pagination pagination = paginationService.getDesktopPagination(libraries.getNumber(), libraries.getTotalPages());
 
@@ -48,20 +53,44 @@ public class AdminController {
 
     @GetMapping("/form")
     public String libraryAddForm(Model model) {
-        model.addAttribute("library", LibraryAddFormDto.builder().build());
+        model.addAttribute("contentTypes", ContentType.values());
+        model.addAttribute("vendorList", vendorService.findAll());
         return "add-form";
     }
 
     @PostMapping("/form")
-    public String saveLibrary(@ModelAttribute LibraryAddFormDto dto) {
-        libraryService.save(dto.toLibraryDto());
+    public String saveLibrary(@ModelAttribute LibraryAddRequestDto requestDto,
+                              @RequestParam Long vendorId) {
+        // TODO : 서비스에서 예외 발생시 redirect 하기
+        libraryService.saveLibrary(requestDto.toDto(), vendorId);
         return "redirect:" + ADMIN_LIBRARIES;
     }
 
     @GetMapping("/{libraryId}")
     public String libraryDetail(@PathVariable Long libraryId, Model model) {
-        model.addAttribute("library", libraryService.getLibraryDto(libraryId));
+        model.addAttribute("library", LibraryResponseDto.from(libraryService.getLibrary(libraryId)));
         return "detail";
+    }
+
+    @GetMapping("/{libraryId}/form")
+    public String libraryEditForm(@PathVariable Long libraryId, Model model) {
+        model.addAttribute("form", LibraryEditFormDto.from(libraryService.getLibrary(libraryId)));
+        model.addAttribute("contentTypes", ContentType.values());
+        model.addAttribute("vendorList", vendorService.findAll());
+        return "edit-form";
+    }
+
+    @PostMapping("/{libraryId}/form")
+    public String updateLibrary(
+            @ModelAttribute LibraryUpdateRequestDto requestDto,
+            @RequestParam Long vendorId,
+            @PathVariable Long libraryId,
+            RedirectAttributes redirectAttributes
+    ) {
+        // TODO : 서비스에서 예외 발생시 redirect 하기
+        libraryService.libraryUpdate(requestDto.toDto(), vendorId);
+        redirectAttributes.addAttribute("libraryId", libraryId);
+        return "redirect:" + ADMIN_LIBRARIES + "/{libraryId}";
     }
 
     @PostMapping("/{libraryId}/total-update")
@@ -108,21 +137,14 @@ public class AdminController {
         return "redirect:" + ADMIN_LIBRARIES;
     }
 
-    @GetMapping("/{libraryId}/form")
-    public String libraryEditForm(@PathVariable Long libraryId, Model model) {
-        model.addAttribute("library", libraryService.getLibraryDto(libraryId));
-        return "edit-form";
-    }
-
-    @PostMapping("/{libraryId}/form")
-    public String updateLibrary(
-            @ModelAttribute LibraryDto dto,
-            @PathVariable Long libraryId,
+    @PostMapping("/saved-update")
+    public String savedBooksUpdate(
+            @ModelAttribute QueryParam queryParam,
             RedirectAttributes redirectAttributes
     ) {
-        libraryService.update(dto);
-        redirectAttributes.addAttribute("libraryId", libraryId);
-        return "redirect:" + ADMIN_LIBRARIES + "/{libraryId}";
+        libraryService.updateAllSavedBooks();
+        redirectAttributes.addAllAttributes(queryParam.toMap());
+        return "redirect:" + ADMIN_LIBRARIES;
     }
 
     @Data

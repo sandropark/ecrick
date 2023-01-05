@@ -1,8 +1,10 @@
 package com.elib.service;
 
+import com.elib.domain.Vendor;
 import com.elib.dto.LibraryDto;
+import com.elib.repository.BookRepository;
 import com.elib.repository.LibraryRepository;
-import com.elib.repository.RelationRepository;
+import com.elib.repository.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,36 +19,51 @@ import javax.persistence.EntityNotFoundException;
 @Transactional(readOnly = true)
 @Service
 public class LibraryService {
+    private final BookRepository bookRepository;
     private final LibraryRepository libraryRepository;
-    private final RelationRepository relationRepository;
+    private final VendorRepository vendorRepository;
 
     public Page<LibraryDto> searchLibrary(Pageable pageable) {
         return libraryRepository.findAll(pageable)
                 .map(LibraryDto::from);
     }
 
-    public LibraryDto getLibraryDto(Long libraryId) {
+    public LibraryDto getLibrary(Long libraryId) {
         return libraryRepository.findById(libraryId)
                 .map(LibraryDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
     }
 
     @Transactional
-    public void save(LibraryDto dto) {
-        libraryRepository.save(dto.toEntity());
-    }
-
-    @Transactional
-    public void update(LibraryDto dto) {
+    public void libraryUpdate(LibraryDto dto, Long vendorId) {
+        Vendor vendor = null;
+        if (vendorId > 0) {
+            vendor = vendorRepository.findById(vendorId)
+                    .orElseThrow(() -> new EntityNotFoundException("공급사를 찾을 수 없습니다. vendorId = " + vendorId));
+        }
         libraryRepository.findById(dto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + dto.getId()))
-                .update(dto.toEntity());
+                .update(dto.toEntity(), vendor);
     }
 
     @Transactional
     public void delete(Long libraryId) {
-        relationRepository.deleteByLibraryId(libraryId);
+        bookRepository.deleteByLibraryId(libraryId);
         libraryRepository.deleteById(libraryId);
     }
 
+    @Transactional
+    public void saveLibrary(LibraryDto dto, Long vendorId) {
+        Vendor vendor = null;
+        if (vendorId > 0) {
+            vendor = vendorRepository.findById(vendorId)
+                    .orElseThrow(() -> new EntityNotFoundException("공급사를 찾을 수 없습니다. vendorId = " + vendorId));
+        }
+        libraryRepository.save(dto.toEntity(vendor));
+    }
+
+    @Transactional
+    public void updateAllSavedBooks() {
+        libraryRepository.updateAllSavedBooks();
+    }
 }

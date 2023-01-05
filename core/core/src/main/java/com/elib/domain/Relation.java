@@ -14,8 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Relation {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "relation_id")
     private Long id;
 
@@ -28,13 +27,13 @@ public class Relation {
     private Library library;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "ebook_service_id")
-    private EbookService ebookService;
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
 
     protected Relation() {}
 
-    public static Relation of(Book book, Library library, EbookService ebookService) {
-        return new Relation(null, book, library, ebookService);
+    public static Relation of(Book book, Library library, Vendor vendor) {
+        return new Relation(null, book, library, vendor);
     }
 
 }

@@ -7,6 +7,13 @@
 
 <div class="container">
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <form method="post" th:action="@{/admin/libraries/saved-update}">
+      <input type="hidden" name="keyword" th:value="${param.keyword}">
+      <input type="hidden" name="page" th:value="${param.page}">
+      <input type="hidden" name="sort" th:value="${param.sort}">
+      <input type="hidden" name="size" th:value="${param.size}">
+      <button class="btn btn-primary" type="submit">저장된 도서수 업데이트</button>
+    </form>
     <a class="btn btn-primary" th:href="@{/admin/libraries/form}">도서관 등록</a>
   </div>
 </div>
@@ -37,8 +44,9 @@
               sort=contentType + (*{sort.getOrderFor('contentType') != null} ? (*{sort.getOrderFor('contentType').isAscending()} ? ',desc' : '' ) : ''),
               keyword=${param.keyword})}">컨텐츠 타입</a></th>
         <th><a th:href="@{/admin/libraries (
-              sort=service + (*{sort.getOrderFor('service') != null} ? (*{sort.getOrderFor('service').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword})}">서비스</a></th>
+              sort=vendor + (*{sort.getOrderFor('vendor') != null} ? (*{sort.getOrderFor('vendor').isAscending()} ? ',desc' : '' ) : ''),
+              keyword=${param.keyword})}">공급사</a></th>
+        <th>size</th>
         <th>크롤링</th>
         <th>총 도서수</th>
         <th>저장된 도서수</th>
@@ -49,9 +57,11 @@
         <th scope="row" th:text="${library.id}" >1</th>
         <td><a th:href="@{|/admin/libraries/${library.id}|}" th:text="${library.name}">중랑구립도서관</a></td>
         <td th:text="${library.totalBooks}">3000권</td>
-        <td th:text="${library.savedBooks}">3000권</td>
-        <td th:text="${library.contentType}">json or xml</td>
-        <td th:text="${library.service}">교보</td>
+        <td th:text="${library.savedBooks}"
+            th:style="${library.totalBooks != library.savedBooks ? 'color:red;' : ''}">3000권</td>
+        <td th:text="${library.contentType.value}">json or xml</td>
+        <td th:text="${library.vendor.name}">교보</td>
+        <td th:text="${library.size}">20</td>
         <td>
           <form method="post" th:action="@{|/admin/libraries/${library.id}/crawl|}">
             <input type="hidden" name="keyword" th:value="${param.keyword}">

@@ -1,0 +1,5 @@
+spring:
+  output.ansi.enabled: always
+  jpa.properties.hibernate.format_sql: true
+
+logging.level.org.hibernate.SQL: debug

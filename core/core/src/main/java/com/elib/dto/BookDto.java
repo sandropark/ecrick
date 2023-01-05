@@ -1,14 +1,15 @@
 package com.elib.dto;
 
 import com.elib.domain.Book;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.elib.domain.Library;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@ToString
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class BookDto {
 
     private String title;
@@ -16,22 +17,22 @@ public class BookDto {
     private String publisher;
     private LocalDate publicDate;
     private String coverUrl;
-
-    public static BookDto of(String title, String author, String publisher, LocalDate publicDate, String coverUrl) {
-        return new BookDto(title, author, publisher, publicDate, coverUrl);
-    }
+    private String vendor;
+    private String category;
+    private Library library;
+    private String bookDescription;
 
     public Book toEntity() {
         return Book.builder()
+                .library(library)
                 .title(title)
                 .author(author)
                 .publisher(publisher)
                 .publicDate(publicDate)
                 .coverUrl(coverUrl)
+                .vendor(vendor)
+                .category(category)
                 .build();
     }
 
-    public boolean hasPublicDate() {
-        return publicDate != null;
-    }
 }

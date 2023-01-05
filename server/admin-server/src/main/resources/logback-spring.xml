@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds"> <!-- 60초마다 변경점을 감지해서 반영 -->
+<!--이렇게하면 자동 감지한다는데 잘 안된다. 나중에 찾아본다. -->
+
+  <!--스프링부트에서 기본으로 사용하는 설정 불러오기-->
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+  <!--콘솔 설정-->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+      <charset>${CONSOLE_LOG_CHARSET}</charset>
+    </encoder>
+  </appender>
+
+  <!--파일 로그 설정-->
+  <appender name="WARN_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>./logs/warn.log</file>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">  <!--지정한 레벨 이상만 기록-->
+      <level>INFO</level>
+    </filter>
+    <encoder>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
+      <charset>${FILE_LOG_CHARSET}</charset>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!--일까지 지정하면 날이 바뀔 때마다 파일이 새로 생성된다. 분으로 설정 시 분마다 생성-->
+      <fileNamePattern>./logs/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>  <!-- 유지할 파일 수 : 최근 (설정한 n)개 파일만 유지 -->
+    </rollingPolicy>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+<!--    <appender-ref ref="WARN_LOG" />-->
+  </root>
+
+  <!-- 쿼리 로그 : DEBUG 이상, 콘솔로만 남긴다. -->
+  <logger name="org.hibernate.SQL" additivity="false">
+    <level value = "DEBUG" />
+    <appender-ref ref="CONSOLE" />
+  </logger>
+
+  <!-- jdbc 로그-->
+  <logger name="org.springframework.jdbc" additivity="false">
+    <level value = "DEBUG" />
+    <appender-ref ref="CONSOLE" />
+  </logger>
+
+</configuration>

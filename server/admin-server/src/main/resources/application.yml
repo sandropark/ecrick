@@ -1,11 +1,9 @@
 server.port: 8081
 
 spring:
+  output.ansi.enabled: always
   profiles.include: db
   jpa:
     open-in-view: false
     properties.hibernate:
-      format_sql: true
-      default_batch_fetch_size: 100
-
-logging.level.org.hibernate.SQL: debug
+      default_batch_fetch_size: 100 # 지연로딩 시 성능향상

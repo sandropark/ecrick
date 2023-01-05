@@ -1,11 +1,13 @@
 package com.elib.dto;
 
+import com.elib.domain.ContentType;
 import com.elib.domain.Library;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.elib.domain.Vendor;
+import lombok.*;
 
 @Getter @Setter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class LibraryDto {
 
     private Long id;
@@ -14,20 +16,9 @@ public class LibraryDto {
     private String param;
     private Integer totalBooks;
     private Integer savedBooks;
-    private String contentType;
-    private String service;
-
-    @Builder
-    public LibraryDto(Long id, String name, String url, String param, Integer totalBooks, Integer savedBooks, String contentType, String service) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-        this.param = param;
-        this.totalBooks = totalBooks;
-        this.savedBooks = savedBooks;
-        this.contentType = contentType;
-        this.service = service;
-    }
+    private ContentType contentType;
+    private VendorDto vendor;
+    private Integer size;
 
     public static LibraryDto from(Library entity) {
         return LibraryDto.builder()
@@ -38,7 +29,8 @@ public class LibraryDto {
                 .totalBooks(entity.getTotalBooks())
                 .savedBooks(entity.getSavedBooks())
                 .contentType(entity.getContentType())
-                .service(entity.getService())
+                .vendor(VendorDto.from(entity.getVendor()))
+                .size(entity.getSize())
                 .build();
     }
 
@@ -51,7 +43,20 @@ public class LibraryDto {
                 .totalBooks(totalBooks)
                 .savedBooks(savedBooks)
                 .contentType(contentType)
-                .service(service)
+                .size(size)
+                .build();
+    }
+
+    public Library toEntity(Vendor vendor) {
+        return Library.builder()
+                .name(name)
+                .url(url)
+                .param(param)
+                .totalBooks(totalBooks)
+                .savedBooks(savedBooks)
+                .contentType(contentType)
+                .vendor(vendor)
+                .size(size)
                 .build();
     }
 

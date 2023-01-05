@@ -68,7 +68,7 @@ class AdminControllerTest {
     @Test
     void saveLibrary() throws Exception {
         // Given
-        willDoNothing().given(libraryService).save(any(LibraryDto.class));
+        willDoNothing().given(libraryService).saveLibrary(any(LibraryDto.class), anyLong());
 
         // When
         mvc.perform(post(ADMIN_LIBRARIES + "/form"))
@@ -76,7 +76,7 @@ class AdminControllerTest {
                 .andExpect(view().name("redirect:" + ADMIN_LIBRARIES));
 
         // Then
-        then(libraryService).should().save(any(LibraryDto.class));
+        then(libraryService).should().saveLibrary(any(LibraryDto.class), anyLong());
     }
 
     @DisplayName("[GET] 도서관 상세페이지")
@@ -84,7 +84,7 @@ class AdminControllerTest {
     void libraryDetail() throws Exception {
         // Given
         Long libraryId = 1L;
-        given(libraryService.getLibraryDto(libraryId)).willReturn(LibraryDto.builder().build());
+        given(libraryService.getLibrary(libraryId)).willReturn(LibraryDto.builder().build());
 
         // When
         mvc.perform(get(ADMIN_LIBRARIES + "/" + libraryId))
@@ -94,7 +94,7 @@ class AdminControllerTest {
                 .andExpect(view().name("detail"));
 
         // Then
-        then(libraryService).should().getLibraryDto(libraryId);
+        then(libraryService).should().getLibrary(libraryId);
     }
 
     @DisplayName("[POST] 도서관 삭제")
@@ -118,7 +118,7 @@ class AdminControllerTest {
     void editForm() throws Exception {
         // Given
         Long libraryId = 1L;
-        given(libraryService.getLibraryDto(libraryId)).willReturn(LibraryDto.builder().build());
+        given(libraryService.getLibrary(libraryId)).willReturn(LibraryDto.builder().build());
 
         // When
         mvc.perform(get(ADMIN_LIBRARIES + "/" + libraryId + "/form"))
@@ -127,7 +127,7 @@ class AdminControllerTest {
                 .andExpect(view().name("edit-form"));
 
         // Then
-        then(libraryService).should().getLibraryDto(libraryId);
+        then(libraryService).should().getLibrary(libraryId);
     }
 
     @DisplayName("[POST] 도서관 수정")
@@ -135,7 +135,7 @@ class AdminControllerTest {
     void update() throws Exception {
         // Given
         Long libraryId = 1L;
-        willDoNothing().given(libraryService).update(any(LibraryDto.class));
+        willDoNothing().given(libraryService).libraryUpdate(any(LibraryDto.class), anyLong());
 
         // When
         mvc.perform(post(ADMIN_LIBRARIES + "/" + libraryId + "/form"))
@@ -143,7 +143,7 @@ class AdminControllerTest {
                 .andExpect(redirectedUrl(ADMIN_LIBRARIES + "/" + libraryId));
 
         // Then
-        then(libraryService).should().update(any(LibraryDto.class));
+        then(libraryService).should().libraryUpdate(any(LibraryDto.class), anyLong());
     }
 
 }

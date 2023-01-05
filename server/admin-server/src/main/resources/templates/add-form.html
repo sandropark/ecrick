@@ -5,37 +5,49 @@
 
 <nav th:replace="fragment/navbar :: nav"></nav>
 
-<main class="container" th:object="${library}">
+<main class="container">
   <h3>도서관 추가</h3>
 
   <form th:action th:method="post">
     <div class="mb-3">
       <label for="name" class="form-label">도서관 명</label>
-      <input type="text" th:field="*{name}" class="form-control">
+      <input type="text" id="name" name="name" class="form-control">
     </div>
     <div class="mb-3">
       <label for="url" class="form-label">url</label>
-      <input type="url" th:field="*{url}" class="form-control">
+      <input type="url" id="url" name="url" class="form-control">
     </div>
     <div class="mb-3">
       <label for="param" class="form-label">param</label>
-      <input type="text" th:field="*{param}" class="form-control">
+      <input type="text" id="param" name="param" class="form-control">
     </div>
     <div class="mb-3">
       <label for="totalBooks" class="form-label">totalBooks</label>
-      <input type="text" th:field="*{totalBooks}" class="form-control">
+      <input type="text" id="totalBooks" name="totalBooks" class="form-control">
     </div>
     <div class="mb-3">
       <label for="savedBooks" class="form-label">savedBooks</label>
-      <input type="text" th:field="*{savedBooks}" class="form-control">
+      <input type="text" id="savedBooks" name="savedBooks" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="size" class="form-label">size</label>
+      <input type="text" id="size" name="size" class="form-control">
     </div>
     <div class="mb-3">
       <label for="contentType" class="form-label">contentType</label>
-      <input type="text" th:field="*{contentType}" class="form-control">
+      <select id="contentType" name="contentType" class="form-select">
+        <option selected>컨텐츠 타입 선택</option>
+        <option th:each="contentType : ${contentTypes}"
+                th:value="${contentType.name}" th:text="${contentType.value}">text/xml</option>
+      </select>
     </div>
     <div class="mb-3">
-      <label for="service" class="form-label">service</label>
-      <input type="text" th:field="*{service}" class="form-control">
+      <label for="vendor" class="form-label">vendor</label>
+      <select id="vendor" name="vendorId" class="form-select">
+        <option selected>공급사 선택</option>
+          <option th:each="vendor : ${vendorList}"
+                  th:value="${vendor.id}" th:text="${vendor.name}">교보</option>
+      </select>
     </div>
     <button type="submit" class="btn btn-primary">저장</button>
   </form>

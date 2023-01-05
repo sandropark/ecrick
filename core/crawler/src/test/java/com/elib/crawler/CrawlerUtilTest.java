@@ -1,8 +1,11 @@
 package com.elib.crawler;
 
 import com.elib.crawler.dto.ResponseDto;
-import com.elib.crawler.dto.XmlDto;
+import com.elib.crawler.dto.KyoboXmlDto;
+import com.elib.domain.ContentType;
 import com.elib.domain.Library;
+import com.elib.domain.Vendor;
+import com.elib.domain.VendorName;
 import com.elib.dto.BookDto;
 import org.assertj.core.api.Assertions;
 import org.jsoup.Jsoup;
@@ -16,8 +19,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.elib.crawler.CrawlerUtil.getParser;
 import static com.elib.crawler.CrawlerUtil.requestUrl;
-import static com.elib.crawler.CrawlerUtil.responseToDto;
 import static org.jsoup.Connection.Response;
 
 class CrawlerUtilTest {
@@ -25,14 +28,14 @@ class CrawlerUtilTest {
     @DisplayName("실제로 크롤링에서 사용할 DTO 변환 테스트")
     @Test
     void xmlDtoTest() throws Exception {
-        JAXBContext jaxbContext = JAXBContext.newInstance(XmlDto.class);
+        JAXBContext jaxbContext = JAXBContext.newInstance(KyoboXmlDto.class);
 
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
         // 실제로 사용할 때는 file 대신 response의 바디를 넣으면 된다. 바디는 문자열이기 때문에 StringReader를 사용해서 넣으면 된다.
-        XmlDto xmlDto = (XmlDto) unmarshaller.unmarshal(new File("src/test/resources/testdata.xml"));
+        KyoboXmlDto kyoboXmlDto = (KyoboXmlDto) unmarshaller.unmarshal(new File("src/test/resources/testdata.xml"));
 
-        List<BookDto> bookDtos = xmlDto.toBookDto();
+        List<BookDto> bookDtos = kyoboXmlDto.toBookDtos(null);
         for (BookDto bookDto : bookDtos) {
             System.out.println("bookDto = " + bookDto);
         }
@@ -46,10 +49,14 @@ class CrawlerUtilTest {
         Library xmlLibrary = Library.builder()
                 .name("구미시립도서관")
                 .url("http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?")
+                .vendor(Vendor.builder().name(VendorName.KYOBO).build())
+                .contentType(ContentType.TEXT_XML)
                 .build();
         Library jsonLibrary = Library.builder()
                 .name("송파구통합도서관")
                 .url("http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001")
+                .vendor(Vendor.builder().name(VendorName.KYOBO).build())
+                .contentType(ContentType.APPLICATION_JSON)
                 .build();
 
         // When
@@ -62,12 +69,12 @@ class CrawlerUtilTest {
         System.out.println("jsonResponse.contentType() = " + jsonResponse.contentType());
         System.out.println("jsonResponse.statusCode() = " + jsonResponse.statusCode());
 
-        ResponseDto xmlResponseDto = responseToDto(xmlResponse);
-        ResponseDto jsonResponseDto = responseToDto(jsonResponse);
+        ResponseDto xmlResponseDto = getParser(xmlLibrary).parse(xmlResponse);
+        ResponseDto jsonResponseDto = getParser(jsonLibrary).parse(jsonResponse);
 
         // Then
-        System.out.println("xmlResponseDto.bookDto = " + xmlResponseDto.toBookDto());
-        System.out.println("jsonResponseDto.bookDto() = " + jsonResponseDto.toBookDto());
+        System.out.println("xmlResponseDto.bookDto = " + xmlResponseDto.toBookDtos(null));
+        System.out.println("jsonResponseDto.bookDto() = " + jsonResponseDto.toBookDtos(null));
     }
 
     @Test
@@ -78,14 +85,16 @@ class CrawlerUtilTest {
         Library xmlLibrary = Library.builder()
                 .name("구미시립도서관")
                 .url("http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?")
+                .vendor(Vendor.builder().name(VendorName.KYOBO).build())
+                .contentType(ContentType.TEXT_XML)
                 .build();
 
         // When
         Response response = requestUrl(detailUrl);
         Assertions.assertThat(response.statusCode()).isEqualTo(200);
 
-        ResponseDto responseDto = responseToDto(response);
-        List<BookDto> bookDtos = responseDto.toBookDto();
+        ResponseDto responseDto = getParser(xmlLibrary).parse(response);
+        List<BookDto> bookDtos = responseDto.toBookDtos(null);
 
         // Then
         System.out.println("bookDtos.size() = " + bookDtos.size());

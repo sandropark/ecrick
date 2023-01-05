@@ -1,13 +1,19 @@
 package com.elib;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.Math.abs;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Disabled
 class LogicTest {
@@ -45,5 +51,51 @@ class LogicTest {
         Thread.sleep(3000);
         System.out.println("!!");
     }
+
+    @Disabled
+    @DisplayName("정규식 테스트")
+    @Test
+    void regex() throws Exception {
+        // Given
+        String input = "인생이 바뀌는 독서법 알려드립니다";
+
+        // When
+        Pattern pattern = Pattern.compile("독서");
+        Matcher matcher = pattern.matcher(input);
+
+        // Then
+        assertThat(matcher.find()).isTrue();
+        System.out.println("group = " + matcher.group());
+    }
+    @Disabled
+    @Test
+    void regex2() throws Exception {
+        // Given
+        String input = "J.K rolling,<harari>,기안84";
+
+        // When
+        String result = input.replaceAll("[^가-힣a-zA-Z0-9., ]", "");
+
+        // Then
+        assertThat(result).isEqualTo("J.K rolling,harari,기안84");
+    }
+
+    @DisplayName("LocalDate.parse의 기본 파싱 형식은 yyyy-MM-dd 다. 다른 형식을 넣을 경우 예외가 발생한다.")
+    @Test
+    void localDate() throws Exception {
+        String input = "20230101";
+        assertThatThrownBy(() -> LocalDate.parse(input))
+                .isInstanceOf(DateTimeParseException.class);
+    }
+
+    @Test
+    void localDate2() throws Exception {
+        String input = "20230101";
+
+        LocalDate localDate = LocalDate.parse(input, DateTimeFormatter.BASIC_ISO_DATE);
+
+        System.out.println("localDate = " + localDate);
+    }
+
 
 }

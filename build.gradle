@@ -34,7 +34,7 @@ subprojects {
     }
 
     dependencies {
-        implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+//        implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
 
         compileOnly lombok
         testCompileOnly lombok

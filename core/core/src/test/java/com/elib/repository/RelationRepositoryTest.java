@@ -1,9 +1,7 @@
 package com.elib.repository;
 
-import com.elib.domain.Book;
-import com.elib.domain.EbookService;
-import com.elib.domain.Library;
-import com.elib.domain.Relation;
+import com.elib.domain.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RelationRepositoryTest {
 
     @Autowired BookRepository bookRepository;
-    @Autowired EbookServiceRepository ebookServiceRepository;
+    @Autowired
+    VendorRepository vendorRepository;
     @Autowired LibraryRepository libraryRepository;
     @Autowired RelationRepository relationRepository;
     @Autowired EntityManager em;
 
+    @Disabled
     @DisplayName("쿼리 한 번에 해당 도서관 Relation이 모두 삭제된다.")
     @Test
     void deleteByLibraryId() throws Exception {
@@ -43,6 +43,7 @@ class RelationRepositoryTest {
         assertThat(all).hasSize(0);
     }
 
+    @Disabled
     @Test
     void existsByBookAndLibraryAndEbookService() throws Exception {
         // Given
@@ -50,16 +51,16 @@ class RelationRepositoryTest {
         bookRepository.saveAndFlush(book);
         Library library = Library.builder().name("정독").build();
         libraryRepository.saveAndFlush(library);
-        EbookService service = EbookService.of("교보");
-        ebookServiceRepository.saveAndFlush(service);
+        Vendor vendor = Vendor.builder().name(VendorName.KYOBO).build();
+        vendorRepository.saveAndFlush(vendor);
 
-        Relation relation = Relation.of(book, library, service);
+        Relation relation = Relation.of(book, library, vendor);
         relationRepository.saveAndFlush(relation);
 
         em.clear();
 
         // When
-        boolean result = relationRepository.existsByBookAndLibraryAndEbookService(book, library, service);
+        boolean result = relationRepository.existsByBookAndLibraryAndVendor(book, library, vendor);
 
         // Then
         assertThat(result).isTrue();

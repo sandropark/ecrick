@@ -1,7 +1,7 @@
 package com.elib.repository;
 
 import com.elib.domain.Book;
-import com.elib.domain.EbookService;
+import com.elib.domain.Vendor;
 import com.elib.domain.Library;
 import com.elib.domain.Relation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +15,5 @@ public interface RelationRepository extends JpaRepository<Relation, Long> {
     @Query("delete from Relation r where r.library.id = :libraryId")
     void deleteByLibraryId(@Param("libraryId") Long libraryId);
 
-    boolean existsByBookAndLibraryAndEbookService(Book book, Library library, EbookService ebookService);
+    boolean existsByBookAndLibraryAndVendor(Book book, Library library, Vendor vendor);
 }
