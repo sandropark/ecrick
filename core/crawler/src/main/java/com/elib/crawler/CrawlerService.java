@@ -1,7 +1,5 @@
 package com.elib.crawler;
 
-import com.elib.crawler.dto.ResponseDto;
-import com.elib.domain.Library;
 import com.elib.repository.LibraryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,30 +32,29 @@ public class CrawlerService implements Runnable {
 
     @Override
     public void run() {
-        Library library = libraryRepository.findById(libraryId) // TODO : DTO 사용하기
+        LibraryCrawlerDto libraryDto = libraryRepository.findById(libraryId)
+                .map(LibraryCrawlerDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
 
-        log.info("{} 크롤링 시작", library.getName());
+        log.info("{} 크롤링 시작", libraryDto.getName());
 
-        getResponseDto(library.getUrl(), library).ifPresent(responseDto -> {
-            updateLibraryTotalBooks(library, responseDto);
-            crawl(library.getDetailUrls(), library);
+        getResponseDto(libraryDto).ifPresent(responseDto -> {
+            updateLibraryTotalBooks(libraryDto.getId(), responseDto.getTotalBooks());
+            crawl(libraryDto);
         });
     }
 
     @Transactional
-    private void updateLibraryTotalBooks(Library library, ResponseDto responseDto) {
-        library.updateTotalBooks(responseDto.getTotalBooks());
-        libraryRepository.save(library);
+    private void updateLibraryTotalBooks(Long libraryId, int totalBooks) {
+        libraryRepository.findById(libraryId)
+                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId))
+                .updateTotalBooks(totalBooks);
     }
 
-    private void crawl(List<String> detailUrls, Library library) {
+    private void crawl(LibraryCrawlerDto libraryDto) {
         ExecutorService es = Executors.newFixedThreadPool(threadNum);
-        detailUrls.forEach(url -> {
-            Crawler crawler = crawlerProvider.getObject();
-            crawler.init(url, library, sleepTime);
-            es.submit(crawler);
-        });
+        libraryDto.getDetailUrls().forEach(url ->
+                es.submit(crawlerProvider.getObject().init(url, libraryDto, sleepTime)));
     }
 
 }

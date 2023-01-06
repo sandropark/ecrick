@@ -48,8 +48,8 @@
               keyword=${param.keyword})}">공급사</a></th>
         <th>size</th>
         <th>크롤링</th>
-        <th>총 도서수</th>
         <th>저장된 도서수</th>
+        <th>도서삭제</th>
       </tr>
       </thead>
       <tbody>
@@ -58,7 +58,11 @@
         <td><a th:href="@{|/admin/libraries/${library.id}|}" th:text="${library.name}">중랑구립도서관</a></td>
         <td th:text="${library.totalBooks}">3000권</td>
         <td th:text="${library.savedBooks}"
-            th:style="${library.totalBooks != library.savedBooks ? 'color:red;' : ''}">3000권</td>
+            th:style="${library.totalBooks != library.savedBooks
+            ? library.totalBooks > library.savedBooks && library.totalBooks - library.savedBooks < 10
+              ? 'color:blue'
+              : 'color:red'
+            : ''}">3000권</td>
         <td th:text="${library.contentType.value}">json or xml</td>
         <td th:text="${library.vendor.name}">교보</td>
         <td th:text="${library.size}">20</td>
@@ -79,7 +83,7 @@
           </form>
         </td>
         <td>
-          <form method="post" th:action="@{|/admin/libraries/${library.id}/total-update|}">
+          <form method="post" th:action="@{|/admin/libraries/${library.id}/saved-update|}">
             <input type="hidden" name="keyword" th:value="${param.keyword}">
             <input type="hidden" name="page" th:value="${param.page}">
             <input type="hidden" name="sort" th:value="${param.sort}">
@@ -88,12 +92,12 @@
           </form>
         </td>
         <td>
-          <form method="post" th:action="@{|/admin/libraries/${library.id}/saved-update|}">
+          <form method="post" th:action="@{|/admin/libraries/${library.id}/delete-books|}">
             <input type="hidden" name="keyword" th:value="${param.keyword}">
             <input type="hidden" name="page" th:value="${param.page}">
             <input type="hidden" name="sort" th:value="${param.sort}">
             <input type="hidden" name="size" th:value="${param.size}">
-            <button type="submit" class="btn btn-primary">업데이트</button>
+            <button type="submit" class="btn btn-danger">도서삭제</button>
           </form>
         </td>
       </tr>

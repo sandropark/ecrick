@@ -1,21 +1,22 @@
 package com.elib.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
+@ToString
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"title", "author", "publisher", "publicDate", "library_id", "vendor"})
+})
 @Entity
 public class Book extends BaseEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
@@ -23,29 +24,25 @@ public class Book extends BaseEntity {
     private Long id;
     @Column(nullable = false)
     private String title;
-    private String author;
-    private String publisher;
-    private LocalDate publicDate;
+    @ColumnDefault("")
+    @Builder.Default
+    private String author = "";
+    @ColumnDefault("")
+    @Builder.Default
+    private String publisher = "";
+    @ColumnDefault("00010101")
+    @Builder.Default
+    private LocalDate publicDate = LocalDate.of(0, 1, 1);
     private String coverUrl;
-    private String vendor;
+    @ColumnDefault("")
+    @Builder.Default
+    private String vendor = "";
     private String category;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "library_id")
     private Library library;
 
     protected Book() {}
-
-    public Date publicDateToDate() {
-        if (publicDate != null) {
-            return Date.valueOf(publicDate);
-        }
-        return null;
-    }
-
-    public void update(LocalDate publicDate, String coverUrl) {
-        this.publicDate = publicDate;
-        this.coverUrl = coverUrl;
-    }
 
     @Override
     public boolean equals(Object o) {

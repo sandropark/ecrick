@@ -1,8 +1,7 @@
 package com.elib.crawler;
 
-import com.elib.crawler.dto.ResponseDto;
+import com.elib.crawler.responsedto.ResponseDto;
 import com.elib.crawler.parser.*;
-import com.elib.domain.Library;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -28,14 +27,14 @@ public class CrawlerUtil {
     }};
 
     private static final List<CrawlerParser> parsers = List.of(
-            new KyoboXmlParser(), // TODO : 마포구전자도서관 확인
+            new KyoboXmlParser(),
             new KyoboJsonParser(),
             new Yes24XmlParser(),
             new Yes24JsonParser(),
             new OpmsParser(),
             new BookcubeParser(),
             new AladinParser(),
-            new SeoulLibParser(),
+            new SeoulLibCleaner(),
             new SeoulEduParser()
     );
 
@@ -47,22 +46,26 @@ public class CrawlerUtil {
                 .execute();
     }
 
-    public static Optional<ResponseDto> getResponseDto(String url, Library library) {
+    public static Optional<ResponseDto> getResponseDto(LibraryCrawlerDto libraryDto) {
+        return getResponseDto(libraryDto.getUrl(), libraryDto);
+    }
+
+    public static Optional<ResponseDto> getResponseDto(String url, LibraryCrawlerDto libraryDto) {
         try {
-            return Optional.of(getParser(library).parse(requestUrl(url)));
+            return Optional.of(getParser(libraryDto).parse(requestUrl(url)));
         } catch (IllegalArgumentException e) {
-            log.error("parser를 찾을 수 없습니다. {}", library.getName());
+            log.error("parser를 찾을 수 없습니다. {}", libraryDto.getName());
         } catch (JAXBException | JsonProcessingException e) {
-            log.error("파싱 오류 {}, {}", library.getName(), url, e);
+            log.error("파싱 오류 {}, {}", libraryDto.getName(), url, e);
         } catch (IOException e) {
-            log.error("접속 실패 {}, {}", library.getName(), url, e);
+            log.error("접속 실패 {}, {}", libraryDto.getName(), url, e);
         }
         return Optional.empty();
     }
 
-    protected static CrawlerParser getParser(Library library) {
+    protected static CrawlerParser getParser(LibraryCrawlerDto libraryDto) {
         for (CrawlerParser parser : parsers) {
-            if (parser.supports(library)) {
+            if (parser.supports(libraryDto)) {
                 return parser;
             }
         }

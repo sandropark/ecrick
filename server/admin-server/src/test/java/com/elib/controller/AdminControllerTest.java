@@ -1,11 +1,14 @@
 package com.elib.controller;
 
 import com.elib.crawler.CrawlerService;
-import com.elib.crawler.LibraryUpdateService;
+import com.elib.domain.VendorName;
 import com.elib.dto.LibraryDto;
 import com.elib.dto.Pagination;
+import com.elib.dto.VendorDto;
+import com.elib.service.BookService;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
+import com.elib.service.VendorService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,8 @@ class AdminControllerTest {
     @MockBean PaginationService paginationService;
     @MockBean LibraryService libraryService;
     @MockBean CrawlerService crawlerService;
-    @MockBean LibraryUpdateService libraryUpdateService;
+    @MockBean VendorService vendorService;
+    @MockBean BookService bookService;
 
     @DisplayName("[GET] 관리자-도서관 목록 조회")
     @Test
@@ -60,7 +64,8 @@ class AdminControllerTest {
         // When & Then
         mvc.perform(get(ADMIN_LIBRARIES + "/form"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("library"))
+                .andExpect(model().attributeExists("contentTypes"))
+                .andExpect(model().attributeExists("vendorList"))
                 .andExpect(view().name("add-form"));
     }
 
@@ -71,7 +76,8 @@ class AdminControllerTest {
         willDoNothing().given(libraryService).saveLibrary(any(LibraryDto.class), anyLong());
 
         // When
-        mvc.perform(post(ADMIN_LIBRARIES + "/form"))
+        mvc.perform(post(ADMIN_LIBRARIES + "/form")
+                        .param("vendorId", "1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:" + ADMIN_LIBRARIES));
 
@@ -84,7 +90,10 @@ class AdminControllerTest {
     void libraryDetail() throws Exception {
         // Given
         Long libraryId = 1L;
-        given(libraryService.getLibrary(libraryId)).willReturn(LibraryDto.builder().build());
+        LibraryDto dto = LibraryDto.builder()
+                .vendor(VendorDto.builder().name(VendorName.KYOBO).build())
+                .build();
+        given(libraryService.getLibrary(libraryId)).willReturn(dto);
 
         // When
         mvc.perform(get(ADMIN_LIBRARIES + "/" + libraryId))
@@ -118,12 +127,17 @@ class AdminControllerTest {
     void editForm() throws Exception {
         // Given
         Long libraryId = 1L;
-        given(libraryService.getLibrary(libraryId)).willReturn(LibraryDto.builder().build());
+        LibraryDto dto = LibraryDto.builder()
+                .vendor(VendorDto.builder().name(VendorName.KYOBO).build())
+                .build();
+        given(libraryService.getLibrary(libraryId)).willReturn(dto);
 
         // When
         mvc.perform(get(ADMIN_LIBRARIES + "/" + libraryId + "/form"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("library"))
+                .andExpect(model().attributeExists("form"))
+                .andExpect(model().attributeExists("contentTypes"))
+                .andExpect(model().attributeExists("vendorList"))
                 .andExpect(view().name("edit-form"));
 
         // Then
@@ -138,7 +152,8 @@ class AdminControllerTest {
         willDoNothing().given(libraryService).libraryUpdate(any(LibraryDto.class), anyLong());
 
         // When
-        mvc.perform(post(ADMIN_LIBRARIES + "/" + libraryId + "/form"))
+        mvc.perform(post(ADMIN_LIBRARIES + "/" + libraryId + "/form")
+                        .param("vendorId", "1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ADMIN_LIBRARIES + "/" + libraryId));
 

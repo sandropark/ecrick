@@ -1,4 +1,4 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
 import com.elib.dto.BookDto;
@@ -6,8 +6,6 @@ import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -43,9 +41,9 @@ public class Yes24XmlDto implements ResponseDto {
                 dtos.add(BookDto.builder()
                         .library(library)
                         .title(getResult("<pdName>(.+)</pdName>", content))
-                        .author(getAuthor("<author>(.+)</author>", content))
+                        .author(getResult("<author>(.+)</author>", content))
                         .publisher(getResult("<publisher>(.+)</publisher>", content))
-                        .publicDate(getLocalDate(content))
+                        .publicDate(getResult("<ebookYMD>(.+)</ebookYMD>", content))
                         .coverUrl(getResult("<thumbnail>(.+)</thumbnail>", content))
                         .build());
             }
@@ -57,29 +55,6 @@ public class Yes24XmlDto implements ResponseDto {
             Matcher m = Pattern.compile(regex).matcher(content);
             return m.find() ? m.group(1).strip() : "";
         }
-
-        private LocalDate getLocalDate(String content) {
-            String result = getResult("<ebookYMD>(.+)</ebookYMD>", content);
-            if (result.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                return LocalDate.parse(result);
-            }
-            if (result.matches("\\d{8}")) {
-                return LocalDate.parse(result, DateTimeFormatter.BASIC_ISO_DATE);
-            }
-            return null;
-        }
-
-        private String getAuthor(String regex, String content) {
-            return getResult(regex, content)
-                    .replaceAll("[<>]", "")
-                    .replaceAll(" 글", "")
-                    .replaceAll(" 외", "")
-                    .replaceAll(" 글,?그림", "")
-                    .replaceAll(" 편?공?등?저$", "")
-                    .replaceAll(" 공?저$", "")
-                    .strip();
-        }
-
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
 import com.elib.dto.BookDto;
@@ -18,10 +18,33 @@ public class KyoboXmlDto implements ResponseDto {
     @XmlElement(name = "list")
     private List<Item> items;
 
-    @Getter
     private static class Item {
         @XmlElement(name = "item")
         private Content content;
+
+        private String getTitle() {
+            return content.getTitle();
+        }
+
+        private String getAuthor() {
+            return content.getAuthor();
+        }
+
+        private String getPublisher() {
+            return content.getPublisher();
+        }
+
+        private String getVendor() {
+            return content.getVendor();
+        }
+
+        private String getCategory() {
+            return content.getCategory();
+        }
+
+        private String getCoverUrl() {
+            return content.getCoverUrl();
+        }
 
         @Getter
         private static class Content {
@@ -52,20 +75,17 @@ public class KyoboXmlDto implements ResponseDto {
     @Override
     public List<BookDto> toBookDtos(Library library) {
         List<BookDto> dtos = new ArrayList<>();
-
         for (Item item : items) {
-            Item.Content content = item.getContent();
             dtos.add(BookDto.builder()
                     .library(library)
-                    .title(content.getTitle())
-                    .author(content.getAuthor())
-                    .publisher(content.getPublisher())
-                    .coverUrl(content.getCoverUrl())
-                    .vendor(content.getVendor())
-                    .category(content.getCategory())
+                    .title(item.getTitle())
+                    .author(item.getAuthor())
+                    .publisher(item.getPublisher())
+                    .coverUrl(item.getCoverUrl())
+                    .vendor(item.getVendor())
+                    .category(item.getCategory())
                     .build());
         }
-
         return dtos;
     }
 

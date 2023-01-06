@@ -1,4 +1,4 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
 import com.elib.dto.BookDto;
@@ -6,8 +6,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,70 +45,42 @@ public class SeoulEduDto implements ResponseDto {
     }
 
     private String getVendor(Element meta) {
-        return String.valueOf(meta.select("span")
+        return meta.select("span")
                 .get(6)
-                .text());
+                .text();
     }
 
     private String getCategory(Element meta) {
-        return String.valueOf(meta.select("span")
+        return meta.select("span")
                 .get(4)
-                .text());
+                .text();
     }
 
-    private LocalDate getPublicDate(Element infoElib) {
-        String publicDate = String.valueOf(infoElib
-                        .select("span")
-                        .last()
-                        .text())
-                .strip();
-
-        if (publicDate.matches("\\d{4}\\.\\d{2}\\.\\d{2}")) {
-            publicDate = publicDate.replaceAll("\\.", "-");
-        }
-        if (publicDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            return LocalDate.parse(publicDate);
-        }
-        if (publicDate.matches("\\d{8}")) {
-            return LocalDate.parse(publicDate, DateTimeFormatter.BASIC_ISO_DATE);
-        }
-        return null;
+    private String getPublicDate(Element infoElib) {
+        return infoElib.select("span").last().text();
     }
 
     private String getPublisher(Element infoElib) {
-        return String.valueOf(infoElib
-                        .select("span")
-                        .get(2)
-                        .text())
-                .strip();
+        return infoElib
+                .select("span")
+                .get(2)
+                .text();
     }
 
     private String getAuthor(Element infoElib) {
-        return String.valueOf(infoElib
-                        .selectFirst("span")
-                        .text())
-                .strip()
-                .replaceAll("[<>]", "")
-                .replaceAll(" 글", "")
-                .replaceAll(" 외", "")
-                .replaceAll(" 글,?그림", "")
-                .replaceAll(" 편?공?등?저$", "")
-                .replaceAll(" 공?저$", "")
-                .strip();
+        return infoElib.selectFirst("span").text();
     }
 
     private String getTitle(Element flexBox) {
-        return String.valueOf(flexBox.select("a")
-                        .last()
-                        .selectFirst("b")
-                        .text())
-                .strip();
+        return flexBox.select("a")
+                .last()
+                .selectFirst("b")
+                .text();
     }
 
     private String getCoverUrl(Element li) {
-        return String.valueOf(li.selectFirst(".thumb > a > img")
-                        .attr("src"))
-                .strip();
+        return li.selectFirst(".thumb > a > img")
+                .attr("src");
     }
 
 }

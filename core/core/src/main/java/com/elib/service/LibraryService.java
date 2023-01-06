@@ -66,4 +66,9 @@ public class LibraryService {
     public void updateAllSavedBooks() {
         libraryRepository.updateAllSavedBooks();
     }
+
+    @Transactional
+    public void updateSavedBooks(Long libraryId) {
+        libraryRepository.updateSavedBooks(libraryId);
+    }
 }

@@ -31,31 +31,4 @@ public class Vendor extends BaseEntity {
         this.totalBooks = totalBooks;
     }
 
-    public Boolean isKyobo() {
-        return name.isKyobo();
-    }
-
-    public Boolean isYes24() {
-        return name.isYes24();
-    }
-
-    public Boolean isBookcube() {
-        return name.isBookcube();
-    }
-
-    public Boolean isOPMS() {
-        return name.isOPMS();
-    }
-
-    public Boolean isAladin() {
-        return name.isAladin();
-    }
-
-    public Boolean isSeoulLib() {
-        return name.isSeoulLib();
-    }
-
-    public Boolean isSeoulEdu() {
-        return name.isSeoulEdu();
-    }
 }

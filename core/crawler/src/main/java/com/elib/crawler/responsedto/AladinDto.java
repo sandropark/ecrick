@@ -1,4 +1,4 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
 import com.elib.dto.BookDto;
@@ -6,8 +6,6 @@ import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -36,29 +34,13 @@ public class AladinDto implements ResponseDto {
                 return getField("<pdName>(.+)</pdName>");
             }
             private String getAuthor() {
-                return getField("<author>(.+)</author>")
-                        .replaceAll("[<>]", "")
-                        .replaceAll(" 글", "")
-                        .replaceAll(" 외", "")
-                        .replaceAll(" 글,?그림", "")
-                        .replaceAll(" 편?공?등?저$", "")
-                        .replaceAll(" 공?저$", "")
-                        .strip();
+                return getField("<author>(.+)</author>");
             }
             private String getPublisher() {
                 return getField("<publisher>(.+)</publisher>");
             }
-            private LocalDate getPublicDate() {
-                String publicDate = getField("<ebookYMD>(.+)</ebookYMD>");
-
-                if (publicDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                    return LocalDate.parse(publicDate);
-                }
-                if (publicDate.matches("\\d{8}")) {
-                    return LocalDate.parse(publicDate, DateTimeFormatter.BASIC_ISO_DATE);
-                }
-                return null;
-
+            private String getPublicDate() {
+                return getField("<ebookYMD>(.+)</ebookYMD>");
             }
             private String getCoverUrl() {
                 return getField("<thumbnail>(.+)</thumbnail>");
@@ -86,7 +68,6 @@ public class AladinDto implements ResponseDto {
 
             return dtos;
         }
-
     }
 
     @Override
@@ -97,16 +78,6 @@ public class AladinDto implements ResponseDto {
     @Override
     public List<BookDto> toBookDtos(Library library) {
         return parameters.toBookDtos(library);
-    }
-
-    public List<String> getDetailUrl(String url) {
-        ArrayList<String> detailUrls = new ArrayList<>();
-        int size = 20;
-        for (int page = 1; page < getTotalBooks(); page+=size) {    // 알라딘은 로직이 다르다. 주의
-            detailUrls.add(url + "currentPage=" + page);
-        }
-        detailUrls.add(url + "currentPage=" + getTotalBooks());     // 알라딘은 로직이 다르다. 주의
-        return detailUrls;
     }
 
 }

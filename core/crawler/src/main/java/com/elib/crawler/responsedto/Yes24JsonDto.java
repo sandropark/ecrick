@@ -1,14 +1,12 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
 import com.elib.dto.BookDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class Yes24JsonDto implements ResponseDto {
     @JsonProperty("eBookInfoList")
     private List<Content> contents;
 
+    @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Content {
         @JsonProperty("pdName")
@@ -31,50 +30,6 @@ public class Yes24JsonDto implements ResponseDto {
         private String publicDate;
         @JsonProperty("thumbnail")
         private String coverUrl;
-
-        private String getField(String string) {
-            return String.valueOf(string).strip();
-        }
-
-        private String getTitle() {
-            return getField(title);
-        }
-
-        private String getAuthor() {
-            return getField(author)
-                    .replaceAll("[<>]", "")
-                    .replaceAll(" 글", "")
-                    .replaceAll(" 외", "")
-                    .replaceAll(" 글,?그림", "")
-                    .replaceAll(" 편?공?등?저$", "")
-                    .replaceAll(" 공?저$", "")
-                    .strip();
-        }
-
-        private String getPublisher() {
-            return getField(publisher);
-        }
-
-        private LocalDate getPublicDate() {
-            String publicDate = getField(this.publicDate);
-
-            try {
-                if (publicDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                    return LocalDate.parse(publicDate);
-                }
-                if (publicDate.matches("\\d{8}")) {
-                    return LocalDate.parse(publicDate, DateTimeFormatter.BASIC_ISO_DATE);
-                }
-            } catch (
-            DateTimeParseException e) {
-                return null;
-            }
-            return null;
-        }
-
-        private String getCoverUrl() {
-            return getField(coverUrl);
-        }
     }
 
     @Override

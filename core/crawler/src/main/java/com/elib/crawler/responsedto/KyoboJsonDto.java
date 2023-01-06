@@ -1,4 +1,4 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
 import com.elib.dto.BookDto;
@@ -7,9 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,28 +39,6 @@ public class KyoboJsonDto implements ResponseDto {
         private String coverUrl;
         @JsonProperty("entsDvsnName")
         private String vendor;
-
-        private String getTitle() {
-            return String.valueOf(title)
-                    .strip()
-                    .replaceAll("&quot;", "\"");
-        }
-
-        private LocalDate getPublicDate() {
-            String publicDate = String.valueOf(this.publicDate).strip();
-
-            try {
-                if (publicDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                    return LocalDate.parse(publicDate);
-                }
-                if (publicDate.matches("\\d{8}")) {
-                    return LocalDate.parse(publicDate, DateTimeFormatter.BASIC_ISO_DATE);
-                }
-            } catch (DateTimeParseException e) {
-                return null;
-            }
-            return null;
-        }
     }
 
     @Override

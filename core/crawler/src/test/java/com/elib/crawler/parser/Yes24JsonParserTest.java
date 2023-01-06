@@ -1,12 +1,14 @@
 package com.elib.crawler.parser;
 
-import com.elib.crawler.dto.Yes24JsonDto;
+import com.elib.crawler.responsedto.Yes24JsonDto;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static com.elib.crawler.CrawlerUtil.requestUrl;
 
 class Yes24JsonParserTest {
 
+    @Disabled
     @Test
     void parse() throws Exception {
         // Given

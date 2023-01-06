@@ -1,33 +1,32 @@
 package com.elib.crawler.parser;
 
 import com.elib.crawler.CrawlerParser;
-import com.elib.crawler.dto.KyoboXmlDto;
-import com.elib.crawler.dto.ResponseDto;
-import com.elib.domain.Library;
+import com.elib.crawler.LibraryCrawlerDto;
+import com.elib.crawler.responsedto.KyoboXmlDto;
+import com.elib.crawler.responsedto.ResponseDto;
+import org.jsoup.Connection;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import java.io.StringReader;
 
-import static org.jsoup.Connection.Response;
-
-public class KyoboXmlParser implements CrawlerParser {
+public class KyoboXmlParser extends BodyCleaner implements CrawlerParser {
 
     @Override
-    public Boolean supports(Library library) {
-        return library.isKyoboXml();
+    public Boolean supports(LibraryCrawlerDto libraryDto) {
+        return libraryDto.isKyoboXml();
     }
 
     @Override
-    public ResponseDto parse(Response response) throws JAXBException {
+    public ResponseDto parse(Connection.Response response) throws JAXBException {
         return (ResponseDto) JAXBContext
                 .newInstance(KyoboXmlDto.class)
                 .createUnmarshaller()
-                .unmarshal(new StringReader(getBody(response)));
+                .unmarshal(new StringReader(cleanBody(response.body())));
     }
 
-    private String getBody(Response response) {
-        return response.body()
+    private String cleanBody(String body) {
+        return clean(body)
                 .replaceAll("&apos;", "'");
     }
 

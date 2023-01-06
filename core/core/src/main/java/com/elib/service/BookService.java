@@ -28,4 +28,8 @@ public class BookService {
         return bookRepository.searchPage(keyword, pageable);
     }
 
+    @Transactional
+    public void deleteByLibrary(Long libraryId) {
+        bookRepository.deleteByLibraryId(libraryId);
+    }
 }

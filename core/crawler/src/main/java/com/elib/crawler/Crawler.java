@@ -1,7 +1,6 @@
 package com.elib.crawler;
 
 import com.elib.crawler.service.CrawlerBookService;
-import com.elib.domain.Library;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
@@ -17,24 +16,26 @@ public class Crawler implements Runnable {
 
     private final CrawlerBookService crawlerBookService;
     private String url;
-    private Library library;
+    private LibraryCrawlerDto libraryDto;
     private int sleepTime;
 
-    public void init(String url, Library library, int sleepTime) {
+    public Crawler init(String url, LibraryCrawlerDto libraryDto, int sleepTime) {
         this.url = url;
-        this.library = library;
+        this.libraryDto = libraryDto;
         this.sleepTime = sleepTime * 1000;
+        return this;
     }
 
     @Override
     public void run() {
-        log.info("크롤링 시작 {} url = {}", library.getName(), url);
+        log.info("크롤링 시작 {} url = {}", libraryDto.getName(), url);
 
         sleep();
 
-        getResponseDto(url, library).ifPresent(responseDto -> crawlerBookService.save(responseDto.toBookDtos(library)));
+        getResponseDto(url, libraryDto).ifPresent(responseDto ->
+            crawlerBookService.saveAll(responseDto.toBookDtos(libraryDto.toEntity())));
 
-        log.info("크롤링 종료 {} url = {}", library.getName(), url);
+        log.info("크롤링 종료 {} url = {}", libraryDto.getName(), url);
     }
 
     private void sleep() {

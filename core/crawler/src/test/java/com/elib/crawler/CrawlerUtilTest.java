@@ -1,7 +1,7 @@
 package com.elib.crawler;
 
-import com.elib.crawler.dto.ResponseDto;
-import com.elib.crawler.dto.KyoboXmlDto;
+import com.elib.crawler.responsedto.ResponseDto;
+import com.elib.crawler.responsedto.KyoboXmlDto;
 import com.elib.domain.ContentType;
 import com.elib.domain.Library;
 import com.elib.domain.Vendor;
@@ -46,22 +46,28 @@ class CrawlerUtilTest {
     @Test
     void requestAndToDto() throws Exception {
         // Given
-        Library xmlLibrary = Library.builder()
-                .name("구미시립도서관")
-                .url("http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?")
-                .vendor(Vendor.builder().name(VendorName.KYOBO).build())
-                .contentType(ContentType.TEXT_XML)
-                .build();
-        Library jsonLibrary = Library.builder()
-                .name("송파구통합도서관")
-                .url("http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001")
-                .vendor(Vendor.builder().name(VendorName.KYOBO).build())
-                .contentType(ContentType.APPLICATION_JSON)
-                .build();
+        LibraryCrawlerDto xmlLibraryDto = LibraryCrawlerDto.from(
+                Library.builder()
+                    .name("구미시립도서관")
+                    .url("http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?")
+                    .vendor(Vendor.builder().name(VendorName.KYOBO).build())
+                    .contentType(ContentType.TEXT_XML)
+                    .build()
+        );
+
+        LibraryCrawlerDto jsonLibraryDto = LibraryCrawlerDto.from(
+                Library.builder()
+                        .name("송파구통합도서관")
+                        .url("http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001")
+                        .vendor(Vendor.builder().name(VendorName.KYOBO).build())
+                        .contentType(ContentType.APPLICATION_JSON)
+                        .build()
+        );
+
 
         // When
-        Response xmlResponse = requestUrl(xmlLibrary.getUrl());
-        Response jsonResponse = requestUrl(jsonLibrary.getUrl());
+        Response xmlResponse = requestUrl(xmlLibraryDto.getUrl());
+        Response jsonResponse = requestUrl(jsonLibraryDto.getUrl());
 
         System.out.println("xmlResponse.contentType() = " + xmlResponse.contentType());
         System.out.println("xmlResponse.statusCode() = " + xmlResponse.statusCode());
@@ -69,8 +75,8 @@ class CrawlerUtilTest {
         System.out.println("jsonResponse.contentType() = " + jsonResponse.contentType());
         System.out.println("jsonResponse.statusCode() = " + jsonResponse.statusCode());
 
-        ResponseDto xmlResponseDto = getParser(xmlLibrary).parse(xmlResponse);
-        ResponseDto jsonResponseDto = getParser(jsonLibrary).parse(jsonResponse);
+        ResponseDto xmlResponseDto = getParser(xmlLibraryDto).parse(xmlResponse);
+        ResponseDto jsonResponseDto = getParser(jsonLibraryDto).parse(jsonResponse);
 
         // Then
         System.out.println("xmlResponseDto.bookDto = " + xmlResponseDto.toBookDtos(null));
@@ -82,18 +88,19 @@ class CrawlerUtilTest {
         // Given
         String detailUrl = "http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?paging=2";
 
-        Library xmlLibrary = Library.builder()
+        LibraryCrawlerDto xmlLibraryDto = LibraryCrawlerDto.from(Library.builder()
                 .name("구미시립도서관")
                 .url("http://gumilib.yes24library.com:8085/kyobo_t3_mobile/Tablet/Main/Ebook_MoreView.asp?")
                 .vendor(Vendor.builder().name(VendorName.KYOBO).build())
                 .contentType(ContentType.TEXT_XML)
-                .build();
+                .build()
+        );
 
         // When
         Response response = requestUrl(detailUrl);
         Assertions.assertThat(response.statusCode()).isEqualTo(200);
 
-        ResponseDto responseDto = getParser(xmlLibrary).parse(response);
+        ResponseDto responseDto = getParser(xmlLibraryDto).parse(response);
         List<BookDto> bookDtos = responseDto.toBookDtos(null);
 
         // Then

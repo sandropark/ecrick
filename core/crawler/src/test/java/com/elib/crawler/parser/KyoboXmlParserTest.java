@@ -1,7 +1,8 @@
 package com.elib.crawler.parser;
 
-import com.elib.crawler.dto.KyoboXmlDto;
+import com.elib.crawler.responsedto.KyoboXmlDto;
 import com.elib.dto.BookDto;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import static com.elib.crawler.CrawlerUtil.requestUrl;
 
 class KyoboXmlParserTest {
 
+    @Disabled
     @Test
     void parse() throws Exception {
         // Given
@@ -23,7 +25,11 @@ class KyoboXmlParserTest {
         System.out.println("totalBooks = " + responseDto.getTotalBooks());
 
         List<BookDto> bookDtos = responseDto.toBookDtos(null);
-        bookDtos.forEach(System.out::println);
+//        bookDtos.forEach(System.out::println);
+
+        bookDtos.forEach(bookDto -> {
+            System.out.println(bookDto.toEntity());
+        });
     }
 
 }

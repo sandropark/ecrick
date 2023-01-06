@@ -1,10 +1,10 @@
 package com.elib.controller;
 
 import com.elib.crawler.CrawlerService;
-import com.elib.crawler.LibraryUpdateService;
 import com.elib.domain.ContentType;
 import com.elib.dto.LibraryDto;
 import com.elib.dto.Pagination;
+import com.elib.service.BookService;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
 import com.elib.service.VendorService;
@@ -34,7 +34,7 @@ public class AdminController {
     private final PaginationService paginationService;
     private final LibraryService libraryService;
     private final CrawlerService crawlerService;
-    private final LibraryUpdateService libraryUpdateService;
+    private final BookService bookService;
 
     @GetMapping
     public String libraries(
@@ -93,26 +93,13 @@ public class AdminController {
         return "redirect:" + ADMIN_LIBRARIES + "/{libraryId}";
     }
 
-    @PostMapping("/{libraryId}/total-update")
-    public String updateTotalBooks(
-            @ModelAttribute QueryParam queryParam,
-            @PathVariable Long libraryId,
-            RedirectAttributes redirectAttributes
-    ) {
-        libraryUpdateService.init(libraryId, "total");
-        new Thread(libraryUpdateService).start();
-        redirectAttributes.addAllAttributes(queryParam.toMap());
-        return "redirect:" + ADMIN_LIBRARIES;
-    }
-
     @PostMapping("/{libraryId}/saved-update")
     public String updateSavedBooks(
             @ModelAttribute QueryParam queryParam,
             @PathVariable Long libraryId,
             RedirectAttributes redirectAttributes
     ) {
-        libraryUpdateService.init(libraryId, "saved");
-        new Thread(libraryUpdateService).start();
+        libraryService.updateSavedBooks(libraryId);
         redirectAttributes.addAllAttributes(queryParam.toMap());
         return "redirect:" + ADMIN_LIBRARIES;
     }
@@ -123,12 +110,24 @@ public class AdminController {
         return "redirect:" + ADMIN_LIBRARIES;
     }
 
+    @PostMapping("/{libraryId}/delete-books")
+    public String deleteBooks(
+            @ModelAttribute QueryParam queryParam,
+            @PathVariable Long libraryId,
+            RedirectAttributes redirectAttributes
+    ) {
+        bookService.deleteByLibrary(libraryId);
+        libraryService.updateSavedBooks(libraryId);
+        redirectAttributes.addAllAttributes(queryParam.toMap());
+        return "redirect:" + ADMIN_LIBRARIES;
+    }
+
     @PostMapping("/{libraryId}/crawl")
     public String crawl(
             @ModelAttribute QueryParam queryParam,
             @PathVariable Long libraryId,
             @RequestParam(name = "thread-num", defaultValue = "1", required = false) int threadNum,
-            @RequestParam(name = "sleep-time",defaultValue = "0",required = false) int sleepTime,
+            @RequestParam(name = "sleep-time", defaultValue = "0", required = false) int sleepTime,
             RedirectAttributes redirectAttributes
     ) {
         crawlerService.init(libraryId, threadNum, sleepTime);

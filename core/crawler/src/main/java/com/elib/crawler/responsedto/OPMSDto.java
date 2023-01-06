@@ -1,4 +1,4 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
 import com.elib.dto.BookDto;
@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +15,8 @@ public class OPMSDto implements ResponseDto {
 
     @JsonProperty("data")
     private List<Content> contents;
+
+    @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Content {
         @JsonProperty("title")
@@ -31,41 +31,6 @@ public class OPMSDto implements ResponseDto {
         private String coverUrl;
         @JsonProperty("description")
         private String bookDescription;
-
-        private String getField(String str) {
-            return String.valueOf(str).strip();
-        }
-        private String getTitle() {
-            return getField(title);
-        }
-
-        private String getAuthor() {
-            return getField(author);
-        }
-
-        private String getPublisher() {
-            return getField(publisher);
-        }
-
-        private LocalDate getPublicDate() {
-            String publicDate = getField(this.publicDate);
-
-            if (publicDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                return LocalDate.parse(publicDate);
-            }
-            if (publicDate.matches("\\d{8}")) {
-                return LocalDate.parse(publicDate, DateTimeFormatter.BASIC_ISO_DATE);
-            }
-            return null;
-        }
-
-        private String getCoverUrl() {
-            return getField(coverUrl);
-        }
-
-        private String getBookDescription() {
-            return getField(bookDescription);
-        }
     }
 
     @JsonProperty("meta")

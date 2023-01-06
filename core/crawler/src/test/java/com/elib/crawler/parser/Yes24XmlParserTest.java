@@ -1,7 +1,8 @@
 package com.elib.crawler.parser;
 
-import com.elib.crawler.dto.Yes24XmlDto;
+import com.elib.crawler.responsedto.Yes24XmlDto;
 import com.elib.dto.BookDto;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import static com.elib.crawler.CrawlerUtil.requestUrl;
 
 class Yes24XmlParserTest {
 
+    @Disabled
     @Test
     void parse() throws Exception {
         // Given
@@ -26,6 +28,7 @@ class Yes24XmlParserTest {
         bookDtos.forEach(System.out::println);
     }
 
+    @Disabled
     @Test
     void parse2() throws Exception {
         // Given

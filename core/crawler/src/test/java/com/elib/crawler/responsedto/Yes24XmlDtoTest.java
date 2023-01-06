@@ -1,4 +1,4 @@
-package com.elib.crawler.dto;
+package com.elib.crawler.responsedto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
