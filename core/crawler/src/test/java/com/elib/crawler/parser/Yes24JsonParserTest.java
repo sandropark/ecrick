@@ -21,7 +21,7 @@ class Yes24JsonParserTest {
 
         // Then
         System.out.println("count = " + dto.getTotalBooks());
-        dto.toBookDtos(null).forEach(System.out::println);
+        dto.toCoreDtos(null).forEach(System.out::println);
     }
 
 }

@@ -5,7 +5,7 @@ import com.elib.domain.VendorName;
 import com.elib.dto.LibraryDto;
 import com.elib.dto.Pagination;
 import com.elib.dto.VendorDto;
-import com.elib.service.BookService;
+import com.elib.service.CoreService;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
 import com.elib.service.VendorService;
@@ -36,7 +36,8 @@ class AdminControllerTest {
     @MockBean LibraryService libraryService;
     @MockBean CrawlerService crawlerService;
     @MockBean VendorService vendorService;
-    @MockBean BookService bookService;
+    @MockBean
+    CoreService coreService;
 
     @DisplayName("[GET] 관리자-도서관 목록 조회")
     @Test

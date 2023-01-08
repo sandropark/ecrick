@@ -2,7 +2,7 @@ package com.elib.service;
 
 import com.elib.domain.Vendor;
 import com.elib.dto.LibraryDto;
-import com.elib.repository.BookRepository;
+import com.elib.repository.CoreRepository;
 import com.elib.repository.LibraryRepository;
 import com.elib.repository.VendorRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import javax.persistence.EntityNotFoundException;
 @Transactional(readOnly = true)
 @Service
 public class LibraryService {
-    private final BookRepository bookRepository;
+    private final CoreRepository coreRepository;
     private final LibraryRepository libraryRepository;
     private final VendorRepository vendorRepository;
 
@@ -48,7 +48,7 @@ public class LibraryService {
 
     @Transactional
     public void delete(Long libraryId) {
-        bookRepository.deleteByLibraryId(libraryId);
+        coreRepository.deleteByLibraryId(libraryId);
         libraryRepository.deleteById(libraryId);
     }
 

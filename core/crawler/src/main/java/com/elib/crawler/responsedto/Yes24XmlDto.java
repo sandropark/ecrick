@@ -1,7 +1,7 @@
 package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -32,13 +32,13 @@ public class Yes24XmlDto implements ResponseDto {
             return Integer.valueOf(paramList.get(0).content);
         }
 
-        private List<BookDto> toBookDtos(Library library) {
-            List<BookDto> dtos = new ArrayList<>();
+        private List<CoreDto> toBookDtos(Library library) {
+            List<CoreDto> dtos = new ArrayList<>();
             List<Parameter> parameters = paramList.subList(1, paramList.size());
 
             for (Parameter parameter : parameters) {
                 String content = parameter.getContent();
-                dtos.add(BookDto.builder()
+                dtos.add(CoreDto.builder()
                         .library(library)
                         .title(getResult("<pdName>(.+)</pdName>", content))
                         .author(getResult("<author>(.+)</author>", content))
@@ -63,7 +63,7 @@ public class Yes24XmlDto implements ResponseDto {
     }
 
     @Override
-    public List<BookDto> toBookDtos(Library library) {
+    public List<CoreDto> toCoreDtos(Library library) {
         return parameters.toBookDtos(library);
     }
 

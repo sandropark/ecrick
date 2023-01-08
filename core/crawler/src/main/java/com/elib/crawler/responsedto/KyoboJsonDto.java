@@ -1,7 +1,7 @@
 package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -47,11 +47,11 @@ public class KyoboJsonDto implements ResponseDto {
     }
 
     @Override
-    public List<BookDto> toBookDtos(Library library) {
-        List<BookDto> dtos = new ArrayList<>();
+    public List<CoreDto> toCoreDtos(Library library) {
+        List<CoreDto> dtos = new ArrayList<>();
 
         for (Content content : contents) {
-            dtos.add(BookDto.builder()
+            dtos.add(CoreDto.builder()
                     .library(library)
                     .title(content.getTitle())
                     .author(content.getAuthor())

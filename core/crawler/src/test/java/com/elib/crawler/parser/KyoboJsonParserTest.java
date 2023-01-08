@@ -2,7 +2,6 @@ package com.elib.crawler.parser;
 
 import com.elib.crawler.responsedto.ResponseDto;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.elib.crawler.CrawlerUtil.requestUrl;
@@ -23,7 +22,7 @@ class KyoboJsonParserTest {
 
         // Then
         System.out.println("totalBooks = " + dto.getTotalBooks());
-        dto.toBookDtos(null).forEach(System.out::println);
+        dto.toCoreDtos(null).forEach(System.out::println);
     }
 
 }

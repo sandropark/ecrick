@@ -1,6 +1,6 @@
 package com.elib.dto;
 
-import com.elib.domain.Book;
+import com.elib.domain.Core;
 import com.elib.domain.Library;
 import lombok.*;
 import org.springframework.util.StringUtils;
@@ -9,11 +9,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import static com.elib.domain.Core.*;
+
 @ToString
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class BookDto {
+public class CoreDto {
 
     private String title;
     private String author;
@@ -38,6 +40,8 @@ public class BookDto {
         }
     }
 
+    // TODO : replaceAll 수정하기. Pattern을 직접 컴파일해서 매번 컴파일 하지 않게 수정한다.
+
     private LocalDate getDate() {
         return LocalDate.parse(
                 publicDate.replaceAll("[^0-9]", ""),
@@ -45,8 +49,8 @@ public class BookDto {
         );
     }
 
-    public Book toEntity() {
-        Book.BookBuilder builder = Book.builder()
+    public Core toEntity() {
+        CoreBuilder builder = Core.builder()
                 .library(library)
                 .title(
                         title

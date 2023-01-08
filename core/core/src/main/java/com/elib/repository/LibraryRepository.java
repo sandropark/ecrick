@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 public interface LibraryRepository extends JpaRepository<Library, Long> {
 
     @Modifying
-    @Query("update Library l set l.savedBooks = (select count(b) from Book b where l = b.library) where l.id = :id" )
+    @Query("update Library l set l.savedBooks = (select count(c) from Core c where l = c.library) where l.id = :id" )
     void updateSavedBooks(@Param("id") Long id);
 
     @Modifying
-    @Query("update Library l set l.savedBooks = (select count(b) from Book b where l = b.library)")
+    @Query("update Library l set l.savedBooks = (select count(c) from Core c where l = c.library)")
     void updateAllSavedBooks();
 }

@@ -1,7 +1,7 @@
 package com.elib.crawler.parser;
 
 import com.elib.crawler.responsedto.KyoboXmlDto;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -24,10 +24,10 @@ class KyoboXmlParserTest {
         // Then
         System.out.println("totalBooks = " + responseDto.getTotalBooks());
 
-        List<BookDto> bookDtos = responseDto.toBookDtos(null);
+        List<CoreDto> coreDtos = responseDto.toCoreDtos(null);
 //        bookDtos.forEach(System.out::println);
 
-        bookDtos.forEach(bookDto -> {
+        coreDtos.forEach(bookDto -> {
             System.out.println(bookDto.toEntity());
         });
     }

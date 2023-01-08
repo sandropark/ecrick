@@ -1,7 +1,7 @@
 package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -25,13 +25,13 @@ public class SeoulEduDto implements ResponseDto {
     }
 
     @Override
-    public List<BookDto> toBookDtos(Library library) {
+    public List<CoreDto> toCoreDtos(Library library) {
         Elements lis = document.select("#contentArea > .elib > li");
         return lis.stream().map(li -> {
             Element flexBox = li.selectFirst(".list-body > .flexbox");
             Element infoElib = flexBox.selectFirst(".info-elib");
             Element meta = li.selectFirst(".list-body > .meta");
-            return BookDto.builder()
+            return CoreDto.builder()
                     .library(library)
                     .title(getTitle(flexBox))
                     .author(getAuthor(infoElib))

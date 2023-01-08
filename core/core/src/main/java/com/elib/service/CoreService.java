@@ -1,8 +1,8 @@
 package com.elib.service;
 
-import com.elib.dto.BookDetailDto;
-import com.elib.dto.BookListDto;
-import com.elib.repository.BookRepository;
+import com.elib.dto.CoreDetailDto;
+import com.elib.dto.CoreListDto;
+import com.elib.repository.CoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,22 +14,22 @@ import javax.persistence.EntityNotFoundException;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class BookService {
+public class CoreService {
 
-    private final BookRepository bookRepository;
+    private final CoreRepository coreRepository;
 
-    public BookDetailDto getBookDetail(Long bookId) {
-        return bookRepository.findById(bookId)
-                .map(BookDetailDto::from)
+    public CoreDetailDto getBookDetail(Long bookId) {
+        return coreRepository.findById(bookId)
+                .map(CoreDetailDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("책을 찾을 수 없습니다 - bookId: " + bookId));
     }
 
-    public Page<BookListDto> searchPage(String keyword, Pageable pageable) {
-        return bookRepository.searchPage(keyword, pageable);
+    public Page<CoreListDto> searchPage(String keyword, Pageable pageable) {
+        return coreRepository.searchPage(keyword, pageable);
     }
 
     @Transactional
     public void deleteByLibrary(Long libraryId) {
-        bookRepository.deleteByLibraryId(libraryId);
+        coreRepository.deleteByLibraryId(libraryId);
     }
 }

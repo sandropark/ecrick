@@ -20,7 +20,7 @@ class SeoulEduParserTest {
 
         // Then
         System.out.println("totalBooks = " + dto.getTotalBooks());
-        dto.toBookDtos(null).forEach(System.out::println);
+        dto.toCoreDtos(null).forEach(System.out::println);
     }
 
 }

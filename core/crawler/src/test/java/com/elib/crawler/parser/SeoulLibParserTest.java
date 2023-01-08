@@ -2,7 +2,7 @@ package com.elib.crawler.parser;
 
 import com.elib.crawler.responsedto.ResponseDto;
 import com.elib.domain.Library;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -25,10 +25,10 @@ class SeoulLibParserTest {
 
         // Then
         System.out.println("totalBooks = " + dto.getTotalBooks());
-        List<BookDto> bookDtos = dto.toBookDtos(Library.builder().name("서울").build());
+        List<CoreDto> coreDtos = dto.toCoreDtos(Library.builder().name("서울").build());
 //        bookDtos.forEach(System.out::println);
 
-        bookDtos.forEach(bookDto ->
+        coreDtos.forEach(bookDto ->
             System.out.println(bookDto.toEntity())
         );
 

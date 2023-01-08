@@ -1,7 +1,7 @@
 package com.elib.crawler.responsedto;
 
 import com.elib.domain.Library;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import lombok.Getter;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -73,10 +73,10 @@ public class KyoboXmlDto implements ResponseDto {
     }
 
     @Override
-    public List<BookDto> toBookDtos(Library library) {
-        List<BookDto> dtos = new ArrayList<>();
+    public List<CoreDto> toCoreDtos(Library library) {
+        List<CoreDto> dtos = new ArrayList<>();
         for (Item item : items) {
-            dtos.add(BookDto.builder()
+            dtos.add(CoreDto.builder()
                     .library(library)
                     .title(item.getTitle())
                     .author(item.getAuthor())

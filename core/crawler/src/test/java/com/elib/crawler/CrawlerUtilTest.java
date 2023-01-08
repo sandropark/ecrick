@@ -6,7 +6,7 @@ import com.elib.domain.ContentType;
 import com.elib.domain.Library;
 import com.elib.domain.Vendor;
 import com.elib.domain.VendorName;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import org.assertj.core.api.Assertions;
 import org.jsoup.Jsoup;
 import org.junit.jupiter.api.Disabled;
@@ -35,12 +35,12 @@ class CrawlerUtilTest {
         // 실제로 사용할 때는 file 대신 response의 바디를 넣으면 된다. 바디는 문자열이기 때문에 StringReader를 사용해서 넣으면 된다.
         KyoboXmlDto kyoboXmlDto = (KyoboXmlDto) unmarshaller.unmarshal(new File("src/test/resources/testdata.xml"));
 
-        List<BookDto> bookDtos = kyoboXmlDto.toBookDtos(null);
-        for (BookDto bookDto : bookDtos) {
-            System.out.println("bookDto = " + bookDto);
+        List<CoreDto> coreDtos = kyoboXmlDto.toCoreDtos(null);
+        for (CoreDto coreDto : coreDtos) {
+            System.out.println("bookDto = " + coreDto);
         }
 
-        Assertions.assertThat(bookDtos).hasSize(20);
+        Assertions.assertThat(coreDtos).hasSize(20);
     }
 
     @Test
@@ -79,8 +79,8 @@ class CrawlerUtilTest {
         ResponseDto jsonResponseDto = getParser(jsonLibraryDto).parse(jsonResponse);
 
         // Then
-        System.out.println("xmlResponseDto.bookDto = " + xmlResponseDto.toBookDtos(null));
-        System.out.println("jsonResponseDto.bookDto() = " + jsonResponseDto.toBookDtos(null));
+        System.out.println("xmlResponseDto.bookDto = " + xmlResponseDto.toCoreDtos(null));
+        System.out.println("jsonResponseDto.bookDto() = " + jsonResponseDto.toCoreDtos(null));
     }
 
     @Test
@@ -101,12 +101,12 @@ class CrawlerUtilTest {
         Assertions.assertThat(response.statusCode()).isEqualTo(200);
 
         ResponseDto responseDto = getParser(xmlLibraryDto).parse(response);
-        List<BookDto> bookDtos = responseDto.toBookDtos(null);
+        List<CoreDto> coreDtos = responseDto.toCoreDtos(null);
 
         // Then
-        System.out.println("bookDtos.size() = " + bookDtos.size());
-        for (BookDto bookDto : bookDtos) {
-            System.out.println("bookDto = " + bookDto);
+        System.out.println("bookDtos.size() = " + coreDtos.size());
+        for (CoreDto coreDto : coreDtos) {
+            System.out.println("bookDto = " + coreDto);
         }
     }
 

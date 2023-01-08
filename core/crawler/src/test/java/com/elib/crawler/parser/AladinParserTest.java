@@ -21,7 +21,7 @@ class AladinParserTest {
         // Then
         Integer totalBooks = dto.getTotalBooks();
         System.out.println("totalBooks = " + totalBooks);
-        dto.toBookDtos(null).forEach(System.out::println);
+        dto.toCoreDtos(null).forEach(System.out::println);
     }
 
 }

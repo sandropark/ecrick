@@ -4,7 +4,7 @@ import com.elib.crawler.CrawlerService;
 import com.elib.domain.ContentType;
 import com.elib.dto.LibraryDto;
 import com.elib.dto.Pagination;
-import com.elib.service.BookService;
+import com.elib.service.CoreService;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
 import com.elib.service.VendorService;
@@ -34,7 +34,7 @@ public class AdminController {
     private final PaginationService paginationService;
     private final LibraryService libraryService;
     private final CrawlerService crawlerService;
-    private final BookService bookService;
+    private final CoreService coreService;
 
     @GetMapping
     public String libraries(
@@ -116,7 +116,7 @@ public class AdminController {
             @PathVariable Long libraryId,
             RedirectAttributes redirectAttributes
     ) {
-        bookService.deleteByLibrary(libraryId);
+        coreService.deleteByLibrary(libraryId);
         libraryService.updateSavedBooks(libraryId);
         redirectAttributes.addAllAttributes(queryParam.toMap());
         return "redirect:" + ADMIN_LIBRARIES;

@@ -1,7 +1,7 @@
 package com.elib.crawler.parser;
 
 import com.elib.crawler.responsedto.Yes24XmlDto;
-import com.elib.dto.BookDto;
+import com.elib.dto.CoreDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +24,8 @@ class Yes24XmlParserTest {
         // Then
         System.out.println("totalBooks = " + responseDto.getTotalBooks());
 
-        List<BookDto> bookDtos = responseDto.toBookDtos(null);
-        bookDtos.forEach(System.out::println);
+        List<CoreDto> coreDtos = responseDto.toCoreDtos(null);
+        coreDtos.forEach(System.out::println);
     }
 
     @Disabled
@@ -41,8 +41,8 @@ class Yes24XmlParserTest {
         // Then
         System.out.println("totalBooks = " + responseDto.getTotalBooks());
 
-        List<BookDto> bookDtos = responseDto.toBookDtos(null);
-        bookDtos.forEach(System.out::println);
+        List<CoreDto> coreDtos = responseDto.toCoreDtos(null);
+        coreDtos.forEach(System.out::println);
     }
 
 }

@@ -1,13 +1,13 @@
 package com.elib.dto;
 
-import com.elib.domain.Book;
+import com.elib.domain.Core;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class BookListDto {
+public class CoreListDto {
 
     private Long id;
     private String title;
@@ -17,13 +17,13 @@ public class BookListDto {
     private String coverUrl;
 
     @QueryProjection
-    public BookListDto(Book book) {
-        id = book.getId();
-        title = book.getTitle();
-        author = book.getAuthor();
-        publisher = book.getPublisher();
-        publicDate = book.getPublicDate();
-        coverUrl = book.getCoverUrl();
+    public CoreListDto(Core core) {
+        id = core.getId();
+        title = core.getTitle();
+        author = core.getAuthor();
+        publisher = core.getPublisher();
+        publicDate = core.getPublicDate();
+        coverUrl = core.getCoverUrl();
     }
 
 }

@@ -20,7 +20,7 @@ class OpmsParserTest {
 
         // Then
         System.out.println(dto.getTotalBooks());
-        dto.toBookDtos(null).forEach(System.out::println);
+        dto.toCoreDtos(null).forEach(System.out::println);
     }
 
 }

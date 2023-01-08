@@ -19,8 +19,8 @@ public class Relation {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @JoinColumn(name = "id")
+    private Core core;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "library_id")
@@ -32,8 +32,8 @@ public class Relation {
 
     protected Relation() {}
 
-    public static Relation of(Book book, Library library, Vendor vendor) {
-        return new Relation(null, book, library, vendor);
+    public static Relation of(Core core, Library library, Vendor vendor) {
+        return new Relation(null, core, library, vendor);
     }
 
 }
