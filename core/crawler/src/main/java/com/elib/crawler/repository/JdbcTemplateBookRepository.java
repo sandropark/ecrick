@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,8 +20,8 @@ public class JdbcTemplateBookRepository {
 
     public void saveAll(List<Book> books) {
         template.batchUpdate(
-                "INSERT IGNORE INTO book (title, author, publisher, library_id, public_date, cover_url, category, vendor)" +
-                        "VALUES (?,?,?,?,?,?,?,?)",
+                "INSERT IGNORE INTO book (title, author, publisher, library_id, public_date, cover_url, category, vendor, created_at, modified_at)" +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -31,6 +33,9 @@ public class JdbcTemplateBookRepository {
                         ps.setString(6, books.get(i).getCoverUrl());
                         ps.setString(7, books.get(i).getCategory());
                         ps.setString(8, books.get(i).getVendor());
+                        LocalDateTime now = LocalDateTime.now();
+                        ps.setTimestamp(9, Timestamp.valueOf(now));
+                        ps.setTimestamp(10, Timestamp.valueOf(now));
                     }
 
                     @Override

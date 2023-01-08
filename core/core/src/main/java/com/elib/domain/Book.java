@@ -1,7 +1,6 @@
 package com.elib.domain;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,17 +23,17 @@ public class Book extends BaseEntity {
     private Long id;
     @Column(nullable = false)
     private String title;
-    @ColumnDefault("")
+    @Column(nullable = false)
     @Builder.Default
     private String author = "";
-    @ColumnDefault("")
+    @Column(nullable = false)
     @Builder.Default
     private String publisher = "";
-    @ColumnDefault("00010101")
+    @Column(nullable = false)
     @Builder.Default
     private LocalDate publicDate = LocalDate.of(0, 1, 1);
     private String coverUrl;
-    @ColumnDefault("")
+    @Column(nullable = false)
     @Builder.Default
     private String vendor = "";
     private String category;
