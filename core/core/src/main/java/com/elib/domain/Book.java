@@ -2,13 +2,12 @@ package com.elib.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
+@Getter
 @ToString
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
@@ -20,15 +19,24 @@ public class Book {
     private String author;
     private String publisher;
     private LocalDate publicDate;
+    private String coverUrl;
+    @OneToMany(mappedBy = "book")
+    private List<Core> cores;
 
     protected Book() {}
 
-    public boolean laterThan(Book book) {
-        return publicDate.isAfter(book.publicDate);
+    public static Book fromCore(Core core) {
+        return Book.builder()
+                .title(core.getTitle())
+                .author(core.getAuthor())
+                .publisher(core.getPublisher())
+                .publicDate(core.getPublicDate())
+                .coverUrl(core.getCoverUrl())
+                .build();
     }
 
-    public boolean isSameGroup(Book book) {
-        return title.equals(book.title) && author.equals(book.author) && publisher.equals(book.publisher);
+    public void updateDate(LocalDate publicDate) {
+        this.publicDate = publicDate;
     }
 
     @Override
@@ -36,11 +44,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(id, book.id);
+        return Objects.equals(getId(), book.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(getId());
     }
+
 }

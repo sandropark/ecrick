@@ -1,112 +1,48 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymleaf.org">
-<head th:replace="fragment/common :: head('도서관 목록')"></head>
-<body>
+<!DOCTYPE html><html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragment/common :: head('관리자 페이지')"></head><body>
+
+
+
+
+
+
 <nav th:replace="fragment/navbar :: nav"></nav>
-<div th:replace="fragment/common :: #search-bar" class="container"></div>
 
 <div class="container">
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <form method="post" th:action="@{/admin/libraries/saved-update}">
-      <input type="hidden" name="keyword" th:value="${param.keyword}">
-      <input type="hidden" name="page" th:value="${param.page}">
-      <input type="hidden" name="sort" th:value="${param.sort}">
-      <input type="hidden" name="size" th:value="${param.size}">
-      <button class="btn btn-primary" type="submit">저장된 도서수 업데이트</button>
-    </form>
-    <a class="btn btn-primary" th:href="@{/admin/libraries/form}">도서관 등록</a>
-  </div>
-</div>
 
-<main th:object="${libraries}"}>
+  <h2>1. 크롤링</h2>
 
-  <div class="container">결과 총 <span th:text="*{getTotalElements()}"></span></div>
+  <h2>2. coreBook, book 생성</h2>
 
-  <!--도서관 목록-->
-  <main class="container">
-    <table class="table table-striped table-hover a-tag-off">
-      <!--정렬-->
-      <thead>
-      <tr>
-        <th scope="col"><a th:href="@{/admin/libraries (
-              sort=id + (*{sort.getOrderFor('id') != null} ? (*{sort.getOrderFor('id').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword})}">id</a></th>
-        <th scope="col"><a th:href="@{/admin/libraries (
-              sort=name + (*{sort.getOrderFor('name') != null} ? (*{sort.getOrderFor('name').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword})}">이름</a></th>
-        <th scope="col"><a th:href="@{/admin/libraries (
-              sort=totalBooks + (*{sort.getOrderFor('totalBooks') != null} ? (*{sort.getOrderFor('totalBooks').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword})}">총 도서수</a></th>
-        <th scope="col"><a th:href="@{/admin/libraries (
-              sort=savedBooks + (*{sort.getOrderFor('savedBooks') != null} ? (*{sort.getOrderFor('savedBooks').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword})}">저장된 도서수</a></th>
-        <th><a th:href="@{/admin/libraries (
-              sort=contentType + (*{sort.getOrderFor('contentType') != null} ? (*{sort.getOrderFor('contentType').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword})}">컨텐츠 타입</a></th>
-        <th><a th:href="@{/admin/libraries (
-              sort=vendor + (*{sort.getOrderFor('vendor') != null} ? (*{sort.getOrderFor('vendor').isAscending()} ? ',desc' : '' ) : ''),
-              keyword=${param.keyword})}">공급사</a></th>
-        <th>size</th>
-        <th>크롤링</th>
-        <th>저장된 도서수</th>
-        <th>도서삭제</th>
-      </tr>
-      </thead>
+  <div>
+    <table>
       <tbody>
-      <tr th:each="library : ${libraries.content}">
-        <th scope="row" th:text="${library.id}" >1</th>
-        <td><a th:href="@{|/admin/libraries/${library.id}|}" th:text="${library.name}">중랑구립도서관</a></td>
-        <td th:text="${library.totalBooks}">3000권</td>
-        <td th:text="${library.savedBooks}"
-            th:style="${library.totalBooks != library.savedBooks
-            ? library.totalBooks > library.savedBooks && library.totalBooks - library.savedBooks < 10
-              ? 'color:blue'
-              : 'color:red'
-            : ''}">3000권</td>
-        <td th:text="${library.contentType.value}">json or xml</td>
-        <td th:text="${library.vendor.name}">교보</td>
-        <td th:text="${library.size}">20</td>
-        <td>
-          <form method="post" th:action="@{|/admin/libraries/${library.id}/crawl|}">
-            <input type="hidden" name="keyword" th:value="${param.keyword}">
-            <input type="hidden" name="page" th:value="${param.page}">
-            <input type="hidden" name="sort" th:value="${param.sort}">
-            <input type="hidden" name="size" th:value="${param.size}">
-
-            <label for="thread-num"><small>Thread</small></label>
-            <input type="number" name="thread-num" id="thread-num" min="1", max="100" value="1">
-            <label for="sleep-time"><small>Sleep</small></label>
-            <input type="number" name="sleep-time" id="sleep-time" min="0", max="300" value="0">
-            <label for="sleep-time"><small>(초)</small></label>
-
-            <button type="submit" class="btn btn-primary">실행</button>
-          </form>
-        </td>
-        <td>
-          <form method="post" th:action="@{|/admin/libraries/${library.id}/saved-update|}">
-            <input type="hidden" name="keyword" th:value="${param.keyword}">
-            <input type="hidden" name="page" th:value="${param.page}">
-            <input type="hidden" name="sort" th:value="${param.sort}">
-            <input type="hidden" name="size" th:value="${param.size}">
-            <button type="submit" class="btn btn-primary">업데이트</button>
-          </form>
-        </td>
-        <td>
-          <form method="post" th:action="@{|/admin/libraries/${library.id}/delete-books|}">
-            <input type="hidden" name="keyword" th:value="${param.keyword}">
-            <input type="hidden" name="page" th:value="${param.page}">
-            <input type="hidden" name="sort" th:value="${param.sort}">
-            <input type="hidden" name="size" th:value="${param.size}">
-            <button type="submit" class="btn btn-danger">도서삭제</button>
-          </form>
-        </td>
-      </tr>
+        <tr>
+          <td>총 Core 수 : [[${totalCore}]]</td>
+          <td>총 Book 수 : [[${totalBook}]]</td>
+        </tr>
       </tbody>
     </table>
-  </main>
+  </div>
 
-  <nav th:replace="fragment/common :: pagination(path='/admin/libraries')"></nav>
-</main>
+  <form th:action="@{/admin/insert-books}" method="post">
+    <button type="submit" class="btn btn-primary">데이터 생성</button>
+  </form>
 
-<script th:replace="fragment/common :: #script"></script>
+  <h2>3. 중복제거</h2>
+
+  <form th:action="@{/admin/reduce-duplicate}" method="post">
+    <button type="submit" class="btn btn-primary">중복 제거</button>
+  </form>
+
+</div>
+
+
+
+
+
+
+
+
+
 </body></html>

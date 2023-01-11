@@ -1,11 +1,11 @@
 package com.elib.crawler;
 
 import com.elib.repository.LibraryRepository;
+import com.elib.service.LibraryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.concurrent.ExecutorService;
@@ -18,6 +18,7 @@ import static com.elib.crawler.CrawlerUtil.getResponseDto;
 @Service
 public class CrawlerService implements Runnable {
 
+    private final LibraryService libraryService;
     private final LibraryRepository libraryRepository;
     private final ObjectProvider<Crawler> crawlerProvider;
     private Long libraryId;
@@ -39,16 +40,9 @@ public class CrawlerService implements Runnable {
         log.info("{} 크롤링 시작", libraryDto.getName());
 
         getResponseDto(libraryDto).ifPresent(responseDto -> {
-            updateLibraryTotalBooks(libraryDto.getId(), responseDto.getTotalBooks());
+            libraryService.updateTotalBooks(libraryDto.getId(), responseDto.getTotalBooks());
             crawl(libraryDto);
         });
-    }
-
-    @Transactional
-    private void updateLibraryTotalBooks(Long libraryId, int totalBooks) {
-        libraryRepository.findById(libraryId)
-                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId))
-                .updateTotalBooks(totalBooks);
     }
 
     private void crawl(LibraryCrawlerDto libraryDto) {

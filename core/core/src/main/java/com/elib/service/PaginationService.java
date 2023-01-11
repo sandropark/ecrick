@@ -12,11 +12,14 @@ import static java.lang.Math.min;
 @Service
 public class PaginationService {
 
+    private static final int DESKTOP_MAX_BAR_LENGTH = 10;
+    private static final int MOBILE_MAX_BAR_LENGTH = 5;
+
     public Pagination getDesktopPagination(int currentPage, int totalPages) {
-        return getPagination(10, currentPage, totalPages);
+        return getPagination(DESKTOP_MAX_BAR_LENGTH, currentPage, totalPages);
     }
     public Pagination getMobilePagination(int currentPage, int totalPages) {
-        return getPagination(5, currentPage, totalPages);
+        return getPagination(MOBILE_MAX_BAR_LENGTH, currentPage, totalPages);
     }
 
     private Pagination getPagination(int maxBarLength, int currentPage, int totalPages) {

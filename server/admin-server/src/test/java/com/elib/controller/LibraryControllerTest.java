@@ -21,15 +21,15 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static com.elib.controller.AdminController.ADMIN_LIBRARIES;
+import static com.elib.controller.LibraryController.ADMIN_LIBRARIES;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(AdminController.class)
-class AdminControllerTest {
+@WebMvcTest(LibraryController.class)
+class LibraryControllerTest {
 
     @Autowired MockMvc mvc;
     @MockBean PaginationService paginationService;
@@ -50,7 +50,7 @@ class AdminControllerTest {
         mvc.perform(get(ADMIN_LIBRARIES))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("index"))
+                .andExpect(view().name("libraries"))
                 .andExpect(model().attributeExists("libraries"))
                 .andExpect(model().attributeExists("pagination"));
 

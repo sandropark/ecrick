@@ -34,14 +34,13 @@ subprojects {
     }
 
     dependencies {
-//        implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
-
         compileOnly lombok
         testCompileOnly lombok
         annotationProcessor lombok
         testAnnotationProcessor lombok
 
         testImplementation "$boot:spring-boot-starter-test"
+        testImplementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
     }
 
     tasks.named('test') {

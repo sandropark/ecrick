@@ -44,6 +44,15 @@ public class JdbcTemplateCoreRepository {
                     }
                 }
         );
+    }
 
+    public void updateBookIdAll() {
+        template.execute(
+        "UPDATE core c SET c.book_id = " +
+                "(select b.id from book b" +
+                " where c.title = b.title" +
+                " AND c.author = b.author" +
+                " AND c.publisher = b.publisher)"
+        );
     }
 }

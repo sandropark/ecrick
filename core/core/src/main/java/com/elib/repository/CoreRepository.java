@@ -7,9 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CoreRepository extends JpaRepository<Core, Long>, CoreRepositoryCustom {
-//    @Override
-//    @EntityGraph(attributePaths = {"relations"})
-//    Optional<Book> findById(Long bookId);
 
     @Modifying
     @Query("delete from Core c where c.library.id = :libraryId")

@@ -71,4 +71,10 @@ public class LibraryService {
     public void updateSavedBooks(Long libraryId) {
         libraryRepository.updateSavedBooks(libraryId);
     }
+
+    @Transactional
+    public void updateTotalBooks(Long id, Integer totalBooks) {
+        libraryRepository.findById(id)
+                .ifPresent(library -> library.updateTotalBooks(totalBooks));
+    }
 }

@@ -17,7 +17,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Library extends BaseEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "library_id") private Long id;
+    private Long id;
     @Column(name = "library_name", nullable = false) private String name;
     private String url;
     private String param;

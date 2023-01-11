@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Pagination {
 
-    private List<Integer> pageNumbers = new ArrayList<>();
+    private List<Integer> pageNumbers;
     private int preCurrentPage;
     private int nextCurrentPage;
 

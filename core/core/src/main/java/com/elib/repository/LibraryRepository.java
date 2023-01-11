@@ -15,4 +15,5 @@ public interface LibraryRepository extends JpaRepository<Library, Long> {
     @Modifying
     @Query("update Library l set l.savedBooks = (select count(c) from Core c where l = c.library)")
     void updateAllSavedBooks();
+
 }

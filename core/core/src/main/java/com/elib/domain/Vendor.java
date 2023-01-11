@@ -13,7 +13,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Vendor extends BaseEntity {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "vendor_id")
     private Long id;
     @Column(name = "vendor_name")
     @Enumerated(value = EnumType.STRING)
@@ -25,7 +24,7 @@ public class Vendor extends BaseEntity {
     protected Vendor() {}
 
     @Builder
-    public Vendor(Long id, VendorName name, Integer totalBooks) {
+    private Vendor(Long id, VendorName name, Integer totalBooks) {
         this.id = id;
         this.name = name;
         this.totalBooks = totalBooks;
