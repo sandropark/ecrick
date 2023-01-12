@@ -35,10 +35,18 @@ jobs:
         distribution: 'temurin'
 
     # (3) Gradle build (Test 제외)
+#    - name: Build with Gradle
+#      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+#      with:
+#        arguments: clean build -x test
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: clean build -x test
+      run: ./gradlew clean build
+
+    - name: Make Zip File
+      run: zip -qq -r ./$GITHUB_SHA.zip .
 
     # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
     - name: Configure AWS credentials
