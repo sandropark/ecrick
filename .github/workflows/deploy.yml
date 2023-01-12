@@ -36,7 +36,7 @@ jobs:
 
       # (3) Gradle build (Test 제외)
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      uses: gradle/gradle-build-action@v2.3.3
       with:
         arguments: clean build -x test
 
@@ -49,13 +49,20 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
 
       # (5) 빌드 결과물을 S3 버킷에 업로드
-    - name: Upload to AWS S3
-      run: |
-        aws deploy push \
-          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
-          --ignore-hidden-files \
-          --source .
+#    - name: Upload to AWS S3
+#      run: |
+#        aws deploy push \
+#          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+#          --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+#          --ignore-hidden-files \
+#          --source .
+
+    - name: Make zip file
+      run: zip -r ./$GITHUB_SHA.zip .
+      shell: bash
+
+    - name: Upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
 
       # (6) S3 버킷에 있는 파일을 대상으로 CodeDeploy 실행
     - name: Deploy to AWS EC2 from S3
