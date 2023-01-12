@@ -51,6 +51,8 @@ public class CrawlerCoreService {
 //             1. core중 BookId가 null인 데이터만 필터링
             List<Core> newCores = coreRepository.findNewAll();
 
+            // TODO : 벌크로 한 번에 처리하게 수정하기. 일일이하는 것은 너무 오래걸린다.
+
             for (Core newCore : newCores) {
                 // 2. 제목, 저자, 출판사로 Book을 조회해서
                 Book book = bookRepository.findByCore(newCore);

@@ -50,7 +50,7 @@ class LibraryControllerTest {
         mvc.perform(get(ADMIN_LIBRARIES))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("libraries"))
+                .andExpect(view().name("libraries/list"))
                 .andExpect(model().attributeExists("libraries"))
                 .andExpect(model().attributeExists("pagination"));
 
@@ -67,7 +67,7 @@ class LibraryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("contentTypes"))
                 .andExpect(model().attributeExists("vendorList"))
-                .andExpect(view().name("add-form"));
+                .andExpect(view().name("libraries/addForm"));
     }
 
     @DisplayName("[POST] 도서관 저장")
@@ -101,7 +101,7 @@ class LibraryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("library"))
-                .andExpect(view().name("detail"));
+                .andExpect(view().name("libraries/detail"));
 
         // Then
         then(libraryService).should().getLibrary(libraryId);
@@ -139,7 +139,7 @@ class LibraryControllerTest {
                 .andExpect(model().attributeExists("form"))
                 .andExpect(model().attributeExists("contentTypes"))
                 .andExpect(model().attributeExists("vendorList"))
-                .andExpect(view().name("edit-form"));
+                .andExpect(view().name("libraries/editForm"));
 
         // Then
         then(libraryService).should().getLibrary(libraryId);

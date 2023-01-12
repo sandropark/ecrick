@@ -5,5 +5,4 @@ spring:
   profiles.include: db
   jpa:
     open-in-view: false
-    properties.hibernate:
-      default_batch_fetch_size: 100 # 지연로딩 시 성능향상
+    properties.hibernate.default_batch_fetch_size: 100 # 지연로딩 시 성능향상
