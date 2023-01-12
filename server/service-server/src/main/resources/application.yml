@@ -3,8 +3,4 @@ server.port: 8080
 spring:
   jpa:
     open-in-view: false
-    properties.hibernate:
-        format_sql: true
-        default_batch_fetch_size: 100
-
-logging.level.org.hibernate.SQL: debug
+    properties.hibernate.default_batch_fetch_size: 100
