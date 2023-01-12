@@ -1,7 +1,6 @@
 server.port: 8080
 
 spring:
-  profiles.include: db
   jpa:
     open-in-view: false
     properties.hibernate:
