@@ -34,7 +34,7 @@
   <!--도서목록-->
   <main class="container">
     <div class="row row-cols-auto g-4">
-      <div class="col-md-2" th:each="book : ${books.content}">
+      <div class="col-md-3 col-xl-2" th:each="book : ${books.content}">
         <div class="card">
           <a th:href="@{|/books/${book.id}|}">
             <img class="card-img-top" src="" th:src="${book.coverUrl}">
@@ -55,10 +55,6 @@
   <nav th:replace="fragment/common :: pagination(path='/books')"></nav>
 
 </main>
-
-<div class="container d-grid gap-2 col-6 mx-auto mb-4">
-  <a class="btn btn-outline-secondary" role="button" th:href="@{/books/mobile}">모바일 버전</a>
-</div>
 
 <script th:replace="fragment/common :: #script"></script>
 </body></html>

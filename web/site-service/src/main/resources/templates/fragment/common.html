@@ -18,7 +18,7 @@
 </nav>
 
 <div id="search-bar" class="container">
-  <form class="form-inline mb-2" th:object="${search}">
+  <form class="form-inline mb-2" th:object="${search}" th:action="@{/books}">
     <div class="input-group">
       <input class="form-control" th:field="*{keyword}" placeholder="검색어를 입력하세요." type="text">
       <button class="btn btn-outline-secondary" type="submit">검색</button>

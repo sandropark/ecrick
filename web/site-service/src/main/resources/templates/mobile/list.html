@@ -16,9 +16,9 @@
         <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">정렬</button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" th:classappend="*{sort.getOrderFor('publicDate')} != null ? 'active'"
-                 th:href="@{/books/mobile (keyword=${param.keyword}, sort=|publicDate,desc|)}">최신순</a></li>
+                 th:href="@{/books (keyword=${param.keyword}, sort=|publicDate,desc|)}">최신순</a></li>
           <li><a class="dropdown-item" th:classappend="*{sort.getOrderFor('title')} != null ? 'active'"
-                 th:href="@{/books/mobile (keyword=${param.keyword}, sort=|title,desc|)}">제목순</a></li>
+                 th:href="@{/books (keyword=${param.keyword}, sort=|title,desc|)}">제목순</a></li>
         </ul>
       </div>
     </div>
@@ -50,14 +50,8 @@
     </a>
   </div>
 
-  <nav th:replace="fragment/common :: pagination(path='/books/mobile')"></nav>
+  <nav th:replace="fragment/common :: pagination(path='/books')"></nav>
 </main>
-
-<div class="mb-2" style="text-align: center;">
-  <a href="#" class="btn btn-outline-secondary"
-     th:href="@{/books}"
-     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">pc버전</a>
-</div>
 
 <script th:replace="fragment/common :: #script"></script>
 </body></html>
