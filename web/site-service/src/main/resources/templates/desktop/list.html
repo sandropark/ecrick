@@ -34,7 +34,7 @@
   <!--도서목록-->
   <main class="container">
     <div class="row row-cols-auto g-4">
-      <div class="col-md-2" th:each="book : ${books.content}">
+      <div class="col-md-3 col-xl-2" th:each="book : ${books.content}">
         <div class="card">
           <a th:href="@{|/books/${book.id}|}">
             <img class="card-img-top" src="" th:src="${book.coverUrl}">
