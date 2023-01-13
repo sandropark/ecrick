@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragment/common :: head('도움말')"></head>
+<body>
+<nav th:replace="fragment/navbar :: nav"></nav>
+
+
+
+
+
+<div class="my-5" style="max-width: 800px; margin: auto">
+  <div class="mb-1">
+    건의사항이 있으시면 <code>ticoba@naver.com</code> 으로 연락주세요.
+  </div>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          지원하는 도서관 목록 ([[${libraryNames.size()}]])
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <table class="table">
+            <tbody>
+              <tr th:each="name : ${libraryNames}">
+                <td th:text="${name}">강남구 전자도서관</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script th:replace="fragment/common :: #script"></script>
+</body></html>

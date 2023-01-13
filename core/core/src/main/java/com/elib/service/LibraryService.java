@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -76,5 +77,9 @@ public class LibraryService {
     public void updateTotalBooks(Long id, Integer totalBooks) {
         libraryRepository.findById(id)
                 .ifPresent(library -> library.updateTotalBooks(totalBooks));
+    }
+
+    public List<String> getNames() {
+        return libraryRepository.findNamesAll();
     }
 }
