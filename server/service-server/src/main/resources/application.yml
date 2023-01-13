@@ -1,7 +1,6 @@
 server.port: 8080
 
 spring:
-  output.ansi.enabled: always
   profiles.include: db
   jpa:
     open-in-view: false
