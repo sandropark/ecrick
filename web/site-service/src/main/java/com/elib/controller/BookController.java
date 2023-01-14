@@ -3,6 +3,7 @@ package com.elib.controller;
 import com.elib.dto.BookDetailDto;
 import com.elib.dto.BookListDto;
 import com.elib.dto.Pagination;
+import com.elib.dto.Search;
 import com.elib.service.BookService;
 import com.elib.service.PaginationService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class BookController {
             Model model,
             HttpServletRequest request
     ) {
-        Page<BookListDto> books = bookService.searchPage(search.getKeyword(), pageable);
+        Page<BookListDto> books = bookService.searchPage(search, pageable);
         Pagination pagination = paginationService.getDesktopPagination(books.getNumber(), books.getTotalPages());
         model.addAttribute("books", books);
         model.addAttribute("pagination", pagination);
