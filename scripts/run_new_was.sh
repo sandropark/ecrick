@@ -29,11 +29,5 @@ nohup java -jar \
         -Dspring.profiles.active=real \
         $REPOSITORY/$PROJECT_NAME/$SERVICE_SERVER/build/libs/*.jar > $REPOSITORY/nohup.out 2>&1 &
 
-nohup java -jar \
-        -Dserver.port=8081 \
-        -Dspring.config.location=classpath:/application.yml,/home/ec2-user/app/application-real-db.yml,classpath:/application-real.yml \
-        -Dspring.profiles.active=real \
-        /home/ec2-user/app/e-lib/server/service-server/build/libs/*.jar > /home/ec2-user/app/nohup.out 2>&1 &
-
 echo "> Now new WAS runs at ${TARGET_PORT}."
 exit 0
