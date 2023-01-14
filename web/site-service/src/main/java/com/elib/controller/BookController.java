@@ -35,14 +35,20 @@ public class BookController {
             HttpServletRequest request
     ) {
         Page<BookListDto> books = bookService.searchPage(search, pageable);
-        Pagination pagination = paginationService.getDesktopPagination(books.getNumber(), books.getTotalPages());
         model.addAttribute("books", books);
-        model.addAttribute("pagination", pagination);
+
+        // TODO : 모바일 컨트롤러 분리 고민해보기
 
         String userAgent = request.getHeader("user-agent");
+
         if (userAgent.contains("Mobile")) {
+            model.addAttribute("pagination",
+                    paginationService.getMobilePagination(books.getNumber(), books.getTotalPages()));
             return "mobile/list";
         }
+
+        model.addAttribute("pagination",
+                paginationService.getDesktopPagination(books.getNumber(), books.getTotalPages()));
         return "desktop/list";
     }
 
