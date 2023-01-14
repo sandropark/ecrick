@@ -3,11 +3,12 @@ package com.elib.repository;
 import com.elib.domain.Book;
 import com.elib.domain.Core;
 import com.elib.dto.BookListDto;
+import com.elib.dto.Search;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface BookRepositoryCustom {
-    Page<BookListDto> searchPage(String keyword, Pageable pageable);
+    Page<BookListDto> searchPage(Search search, Pageable pageable);
 
     boolean isEmpty();
 

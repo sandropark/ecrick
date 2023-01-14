@@ -13,18 +13,18 @@
     <div class="row" >
       <div class="col">결과 총 <span th:text="*{getTotalElements()}"></span> 권</div>
       <div class="col a-tag-off">
-        <a th:href="@{/books (keyword=${param.keyword},
+        <a th:href="@{/books (keyword=${param.keyword}, searchTarget=${param.searchTarget},
           sort=title + (*{sort.getOrderFor('title') != null} ? (*{sort.getOrderFor('title').isAscending()} ? ',desc' : '' ) : ''))}">제목순</a>
       </div>
       <div class="col a-tag-off">
-        <a th:href="@{/books (keyword=${param.keyword},
+        <a th:href="@{/books (keyword=${param.keyword}, searchTarget=${param.searchTarget},
           sort=author + (*{sort.getOrderFor('author') != null} ? (*{sort.getOrderFor('author').isAscending()} ? ',desc' : '' ) : ''))}">저자순</a>
       </div>
       <div class="col a-tag-off">
-        <a th:href="@{/books (keyword=${param.keyword},
+        <a th:href="@{/books (keyword=${param.keyword}, searchTarget=${param.searchTarget},
           sort=publisher + (*{sort.getOrderFor('publisher') != null} ? (*{sort.getOrderFor('publisher').isAscending()} ? ',desc' : '' ) : ''))}">출판사순</a></div>
       <div class="col a-tag-off">
-        <a th:href="@{/books (keyword=${param.keyword},
+        <a th:href="@{/books (keyword=${param.keyword}, searchTarget=${param.searchTarget},
           sort=publicDate + (*{sort.getOrderFor('publicDate') != null} ? (*{sort.getOrderFor('publicDate').isAscending()} ? ',desc' : '' ) : ''))}">출간일순</a></div>
     </div>
   </div>

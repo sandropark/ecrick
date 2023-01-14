@@ -4,6 +4,7 @@ import com.elib.crawler.CrawlerService;
 import com.elib.domain.ContentType;
 import com.elib.dto.LibraryDto;
 import com.elib.dto.Pagination;
+import com.elib.dto.Search;
 import com.elib.service.CoreService;
 import com.elib.service.LibraryService;
 import com.elib.service.PaginationService;
