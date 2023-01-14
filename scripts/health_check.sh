@@ -19,7 +19,7 @@ fi
 
 echo "> Start health check of WAS at 'http://127.0.0.1:${TARGET_PORT}' ..."
 
-for RETRY_COUNT in 1 2 3 4 5 6 7 8 9 10
+for RETRY_COUNT in `seq 1 10`;
 do
     echo "> #${RETRY_COUNT} trying..."
     RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}"  http://127.0.0.1:${TARGET_PORT}/health)
