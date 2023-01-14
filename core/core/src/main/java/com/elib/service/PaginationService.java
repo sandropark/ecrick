@@ -23,14 +23,20 @@ public class PaginationService {
     }
 
     private Pagination getPagination(int maxBarLength, int currentPage, int totalPages) {
+        int currentTotalPages = getTotalPages(maxBarLength, currentPage, totalPages);
+
         int startPage = getStartPage(maxBarLength, currentPage);
-        int endPage = getEndPage(maxBarLength, currentPage, totalPages);
+        int endPage = getEndPage(maxBarLength, currentPage, currentTotalPages);
         int preCurrentPage = getPreCurrentPage(maxBarLength, currentPage);
-        int nextCurrentPage = getNextCurrentPage(maxBarLength, currentPage, totalPages);
+        int nextCurrentPage = getNextCurrentPage(maxBarLength, currentPage, currentTotalPages);
 
         List<Integer> barNumbers = IntStream.range(startPage, endPage+1).boxed().collect(Collectors.toList());
 
         return new Pagination(barNumbers, preCurrentPage, nextCurrentPage);
+    }
+
+    protected int getTotalPages(int maxBarLength, int currentPage, int totalPages) {
+        return currentPage >= maxBarLength ? totalPages - getStartPage(maxBarLength, currentPage) : totalPages;
     }
 
     protected int getStartPage(int maxBarLength, int currentPage) {

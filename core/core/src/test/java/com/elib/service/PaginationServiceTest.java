@@ -1,9 +1,15 @@
 package com.elib.service;
 
+import com.elib.dto.Pagination;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,9 +31,10 @@ class PaginationServiceTest {
 
     @DisplayName("끝 페이지 - 데스크탑")
     @ParameterizedTest
-    @CsvSource({"0, 1, 0", "0, 10, 9", "0, 11, 9", "10, 1, 10", "10, 10, 19", "10, 11, 19"})
+    @CsvSource({"0, 1, 0", "0, 10, 9", "0, 11, 9", "10, 11, 10", "10, 20, 19", "10, 21, 19"})
     void DesktopEndPage(int currentPage, int totalPages, int expected) throws Exception {
-        int endPage = paginationService.getEndPage(maxBarLengthOfDesktop, currentPage, totalPages);
+        int currentTotalPages = paginationService.getTotalPages(maxBarLengthOfDesktop, currentPage, totalPages);
+        int endPage = paginationService.getEndPage(maxBarLengthOfDesktop, currentPage, currentTotalPages);
 
         assertThat(endPage).isEqualTo(expected);
     }
@@ -43,11 +50,23 @@ class PaginationServiceTest {
 
     @DisplayName("다음 현재 페이지 - 데스크탑")
     @ParameterizedTest
-    @CsvSource({"0, 1, -1", "0, 10, -1", "0, 11, 10", "10, 1, -1", "10, 11, 20"})
+    @CsvSource({"0, 1, -1", "0, 10, -1", "0, 11, 10", "10, 11, -1", "10, 21, 20"})
     void nextCurrentPage(int currentPage, int totalPages, int expected) throws Exception {
-        int nextCurrentPage = paginationService.getNextCurrentPage(maxBarLengthOfDesktop, currentPage, totalPages);
+        int currentTotalPages = paginationService.getTotalPages(maxBarLengthOfDesktop, currentPage, totalPages);
+        int nextCurrentPage = paginationService.getNextCurrentPage(maxBarLengthOfDesktop, currentPage, currentTotalPages);
 
         assertThat(nextCurrentPage).isEqualTo(expected);
+    }
+
+    @Test
+    void getDesktopPagination() throws Exception {
+        // When
+        Pagination pagination = paginationService.getDesktopPagination(0, 11);
+
+        // Then
+        assertThat(pagination.getPageNumbers()).containsExactly(0,1,2,3,4,5,6,7,8,9);
+        assertThat(pagination.getPreCurrentPage()).isEqualTo(-1);
+        assertThat(pagination.getNextCurrentPage()).isEqualTo(10);
     }
 
 }
