@@ -3,7 +3,7 @@ os: linux
 
 files:
   - source:  /
-    destination: /home/ec2-user/app/step2/e-lib/
+    destination: /home/ec2-user/app/e-lib/
     overwrite: yes
 
 permissions:
