@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # 수동 실행
 
 # 본인이 설정한 값을 여기서 채워넣습니다.
 # 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
-
   S3_BUCKET_NAME: my-github-actions-bucket
   CODE_DEPLOY_APPLICATION_NAME: my-codedeploy-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-codedeploy-deployment-group
@@ -40,35 +40,56 @@ jobs:
         with:
           arguments: clean build -x test
 
-        # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+#        # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: ${{ secrets.AWS_REGION }}
+
+#        # (5) 빌드 결과물을 S3 버킷에 업로드
+#      - name: Upload to AWS S3
+#        run: |
+#          aws deploy push \
+#            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+#            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+#            --ignore-hidden-files \
+#            --source .
+#
+#        # (6) S3 버킷에 있는 파일을 대상으로 CodeDeploy 실행
+#      - name: Deploy to AWS EC2 from S3
+#        run: |
+#          aws deploy create-deployment \
+#            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+#            --deployment-config-name CodeDeployDefault.AllAtOnce \
+#            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+#            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
+
+        # Beanstalk 사용
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          format: YYYY-MM-DDTHH-mm-ss
+          utcOffset: "+09:00"
 
-        # (5) 빌드 결과물을 S3 버킷에 업로드
-      - name: Upload to AWS S3
+      - name: Generate deployment package # (1)
         run: |
-          aws deploy push \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
-            --ignore-hidden-files \
-            --source .
+          mkdir -p deploy
+          cp server/service-server/build/libs/*.jar deploy/application.jar
+          cp Procfile deploy/Procfile
+          cp -r .ebextensions deploy/.ebextensions
+          cp -r .platform deploy/.platform
+          cd deploy && zip -r deploy.zip .
 
-        #    - name: Make zip file
-        #      run: zip -r ./$GITHUB_SHA.zip .
-        #      shell: bash
-        #
-        #    - name: Upload to S3
-        #      run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
-
-        # (6) S3 버킷에 있는 파일을 대상으로 CodeDeploy 실행
-      - name: Deploy to AWS EC2 from S3
-        run: |
-          aws deploy create-deployment \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-            --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID_BEANSTALK }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_BEANSTALK }}
+          application_name: e-lib
+          environment_name: Elib-env
+          version_label: github-action-${{steps.current-time.outputs.formattedTime}}
+          region: ${{ secrets.AWS_REGION }}
+          deployment_package: deploy/deploy.zip
