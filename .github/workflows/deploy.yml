@@ -88,7 +88,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID_BEANSTALK }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_BEANSTALK }}
-          application_name: e-lib
+          application_name: e-lib-app
           environment_name: Elibapp-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ${{ secrets.AWS_REGION }}
