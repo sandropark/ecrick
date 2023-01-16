@@ -4,7 +4,7 @@ spring:
     open-in-view: false
     properties.hibernate.default_batch_fetch_size: 100
   datasource:
-    url: jdbc:mariadb://${RDS.HOSTNAME}:${RDS.PORT}/${RDS.DB_NAME}
-    username: ${RDS.USERNAME}
-    password: ${RDS.PASSWORD}
+    url: jdbc:mariadb://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
