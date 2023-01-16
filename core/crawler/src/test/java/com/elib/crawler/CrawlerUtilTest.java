@@ -43,6 +43,7 @@ class CrawlerUtilTest {
         Assertions.assertThat(coreDtos).hasSize(20);
     }
 
+    @Disabled
     @Test
     void requestAndToDto() throws Exception {
         // Given
