@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
-public class JdbcTemplateCoreRepository {
+public class CrawlerCoreRepository {
     private final JdbcTemplate template;
 
     public void saveAll(List<Core> cores) {
@@ -52,7 +52,8 @@ public class JdbcTemplateCoreRepository {
                 "(select b.id from book b" +
                 " where c.title = b.title" +
                 " AND c.author = b.author" +
-                " AND c.publisher = b.publisher)"
+                " AND c.publisher = b.publisher)" +
+                "where c.book_id is null"
         );
     }
 }

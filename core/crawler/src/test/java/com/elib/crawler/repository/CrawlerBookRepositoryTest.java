@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,11 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class JdbcTemplateBookRepositoryTest {
+class CrawlerBookRepositoryTest {
 
     @Autowired CoreRepository coreRepository;
-    @Autowired JdbcTemplateBookRepository jdbcTemplateBookRepository;
+    @Autowired CrawlerBookRepository crawlerBookRepository;
     @Autowired BookRepository bookRepository;
+    @Autowired EntityManager em;
 
     @DisplayName("Core의 데이터로 Book에 저장한다.")
     @Test
@@ -43,7 +45,7 @@ class JdbcTemplateBookRepositoryTest {
         coreRepository.saveAndFlush(core);
 
         // When
-        jdbcTemplateBookRepository.insertFromCore();
+        crawlerBookRepository.insertFromCore();
 
         // Then
         List<Book> books = bookRepository.findAll();
@@ -68,7 +70,7 @@ class JdbcTemplateBookRepositoryTest {
         coreRepository.saveAllAndFlush(List.of(core1, core2));
 
         // When
-        jdbcTemplateBookRepository.insertFromCore();
+        crawlerBookRepository.insertFromCore();
 
         // Then
         List<Book> books = bookRepository.findAll();
@@ -77,4 +79,56 @@ class JdbcTemplateBookRepositoryTest {
         Book book = books.get(0);
         assertThat(book.getPublicDate()).isEqualTo(latestPublicDate);
     }
+
+    @DisplayName("Book에 저장된 데이터와 제목,저자,출판사가 같다면 저장되지 않는다.")
+    @Test
+    void insertFromCore3() throws Exception {
+        // Given
+        String title = "토지";
+        String author = "박경리";
+        String publisher = "김영사";
+        Book book = Book.builder().title(title).author(author).publisher(publisher).build();
+        bookRepository.saveAndFlush(book);
+
+        Core core = Core.builder().title(title).author(author).publisher(publisher).build();
+        coreRepository.saveAndFlush(core);
+
+        // When
+        crawlerBookRepository.insertFromCore();
+
+        // Then
+        List<Book> books = bookRepository.findAll();
+        assertThat(books).hasSize(1);
+    }
+
+    @DisplayName("Book에 저장된 데이터와 제목,저자,출판사가 같다면 출간일이 최신으로 업데이트된다.")
+    @Test
+    void insertFromCore4() throws Exception {
+        // Given
+        String title = "토지";
+        String author = "박경리";
+        String publisher = "김영사";
+        LocalDate oldDate = LocalDate.of(1999, 1, 1);
+        Book book = Book.builder().title(title).author(author).publisher(publisher).publicDate(oldDate).build();
+        bookRepository.saveAndFlush(book);
+
+        LocalDate newDate = LocalDate.of(2022, 1, 1);
+        Core core1 = Core.builder().title(title).author(author).publisher(publisher).publicDate(oldDate).build();
+        Core core2 = Core.builder().title(title).author(author).publisher(publisher).publicDate(newDate).build();
+        coreRepository.saveAndFlush(core1);
+        coreRepository.saveAndFlush(core2);
+
+        em.clear();
+
+        // When
+        crawlerBookRepository.insertFromCore();
+
+        // Then
+        List<Book> books = bookRepository.findAll();
+        assertThat(books).hasSize(1);
+
+        Book savedBook = books.get(0);
+        assertThat(savedBook.getPublicDate()).isEqualTo(newDate);
+    }
+
 }
