@@ -2,7 +2,6 @@ package com.elib.controller;
 
 import com.elib.dto.BookDetailDto;
 import com.elib.dto.BookListDto;
-import com.elib.dto.Pagination;
 import com.elib.dto.Search;
 import com.elib.service.BookService;
 import com.elib.service.PaginationService;
