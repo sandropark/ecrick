@@ -54,8 +54,8 @@ public class CoreDto {
                 .library(library)
                 .title(
                         title
-                        .replaceAll("&quot;", "\"")
-                        .strip()
+                                .replaceAll("&quot;", "\"")
+                                .strip()
                 )
                 .coverUrl(coverUrl)
                 .category(category);
@@ -64,14 +64,14 @@ public class CoreDto {
         if (StringUtils.hasText(author)) {
             builder.author(
                     author
-                    .strip()
-                    .replaceAll("[<>]", "")
-                    .replaceAll(" 편?공?등?저$", "")
-                    .replaceAll(" 공?저$", "")
-                    .replaceAll(" 지음$", "")
-                    .replaceAll(" 외$", "")
-                    .replaceAll("&#49804;", "슌")
-                    .strip()
+                            .strip()
+                            .replaceAll("[<>]", "")
+                            .replaceAll(" 편?공?등?저$", "")
+                            .replaceAll(" 공?저$", "")
+                            .replaceAll(" 지음$", "")
+                            .replaceAll(" 외$", "")
+                            .replaceAll("&#49804;", "슌")
+                            .strip()
             );
         }
 

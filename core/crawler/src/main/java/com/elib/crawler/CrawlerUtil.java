@@ -1,7 +1,7 @@
 package com.elib.crawler;
 
-import com.elib.crawler.responsedto.ResponseDto;
 import com.elib.crawler.parser.*;
+import com.elib.crawler.responsedto.ResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;

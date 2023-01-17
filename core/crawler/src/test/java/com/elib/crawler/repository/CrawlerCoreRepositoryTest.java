@@ -17,11 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class JdbcTemplateCoreRepositoryTest {
+class CrawlerCoreRepositoryTest {
 
     @Autowired CoreRepository coreRepository;
     @Autowired BookRepository bookRepository;
-    @Autowired JdbcTemplateCoreRepository jdbcTemplateCoreRepository;
+    @Autowired
+    CrawlerCoreRepository crawlerCoreRepository;
     @Autowired EntityManager em;
 
     @DisplayName("core데이터로 book에서 매칭되는 데이터를 찾아서 연관관계를 맺는다.")
@@ -53,7 +54,7 @@ class JdbcTemplateCoreRepositoryTest {
         bookRepository.saveAndFlush(book);
 
         // When
-        jdbcTemplateCoreRepository.updateBookIdAll();
+        crawlerCoreRepository.updateBookIdAll();
 
         em.clear();
 

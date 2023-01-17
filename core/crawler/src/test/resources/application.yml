@@ -1,1 +1,3 @@
-spring.output.ansi.enabled: always
+spring:
+  output.ansi.enabled: always
+  datasource.url: jdbc:h2:mem:testdb;MODE=MySQL

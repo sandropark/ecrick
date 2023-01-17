@@ -1,7 +1,5 @@
 package com.elib.repository;
 
-import com.elib.domain.Book;
-import com.elib.domain.Core;
 import com.elib.dto.BookListDto;
 import com.elib.dto.QBookListDto;
 import com.elib.dto.Search;
@@ -82,24 +80,6 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
             }
         }
         return null;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        Long count = queryFactory.select(book.count())
-                .from(book)
-                .fetchOne();
-        return count == 0;
-    }
-
-    @Override
-    public Book findByCore(Core core) {
-        return queryFactory.selectFrom(book)
-                .where(book.title.eq(core.getTitle())
-                        .and(book.author.eq(core.getAuthor()))
-                        .and(book.publisher.eq(core.getPublisher()))
-                )
-                .fetchOne();
     }
 
 }

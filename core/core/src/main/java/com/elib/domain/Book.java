@@ -11,6 +11,9 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"title", "author", "publisher"})
+})
 @Entity
 public class Book {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,20 +27,6 @@ public class Book {
     private List<Core> cores;
 
     protected Book() {}
-
-    public static Book fromCore(Core core) {
-        return Book.builder()
-                .title(core.getTitle())
-                .author(core.getAuthor())
-                .publisher(core.getPublisher())
-                .publicDate(core.getPublicDate())
-                .coverUrl(core.getCoverUrl())
-                .build();
-    }
-
-    public void updateDate(LocalDate publicDate) {
-        this.publicDate = publicDate;
-    }
 
     @Override
     public boolean equals(Object o) {

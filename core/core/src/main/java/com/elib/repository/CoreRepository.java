@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface CoreRepository extends JpaRepository<Core, Long>, CoreRepositoryCustom {
+public interface CoreRepository extends JpaRepository<Core, Long> {
 
     @Modifying
     @Query("delete from Core c where c.library.id = :libraryId")

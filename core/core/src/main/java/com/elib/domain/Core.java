@@ -45,10 +45,6 @@ public class Core extends BaseEntity {
 
     protected Core() {}
 
-    public void updateBook(Book book) {
-        this.book = book;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
