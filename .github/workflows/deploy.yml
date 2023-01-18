@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # 수동 실행
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

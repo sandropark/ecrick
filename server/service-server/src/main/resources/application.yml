@@ -3,24 +3,14 @@ spring:
     active: dev
     group:
       dev:
-        - common
         - db
-      prod:
-        - common
-        - proddb
-
----
-
-spring:
-  config.activate.on-profile: common
   jpa:
     open-in-view: false
     properties.hibernate.default_batch_fetch_size: 100
 
 ---
-
 spring:
-  config.activate.on-profile: proddb
+  config.activate.on-profile: prod
   datasource:
     url: ${RDS_URL}
     username: ${RDS_USERNAME}
