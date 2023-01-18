@@ -1,5 +1,18 @@
 spring:
-  profiles.include: db
+  profiles:
+    active: dev
+    group:
+      dev:
+        - db
   jpa:
     open-in-view: false
     properties.hibernate.default_batch_fetch_size: 100
+
+---
+spring:
+  config.activate.on-profile: prod
+  datasource:
+    url: ${RDS_URL}
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
