@@ -1,8 +1,21 @@
 server.port: 8081
 
 spring:
+  profiles:
+    active: dev
+    group:
+      dev:
+        - db
   output.ansi.enabled: always
-  profiles.include: db
   jpa:
     open-in-view: false
-    properties.hibernate.default_batch_fetch_size: 100 # 지연로딩 시 성능향상
+    properties.hibernate.default_batch_fetch_size: 100
+
+---
+spring:
+  config.activate.on-profile: prod
+  datasource:
+    url: ${RDS_URL}
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
