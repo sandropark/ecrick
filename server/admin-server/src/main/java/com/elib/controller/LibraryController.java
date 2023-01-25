@@ -107,6 +107,7 @@ public class LibraryController {
 
     @PostMapping("/{libraryId}/delete")
     public String deleteLibrary(@PathVariable Long libraryId) {
+        coreService.deleteByLibrary(libraryId);
         libraryService.delete(libraryId);
         return "redirect:" + ADMIN_LIBRARIES;
     }

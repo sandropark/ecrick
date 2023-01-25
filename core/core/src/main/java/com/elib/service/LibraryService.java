@@ -2,7 +2,6 @@ package com.elib.service;
 
 import com.elib.domain.Vendor;
 import com.elib.dto.LibraryDto;
-import com.elib.repository.CoreRepository;
 import com.elib.repository.LibraryRepository;
 import com.elib.repository.VendorRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 @Service
 public class LibraryService {
-    private final CoreRepository coreRepository;
     private final LibraryRepository libraryRepository;
     private final VendorRepository vendorRepository;
 
@@ -49,7 +47,6 @@ public class LibraryService {
 
     @Transactional
     public void delete(Long libraryId) {
-        coreRepository.deleteByLibraryId(libraryId);
         libraryRepository.deleteById(libraryId);
     }
 

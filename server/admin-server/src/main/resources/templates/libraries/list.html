@@ -97,7 +97,7 @@
               <input type="hidden" name="page" th:value="${param.page}">
               <input type="hidden" name="sort" th:value="${param.sort}">
               <input type="hidden" name="size" th:value="${param.size}">
-              <button type="submit" class="btn btn-danger">도서삭제</button>
+              <input type="button" value="삭제" onclick="confirmDelete(this.form)" class="btn btn-danger">
             </form>
           </td>
         </tr>
@@ -108,5 +108,6 @@
   <nav th:replace="fragment/common :: pagination(path='/admin/libraries')"></nav>
 </main>
 
+<script src="/script.js"></script>
 <script th:replace="fragment/common :: #script"></script>
 </body></html>
