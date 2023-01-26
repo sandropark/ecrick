@@ -15,7 +15,7 @@
 
 <br>
 
-<img src="https://user-images.githubusercontent.com/89520805/214038863-8712915c-5474-4e5b-b2ff-b95b51c15f66.png" width="600"/>
+<img src="https://user-images.githubusercontent.com/89520805/214753885-94e92996-e862-48b1-ae36-965d907d04a1.png" width="500"/>
 
 도서를 클릭하면 **소장도서관**과 **전자책 공급사**를 확인할 수 있습니다.
 
@@ -46,7 +46,7 @@
 <br>
 
 ### 크롤링
-<img src="https://user-images.githubusercontent.com/89520805/214044135-fea4f460-c77b-47d1-bf0e-67fcad04cc59.png" width="700"/>
+<img src="https://user-images.githubusercontent.com/89520805/214044135-fea4f460-c77b-47d1-bf0e-67fcad04cc59.png" width="750"/>
 
 - 관리자 페이지를 만들어서 도서관을 관리하고 있습니다. 
 - 각 도서관 별로 선택해서 크롤링할 수 있습니다. 
@@ -54,7 +54,7 @@
 
 <br>
 
-<img src="https://user-images.githubusercontent.com/89520805/214520495-78606c97-0763-4aab-953f-8192ed7eeaaa.png" width="600"/>
+<img src="https://user-images.githubusercontent.com/89520805/214520495-78606c97-0763-4aab-953f-8192ed7eeaaa.png" width="700"/>
 
 - 데이터를 요청하는 시간이 제일 오래 걸리기 때문에 여러 스레드를 사용해서 시간을 단축시킵니다.
 - 같은 도서관을 여러 번 크롤링해도 중복 데이터가 생기면 안되기 때문에 제목,저자,출판사 등을 Unique Key로 묶고 "INSERT IGNORE"를 사용해서 중복 데이터가 저장되지 않게 합니다.
@@ -72,20 +72,20 @@
 
 이 서비스가 도움이 될 만한 분들이 활동하는 [네이버 카페](https://cafe.naver.com/ebook)에 서비스를 홍보했습니다. 
 
-<img src="https://user-images.githubusercontent.com/89520805/214562032-7769d6cc-d2ab-4af6-bbf7-1669fc2bb426.png" width="700"/>
+<img src="https://user-images.githubusercontent.com/89520805/214562032-7769d6cc-d2ab-4af6-bbf7-1669fc2bb426.png" width="750"/>
 
-<img src="https://user-images.githubusercontent.com/89520805/214532266-c237457f-9783-4d0b-8d27-dcb1501fc87f.png" width="600"/>
+<img src="https://user-images.githubusercontent.com/89520805/214532266-c237457f-9783-4d0b-8d27-dcb1501fc87f.png" width="650"/>
 
 - 매일 약 50명의 사용자가 이용합니다.
 
 ## 개선할 것들
 
 - DB 중복 제거
-  - <img src="https://user-images.githubusercontent.com/89520805/214555171-c21f2b8a-9eba-4538-80ad-f179b5f6844b.png" width="600"/>
+  - <img src="https://user-images.githubusercontent.com/89520805/214555171-c21f2b8a-9eba-4538-80ad-f179b5f6844b.png" width="650"/>
   - 이렇게 같은 데이터지만 제목/저자/출판사가 조금씩 다르기 때문에 중복데이터가 생긴다. 형태소 분석기 같은 것을 사용해서 중복된 데이터를 하나로 압축하는 작업을 한다.
 
 - 회원 기능
-  - <img src="https://user-images.githubusercontent.com/89520805/214551689-d5ea5d9b-cf94-40f2-99c5-676bb8f1737a.png" width="600"/>
+  - <img src="https://user-images.githubusercontent.com/89520805/214551689-d5ea5d9b-cf94-40f2-99c5-676bb8f1737a.png" width="550"/>
   - 자신이 이용하지 않는 전자도서관은 검색 결과에 나와도 의미가 없다. 원하는 도서관을 매번 접속해서 선택하는 일은 귀찮을 것이다. 소셜로그인 기능을 사용해서 회원 가입을 하고 관심도서관을 저장해두는 식으로 구현하는 것이 좋을 것 같다.
   - 책 역시 관심도서로 지정하고 목록을 직접 카테고리화 하는 식으로 **관심도서목록**기능을 추가해도 좋을 것 같다.
 
