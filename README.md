@@ -9,7 +9,7 @@
 제가 이용하는 약 50개의 전자도서관을 지원합니다. 
 
 ## 사용 예시
-<img src="https://user-images.githubusercontent.com/89520805/214039002-4fbb9256-42a4-4eed-9881-06ba0b164326.png" width="600"/>
+<img src="https://user-images.githubusercontent.com/89520805/214039002-4fbb9256-42a4-4eed-9881-06ba0b164326.png" width="650"/>
 
 원하는 키워드를 입력하고 검색하면 해당 키워드가 포함된 도서목록을 확인할 수 있습니다.  
 
@@ -46,7 +46,7 @@
 <br>
 
 ### 크롤링
-<img src="https://user-images.githubusercontent.com/89520805/214044135-fea4f460-c77b-47d1-bf0e-67fcad04cc59.png" width="750"/>
+<img src="https://user-images.githubusercontent.com/89520805/214044135-fea4f460-c77b-47d1-bf0e-67fcad04cc59.png" width="850"/>
 
 - 관리자 페이지를 만들어서 도서관을 관리하고 있습니다. 
 - 각 도서관 별로 선택해서 크롤링할 수 있습니다. 
@@ -72,7 +72,7 @@
 
 이 서비스가 도움이 될 만한 분들이 활동하는 [네이버 카페](https://cafe.naver.com/ebook)에 서비스를 홍보했습니다. 
 
-<img src="https://user-images.githubusercontent.com/89520805/214562032-7769d6cc-d2ab-4af6-bbf7-1669fc2bb426.png" width="750"/>
+<img src="https://user-images.githubusercontent.com/89520805/214562032-7769d6cc-d2ab-4af6-bbf7-1669fc2bb426.png" width="800"/>
 
 <img src="https://user-images.githubusercontent.com/89520805/214532266-c237457f-9783-4d0b-8d27-dcb1501fc87f.png" width="650"/>
 
