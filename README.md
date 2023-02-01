@@ -70,6 +70,7 @@
 
 ## 마주했던 문제
 
+- [프로젝트를 시작하게 된 계기와 받은 도움](https://velog.io/@ticoba/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B2%8C-%EB%90%9C-%EA%B3%84%EA%B8%B0)
 - ['.ga'을 '.com'으로 - 무료 도메인의 문제점](https://velog.io/@ticoba/.ga%EC%9D%84-.com%EC%9C%BC%EB%A1%9C-%EB%AC%B4%EB%A3%8C-%EB%8F%84%EB%A9%94%EC%9D%B8%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90)
 
 ## 사용자 반응
