@@ -70,7 +70,7 @@
 
 ## 어려웠던 점
 
-- <a href="https://velog.io/@ticoba/.ga%EC%9D%84-.com%EC%9C%BC%EB%A1%9C-%EB%AC%B4%EB%A3%8C-%EB%8F%84%EB%A9%94%EC%9D%B8%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90" target="_blank">'.ga'을 '.com'으로 - 무료 도메인의 문제점</a>
+- ['.ga'을 '.com'으로 - 무료 도메인의 문제점]: https://velog.io/@ticoba/.ga%EC%9D%84-.com%EC%9C%BC%EB%A1%9C-%EB%AC%B4%EB%A3%8C-%EB%8F%84%EB%A9%94%EC%9D%B8%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90
 
 ## 사용자 반응
 
