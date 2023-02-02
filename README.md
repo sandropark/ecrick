@@ -19,6 +19,10 @@
 
 도서를 클릭하면 **소장도서관**과 **전자책 공급사**를 확인할 수 있습니다.
 
+<img src="https://user-images.githubusercontent.com/89520805/216225018-c27a60c6-bca0-4fc9-98d1-e8fb5adeb4b8.png" width="300"/>
+
+대부분의 이용자는 모바일로 접속하기 때문에 모바일 버전도 구현했습니다.
+
 ## 기술 스택 
 <div>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> 
