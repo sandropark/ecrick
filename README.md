@@ -81,7 +81,7 @@
 
 이 서비스가 도움이 될 만한 분들이 활동하는 [네이버 카페](https://cafe.naver.com/ebook)에 서비스를 홍보했습니다. 
 
-<img src="https://user-images.githubusercontent.com/89520805/214532266-c237457f-9783-4d0b-8d27-dcb1501fc87f.png" width="650"/>
+<img src="https://user-images.githubusercontent.com/89520805/216510624-b3cc9a9e-681d-47ba-8520-dfdfd61c1ebc.png" width="650"/>
 
 매일 약 50명이 서비스를 이용하는 것을 보니 많은 동기부여가 되었습니다. 
 
