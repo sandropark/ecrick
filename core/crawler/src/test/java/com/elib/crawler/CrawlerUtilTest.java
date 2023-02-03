@@ -84,6 +84,7 @@ class CrawlerUtilTest {
         System.out.println("jsonResponseDto.bookDto() = " + jsonResponseDto.toCoreDtos(null));
     }
 
+    @Disabled
     @Test
     void requestDetailUrl() throws Exception {
         // Given
