@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +21,7 @@ class Yes24XmlDtoTest {
         // When
         List<LocalDate> results = inputs.stream()
                 .map(this::getLocalDate)
-                .toList();
+                .collect(Collectors.toList());
 
         // Then
         assertThat(results.get(0)).isEqualTo(LocalDate.of(2023, 1, 1));
