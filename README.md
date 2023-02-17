@@ -30,6 +30,7 @@
   <img src="https://img.shields.io/badge/Querydsl-007396?style=for-the-badge&logo=Querydsl&logoColor=white"/>
   <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
   <img src="https://img.shields.io/badge/Thymeleaf-6DB33F?style=for-the-badge&logo=Thymeleaf&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"/>
   <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> 
 </div>
 <div>
@@ -42,10 +43,18 @@
 
 <br>
 
+### 모듈
+
+<img src="https://user-images.githubusercontent.com/89520805/219685535-04098e91-24ab-4b01-8ad8-987a0baab9bc.png" width="540"/>
+
+- 크롤링을 하는 개발 서버의 경우 배포할 필요가 없기 때문에 Gradle을 이용해서 멀티모듈을 구성했습니다.
+
+<br>
+
 ### 배포 과정
 <img src="https://user-images.githubusercontent.com/89520805/213906909-075efc31-14d1-4843-bc7a-6dc68b2ff6af.png" width="540"/>
 
-**Github Actions**와 **AWS**(Elastic Beastalk, RDS)를 사용해서 무중단 배포하고 있습니다.
+- **Github Actions**와 **AWS**(Elastic Beastalk, RDS)를 사용해서 무중단 배포하고 있습니다.
 
 <br>
 
@@ -77,15 +86,13 @@
 - [프로젝트를 시작하게 된 계기와 받은 도움](https://velog.io/@ticoba/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B2%8C-%EB%90%9C-%EA%B3%84%EA%B8%B0)
 - ['.ga'을 '.com'으로 - 무료 도메인의 문제점](https://velog.io/@ticoba/.ga%EC%9D%84-.com%EC%9C%BC%EB%A1%9C-%EB%AC%B4%EB%A3%8C-%EB%8F%84%EB%A9%94%EC%9D%B8%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90)
 
-## 사용자 반응
+## 운영
 
 이 서비스가 도움이 될 만한 분들이 활동하는 [네이버 카페](https://cafe.naver.com/ebook)에 서비스를 홍보했습니다. 
 
-<img src="https://user-images.githubusercontent.com/89520805/216510624-b3cc9a9e-681d-47ba-8520-dfdfd61c1ebc.png" width="650"/>
+<img src="https://user-images.githubusercontent.com/89520805/219675964-db79174b-46ca-4bde-8d2c-d1a27652cd5a.png" width="650"/>
 
-매일 약 50명이 서비스를 이용하는 것을 보니 많은 동기부여가 되었습니다. 
-
-<img src="https://user-images.githubusercontent.com/89520805/214562032-7769d6cc-d2ab-4af6-bbf7-1669fc2bb426.png" width="800"/>
+MAU는 1000이상으로 사용자가 꾸준히 접속하고 있고, 피드백을 받으며 꾸준히 개선하고 있습니다.  
 
 ## 개선할 것들
 
