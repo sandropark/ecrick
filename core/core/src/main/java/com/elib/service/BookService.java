@@ -19,13 +19,14 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
+    public Page<BookListDto> searchPage(Search search, Pageable pageable) {
+        return bookRepository.searchPage(search, pageable);
+    }
+
     public BookDetailDto getBookDetail(Long bookId) {
         return bookRepository.findById(bookId)
                 .map(BookDetailDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("도서를 찾을 수 없습니다. id = " + bookId));
     }
 
-    public Page<BookListDto> searchPage(Search search, Pageable pageable) {
-        return bookRepository.searchPage(search, pageable);
-    }
 }

@@ -8,10 +8,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class LocationDto {
-    private String library;
-    private String vendor;
+    private String libraryName;
+    private String vendorName;
 
     public static LocationDto from(Core core) {
-        return new LocationDto(core.getLibrary().getName(), core.getLibrary().getVendor().getName().getValue());
+        return new LocationDto(core.getLibraryName(), core.getVendorName());
     }
 }
