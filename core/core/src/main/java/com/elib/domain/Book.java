@@ -9,8 +9,6 @@ import java.util.Objects;
 
 @Getter
 @ToString
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"title", "author", "publisher"})
 })
@@ -27,6 +25,16 @@ public class Book {
     private List<Core> cores;
 
     protected Book() {}
+
+    @Builder
+    private Book(String title, String author, String publisher, LocalDate publicDate, String coverUrl, List<Core> cores) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publicDate = publicDate;
+        this.coverUrl = coverUrl;
+        this.cores = cores;
+    }
 
     @Override
     public boolean equals(Object o) {
