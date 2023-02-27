@@ -16,18 +16,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 public class Library extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @Id @GeneratedValue(strategy = IDENTITY) private Long id;
     @Column(name = "library_name", nullable = false) private String name;
     private String url;
     private String param;
-    private Integer totalBooks;
-    private Integer savedBooks;
-    @Enumerated(EnumType.STRING)
-    private ContentType contentType;
-    @ManyToOne
-    @JoinColumn(name = "vendor_id")
-    private Vendor vendor;
+    private int totalBooks;
+    private int savedBooks;
+    @Enumerated(EnumType.STRING) private ContentType contentType;
+    @ManyToOne @JoinColumn(name = "vendor_id") private Vendor vendor;
     private Integer size;
 
     protected Library() {}
@@ -45,6 +41,10 @@ public class Library extends BaseEntity {
 
     public void updateTotalBooks(Integer totalBooks) {
         this.totalBooks = totalBooks;
+    }
+
+    public String getVendorName() {
+        return vendor.getNameValue();
     }
 
     @Override

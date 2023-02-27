@@ -18,32 +18,26 @@ import static javax.persistence.GenerationType.IDENTITY;
 })
 @Entity
 public class Core extends BaseEntity {
-    @Id @GeneratedValue(strategy = IDENTITY)
-    private Long id;
-    @Column(nullable = false)
-    private String title;
-    @Column(nullable = false)
-    @Builder.Default
-    private String author = "";
-    @Column(nullable = false)
-    @Builder.Default
-    private String publisher = "";
-    @Column(nullable = false)
-    @Builder.Default
-    private LocalDate publicDate = LocalDate.of(0, 1, 1);
+    @Id @GeneratedValue(strategy = IDENTITY) private Long id;
+    @Column(nullable = false) private String title;
+    @Column(nullable = false) @Builder.Default private String author = "";
+    @Column(nullable = false) @Builder.Default private String publisher = "";
+    @Column(nullable = false) @Builder.Default private LocalDate publicDate = LocalDate.of(0, 1, 1);
     private String coverUrl;
-    @Column(nullable = false)
-    @Builder.Default
-    private String vendor = "";
+    @Column(nullable = false) @Builder.Default private String vendor = "";
     private String category;
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "library_id")
-    private Library library;
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @ManyToOne(fetch = LAZY) @JoinColumn(name = "library_id") private Library library;
+    @ManyToOne(fetch = LAZY) @JoinColumn(name = "book_id") private Book book;
 
     protected Core() {}
+
+    public String getVendorName() {
+        return library.getVendorName();
+    }
+
+    public String getLibraryName() {
+        return library.getName();
+    }
 
     @Override
     public boolean equals(Object o) {

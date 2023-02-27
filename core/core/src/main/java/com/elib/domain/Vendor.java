@@ -23,11 +23,14 @@ public class Vendor extends BaseEntity {
 
     protected Vendor() {}
 
+    public String getNameValue() {
+        return name.getValue();
+    }
+
     @Builder
     private Vendor(Long id, VendorName name, Integer totalBooks) {
         this.id = id;
         this.name = name;
         this.totalBooks = totalBooks;
     }
-
 }

@@ -1,11 +1,13 @@
 package com.elib.repository;
 
+import com.elib.domain.Book;
 import com.elib.dto.BookListDto;
 import com.elib.dto.QBookListDto;
 import com.elib.dto.Search;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
@@ -44,42 +46,37 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
-    private OrderSpecifier<?> bookSort(Pageable pageable) {
-        if (pageable.getSort().isSorted()) {
-            for (Sort.Order order : pageable.getSort()) {
-                Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
-                switch (order.getProperty()) {
-                    case "title":
-                        return new OrderSpecifier<>(direction, book.title);
-                    case "author":
-                        return new OrderSpecifier<>(direction, book.author);
-                    case "publisher":
-                        return new OrderSpecifier<>(direction, book.publisher);
-                    case "publicDate":
-                        return new OrderSpecifier<>(direction, book.publicDate);
-                }
-            }
-        }
-        return new OrderSpecifier<>(Order.DESC, book.publicDate);
-    }
-
     private BooleanExpression bookContains(Search search) {
         String keyword = search.getKeyword();
         if (hasText(keyword)) {
             switch (search.getSearchTarget()) {
-                case "total":
+                case TOTAL:
                     return book.title.contains(keyword)
                             .or(book.author.contains(keyword))
                             .or(book.publisher.contains(keyword));
-                case "title":
+                case TITLE:
                     return book.title.contains(keyword);
-                case "author":
+                case AUTHOR:
                     return book.author.contains(keyword);
-                case "publisher":
+                case PUBLISHER:
                     return book.publisher.contains(keyword);
             }
         }
         return null;
+    }
+
+    private OrderSpecifier[] bookSort(Pageable pageable) {
+        return pageable.getSort().get()
+                .map(order -> new OrderSpecifier(getDirection(order), getTarget(order)))
+                .toArray(OrderSpecifier[]::new);
+    }
+
+    private PathBuilder<?> getTarget(Sort.Order order) {
+        return new PathBuilder<>(Book.class, "book").get(order.getProperty());
+    }
+
+    private Order getDirection(Sort.Order order) {
+        return order.getDirection().isAscending() ? Order.ASC : Order.DESC;
     }
 
 }
