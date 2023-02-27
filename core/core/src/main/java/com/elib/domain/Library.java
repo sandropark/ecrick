@@ -20,8 +20,8 @@ public class Library extends BaseEntity {
     @Column(name = "library_name", nullable = false) private String name;
     private String url;
     private String param;
-    private Integer totalBooks;
-    private Integer savedBooks;
+    private int totalBooks;
+    private int savedBooks;
     @Enumerated(EnumType.STRING) private ContentType contentType;
     @ManyToOne @JoinColumn(name = "vendor_id") private Vendor vendor;
     private Integer size;

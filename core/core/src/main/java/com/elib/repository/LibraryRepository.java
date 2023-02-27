@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface LibraryRepository extends JpaRepository<Library, Long>, LibraryRepositoryCustom {
+import java.util.List;
+
+public interface LibraryRepository extends JpaRepository<Library, Long> {
 
     @Modifying
     @Query("update Library l set l.savedBooks = (select count(c) from Core c where l = c.library) where l.id = :id" )
@@ -15,5 +17,8 @@ public interface LibraryRepository extends JpaRepository<Library, Long>, Library
     @Modifying
     @Query("update Library l set l.savedBooks = (select count(c) from Core c where l = c.library)")
     void updateAllSavedBooks();
+
+    @Query("select distinct l.name from Library l")
+    List<String> findAllNames();
 
 }
