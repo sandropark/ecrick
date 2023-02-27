@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -53,10 +55,9 @@ public class LibraryService {
     @Transactional
     public void saveLibrary(LibraryDto dto, Long vendorId) {
         Vendor vendor = null;
-        if (vendorId > 0) {
+        if (vendorId > 0)
             vendor = vendorRepository.findById(vendorId)
                     .orElseThrow(() -> new EntityNotFoundException("공급사를 찾을 수 없습니다. vendorId = " + vendorId));
-        }
         libraryRepository.save(dto.toEntity(vendor));
     }
 
@@ -77,6 +78,11 @@ public class LibraryService {
     }
 
     public List<String> getNames() {
-        return libraryRepository.findNamesAll();
+        Pattern compile = Pattern.compile("\\(.+\\)");
+        return libraryRepository.findAllNames().stream()
+                .map(name -> compile.matcher(name).replaceAll(""))
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
