@@ -1,6 +1,7 @@
 package com.elib.controller;
 
 import com.elib.service.LibraryService;
+import com.elib.service.SearchTarget;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,8 @@ public class HomeController {
     private final LibraryService libraryService;
 
     @GetMapping
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("searchTargets", SearchTarget.values());
         return "index";
     }
 
