@@ -1,10 +1,10 @@
 package com.elib.controller;
 
-import com.elib.dto.BookDetailDto;
 import com.elib.dto.BookListDto;
 import com.elib.dto.Search;
 import com.elib.service.BookService;
 import com.elib.service.PaginationService;
+import com.elib.service.SearchTarget;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +33,8 @@ public class BookController {
             Model model,
             HttpServletRequest request
     ) {
+        model.addAttribute("searchTargets", SearchTarget.values());
+
         Page<BookListDto> books = bookService.searchPage(search, pageable);
         model.addAttribute("books", books);
 
@@ -52,12 +54,9 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}")    // TODO : 도서관 / 서비스 보여줄 때 테이블로 보여주기
-    public String bookDetail(
-            @PathVariable Long bookId,
-            @ModelAttribute Search search,
-            Model model) {
-        BookDetailDto book = bookService.getBookDetail(bookId);
-        model.addAttribute("book", book);
+    public String bookDetail(@PathVariable Long bookId, @ModelAttribute Search search, Model model) {
+        model.addAttribute("searchTargets", SearchTarget.values());
+        model.addAttribute("book", bookService.getBookDetail(bookId));
         return "book-detail";
     }
 }
