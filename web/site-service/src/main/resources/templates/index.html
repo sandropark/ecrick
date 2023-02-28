@@ -9,11 +9,10 @@
   <div class="m-auto" style="max-width: 580px">
     <form th:action="@{/books}">
       <div class="input-group">
-        <select class="form-select" name="searchTarget" style="max-width: 110px">
-          <option selected value="total">통합검색</option>
-          <option value="title">제목</option>
-          <option value="author">저자</option>
-          <option value="publisher">출판사</option>
+        <select class="form-select" style="max-width: 110px">
+          <option th:each="searchTarget : ${searchTargets}"
+                  th:value="${searchTarget.name}" th:selected="${searchTarget.name} == TOTAL"
+                  th:text="${searchTarget.displayName}"></option>
         </select>
         <input class="form-control form-control-lg" name="keyword" type="text" placeholder="제목 / 저자 / 출판사">
         <button class="btn btn-outline-primary" type="submit">검색</button>
