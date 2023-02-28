@@ -20,9 +20,9 @@
             <span class="card-text" th:text="${book.publisher}">웅진윙스</span>
           </p>
           <div th:each="location : ${book.location}">
-            <span th:text="${location.library}">서초도서관</span>
+            <span th:text="${location.libraryName}">서초도서관</span>
             <span>/</span>
-            <span th:text="${location.vendor}">교보</span>
+            <span th:text="${location.vendorName}">교보</span>
           </div>
         </div>
       </div>

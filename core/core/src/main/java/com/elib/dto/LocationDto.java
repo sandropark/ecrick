@@ -14,4 +14,8 @@ public class LocationDto {
     public static LocationDto from(Core core) {
         return new LocationDto(core.getLibraryName(), core.getVendorName());
     }
+
+    public static LocationDto empty() {
+        return new LocationDto(null, null);
+    }
 }

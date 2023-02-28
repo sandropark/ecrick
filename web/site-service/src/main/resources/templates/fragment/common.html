@@ -45,11 +45,10 @@
 <div id="search-bar" class="container">
   <form class="form-inline mb-2" th:object="${search}" th:action="@{/books}">
     <div class="input-group">
-      <select class="form-select" name="searchTarget" style="max-width: 110px">
-        <option selected value="total">통합검색</option>
-        <option value="title">제목</option>
-        <option value="author">저자</option>
-        <option value="publisher">출판사</option>
+      <select th:field="*{searchTarget}" class="form-select" style="max-width: 110px">
+        <option th:each="searchTarget : ${searchTargets}"
+                th:value="${searchTarget.name}"
+                th:text="${searchTarget.displayName}"></option>
       </select>
       <input class="form-control" th:field="*{keyword}" placeholder="검색어를 입력하세요." type="text">
       <button class="btn btn-outline-secondary" type="submit">검색</button>

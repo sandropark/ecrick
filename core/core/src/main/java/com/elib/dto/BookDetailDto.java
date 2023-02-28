@@ -38,4 +38,7 @@ public class BookDetailDto {
         );
     }
 
+    public static BookDetailDto empty() {
+        return new BookDetailDto(null, null, null, null, null, null, List.of(LocationDto.empty()));
+    }
 }
