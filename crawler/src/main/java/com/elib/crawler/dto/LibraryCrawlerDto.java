@@ -51,31 +51,24 @@ public class LibraryCrawlerDto {
     }
 
     public List<String> getDetailUrls() {
-        if (vendor.isAladin()) {
-            return getAladinDetailUrls();
-        }
-
-        if (param.contains("&")) {
-            return getPageAndSizeDetailUrls();
-        }
-
+        if (vendor.isAladin()) return getAladinDetailUrls();
+        if (param.contains("&")) return getPageAndSizeDetailUrls();
         return getPageDetailUrls();
     }
 
     private List<String> getPageDetailUrls() {
         List<String> detailUrls = new ArrayList<>();
-        int maxPage = (totalBooks / size) + 2;
+        int maxPage = totalBooks / size + 2;
 
-        for (int page = 1; page < maxPage; page++) {
+        for (int page = 1; page < maxPage; page++)
             detailUrls.add(url + param + page);
-        }
 
         return detailUrls;
     }
 
     private List<String> getPageAndSizeDetailUrls() {
         List<String> detailUrls = new ArrayList<>();
-        int maxPage = (totalBooks / size) + 2;
+        int maxPage = totalBooks / size + 2;
 
         String[] params = param.split("&");
         for (int page = 1; page < maxPage; page++) {
