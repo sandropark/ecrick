@@ -46,7 +46,7 @@ public class CrawlerCoreRepository {
         );
     }
 
-    public void updateBookIdAll() {
+    public void mapCoreAndBookIfCore_BookIdIsNull() {
         template.execute(
         "UPDATE core c SET c.book_id = " +
                 "(select b.id from book b" +

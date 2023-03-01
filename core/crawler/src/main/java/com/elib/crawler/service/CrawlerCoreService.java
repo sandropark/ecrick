@@ -43,9 +43,7 @@ public class CrawlerCoreService {
         // 1. core에서 책 뽑아서 저장 (출간일은 가장 최신만 유지)
         // bookDB에 제목,저자,출판사를 유니크키를 걸어둬서 중복 데이터는 저장되지 않고 출간일은 최신으로 업데이트 됨.
         crawlerBookRepository.insertBookFromCore();
-
-        // 2. core와 book 조인 후 core에 bookId 업데이트. 연관관계가 없는 core만 적용
-        crawlerCoreRepository.updateBookIdAll();
+        crawlerCoreRepository.mapCoreAndBookIfCore_BookIdIsNull();
     }
 
     @Transactional

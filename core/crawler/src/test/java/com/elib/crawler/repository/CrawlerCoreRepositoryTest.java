@@ -25,43 +25,53 @@ class CrawlerCoreRepositoryTest {
     CrawlerCoreRepository crawlerCoreRepository;
     @Autowired EntityManager em;
 
-    @DisplayName("core데이터로 book에서 매칭되는 데이터를 찾아서 연관관계를 맺는다.")
+    @DisplayName("제목,저자,출판사 모두 같은 core와 book끼리 연관관계를 맺는다.")
     @Test
-    void updateBookIdAll() throws Exception {
+    void mapCoreAndBookIfCore_BookIdIsNull() throws Exception {
         // Given
         String title = "토지";
         String author = "박경리";
         String publisher = "김영사";
-        LocalDate publicDate = LocalDate.of(2018, 1, 1);
-        String coverUrl = "naver.com";
+        Core core = saveCore(title, author, publisher);
+        Book book = saveBook(title, author, publisher);
 
-        Core core = Core.builder()
-                .title(title)
-                .author(author)
-                .publisher(publisher)
-                .publicDate(publicDate)
-                .coverUrl(coverUrl)
-                .build();
-        coreRepository.saveAndFlush(core);
-
-        Book book = Book.builder()
-                .title(title)
-                .author(author)
-                .publisher(publisher)
-                .publicDate(publicDate)
-                .coverUrl(coverUrl)
-                .build();
-        bookRepository.saveAndFlush(book);
+        assertThat(core.getBook()).isNull();
 
         // When
-        crawlerCoreRepository.updateBookIdAll();
-
+        crawlerCoreRepository.mapCoreAndBookIfCore_BookIdIsNull();
         em.clear();
 
         // Then
         Core findCore = coreRepository.findById(core.getId()).get();
-        Book findBook = bookRepository.findById(book.getId()).get();
-        assertThat(findCore.getBook().getTitle()).isEqualTo(findBook.getTitle());
+        assertThat(findCore.getBook()).isEqualTo(book);
+    }
+
+    @DisplayName("제목,저자,출판사 중 하나라도 맞지 않다면 연관관계를 맺지 않는다.")
+    @Test
+    void mapCoreAndBookIfCore_BookIdIsNull2() throws Exception {
+        // Given
+        String title = "토지";
+        String author = "박경리";
+        Core core = saveCore(title, author, "김영사");
+        saveBook(title, author, "출판사 김영사");
+
+        assertThat(core.getBook()).isNull();
+
+        // When
+        crawlerCoreRepository.mapCoreAndBookIfCore_BookIdIsNull();
+        em.clear();
+
+        // Then
+        Core findCore = coreRepository.findById(core.getId()).get();
+        assertThat(findCore.getBook()).isNull();
+    }
+
+    private Book saveBook(String title, String author, String publisher) {
+        return bookRepository.saveAndFlush(Book.builder().title(title).author(author).publisher(publisher).build());
+    }
+
+    private Core saveCore(String title, String author, String publisher) {
+        return coreRepository.saveAndFlush(Core.builder().title(title).author(author).publisher(publisher).build());
     }
 
 }
