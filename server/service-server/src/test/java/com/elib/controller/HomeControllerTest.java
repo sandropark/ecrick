@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(HomeController.class)
 class HomeControllerTest {
@@ -32,6 +32,17 @@ class HomeControllerTest {
         assertThat(html).contains("value=\"TITLE\"");
         assertThat(html).contains("value=\"AUTHOR\"");
         assertThat(html).contains("value=\"PUBLISHER\"");
+    }
+
+    @DisplayName("[GET] 도움말 페이지")
+    @Test
+    void info() throws Exception {
+        mvc.perform(get("/info"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("libraryNames"))
+                .andExpect(view().name("info"))
+        ;
     }
 
 }
