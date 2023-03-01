@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class CrawlerBookRepository {
     private final JdbcTemplate template;
 
-    public void insertFromCore() {
+    public void insertBookFromCore() {
         template.execute(
                 "INSERT INTO book (title, author, publisher, public_date, cover_url)" +
                         " select title, author, publisher, max(public_date), max(cover_url) from core" +

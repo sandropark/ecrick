@@ -25,27 +25,20 @@ class CrawlerBookRepositoryTest {
     @Autowired BookRepository bookRepository;
     @Autowired EntityManager em;
 
-    @DisplayName("Core의 데이터로 Book에 저장한다.")
+    @DisplayName("insertBookFromCore : Core의 데이터로 Book에 저장한다.")
     @Test
-    void insertFromCore1() throws Exception {
+    void insertBookFromCore1() throws Exception {
         // Given
         String title = "토지";
         String author = "박경리";
         String publisher = "김영사";
-        LocalDate publicDate = LocalDate.of(2018, 1, 1);
+        LocalDate publicDate = publicDate(2018);
         String coverUrl = "naver.com";
 
-        Core core = Core.builder()
-                .title(title)
-                .author(author)
-                .publisher(publisher)
-                .publicDate(publicDate)
-                .coverUrl(coverUrl)
-                .build();
-        coreRepository.saveAndFlush(core);
+        saveCore(title, author, publisher, publicDate, coverUrl);
 
         // When
-        crawlerBookRepository.insertFromCore();
+        crawlerBookRepository.insertBookFromCore();
 
         // Then
         List<Book> books = bookRepository.findAll();
@@ -59,76 +52,83 @@ class CrawlerBookRepositoryTest {
         assertThat(book.getCoverUrl()).isEqualTo(coverUrl);
     }
 
-    @DisplayName("중복된 데이터는 출간일이 최신인 데이터만 저장한다.")
+    @DisplayName("insertBookFromCore : 중복된 데이터는 출간일이 최신인 데이터만 저장한다.")
     @Test
-    void insertFromCore2() throws Exception {
+    void insertBookFromCore2() throws Exception {
         // Given
-        LocalDate latestPublicDate = LocalDate.of(2012, 1, 1);
-        Core core1 = Core.builder().title("토지").publicDate(latestPublicDate).build();
-        Core core2 = Core.builder().title("토지").publicDate(LocalDate.of(2000,1,1)).build();
-
+        Core core1 = Core.builder().title("토지").publicDate(publicDate(2012)).build();
+        Core core2 = Core.builder().title("토지").publicDate(publicDate(2000)).build();
         coreRepository.saveAllAndFlush(List.of(core1, core2));
 
         // When
-        crawlerBookRepository.insertFromCore();
+        crawlerBookRepository.insertBookFromCore();
 
         // Then
         List<Book> books = bookRepository.findAll();
         assertThat(books).hasSize(1);
 
-        Book book = books.get(0);
-        assertThat(book.getPublicDate()).isEqualTo(latestPublicDate);
+        assertThat(books.get(0).getPublicDate()).isEqualTo(publicDate(2012));
     }
 
-    @DisplayName("Book에 저장된 데이터와 제목,저자,출판사가 같다면 저장되지 않는다.")
+    @DisplayName("insertBookFromCore : Book에 저장된 데이터와 제목,저자,출판사가 같다면 저장되지 않는다.")
     @Test
-    void insertFromCore3() throws Exception {
+    void insertBookFromCore3() throws Exception {
         // Given
         String title = "토지";
         String author = "박경리";
         String publisher = "김영사";
-        Book book = Book.builder().title(title).author(author).publisher(publisher).build();
-        bookRepository.saveAndFlush(book);
-
-        Core core = Core.builder().title(title).author(author).publisher(publisher).build();
-        coreRepository.saveAndFlush(core);
+        saveBook(title, author, publisher);
+        saveCore(title, author, publisher);
 
         // When
-        crawlerBookRepository.insertFromCore();
+        crawlerBookRepository.insertBookFromCore();
 
         // Then
-        List<Book> books = bookRepository.findAll();
-        assertThat(books).hasSize(1);
+        assertThat(bookRepository.findAll()).hasSize(1);
     }
 
-    @DisplayName("Book에 저장된 데이터와 제목,저자,출판사가 같다면 출간일이 최신으로 업데이트된다.")
+    @DisplayName("insertBookFromCore : Book에 저장된 데이터와 제목,저자,출판사가 같다면 출간일이 최신으로 업데이트된다.")
     @Test
-    void insertFromCore4() throws Exception {
+    void insertBookFromCore4() throws Exception {
         // Given
         String title = "토지";
         String author = "박경리";
         String publisher = "김영사";
-        LocalDate oldDate = LocalDate.of(1999, 1, 1);
-        Book book = Book.builder().title(title).author(author).publisher(publisher).publicDate(oldDate).build();
-        bookRepository.saveAndFlush(book);
-
-        LocalDate newDate = LocalDate.of(2022, 1, 1);
-        Core core1 = Core.builder().title(title).author(author).publisher(publisher).publicDate(oldDate).build();
-        Core core2 = Core.builder().title(title).author(author).publisher(publisher).publicDate(newDate).build();
-        coreRepository.saveAndFlush(core1);
-        coreRepository.saveAndFlush(core2);
-
+        saveBook(title, author, publisher, publicDate(1999));
+        saveCore(title, author, publisher, publicDate(2022));
         em.clear();
 
         // When
-        crawlerBookRepository.insertFromCore();
+        crawlerBookRepository.insertBookFromCore();
 
         // Then
-        List<Book> books = bookRepository.findAll();
-        assertThat(books).hasSize(1);
+        assertThat(bookRepository.findAll()).hasSize(1);
+        assertThat(bookRepository.findAll().get(0).getPublicDate()).isEqualTo(publicDate(2022));
+    }
 
-        Book savedBook = books.get(0);
-        assertThat(savedBook.getPublicDate()).isEqualTo(newDate);
+    private LocalDate publicDate(int year) {
+        return LocalDate.of(year, 1, 1);
+    }
+
+    private void saveCore(String title, String author, String publisher, LocalDate publicDate, String coverUrl) {
+        coreRepository.saveAndFlush(Core.builder().title(title).author(author).publisher(publisher).publicDate(publicDate).coverUrl(coverUrl).build());
+    }
+
+    private void saveCore(String title, String author, String publisher) {
+        coreRepository.saveAndFlush(Core.builder().title(title).author(author).publisher(publisher).build());
+    }
+
+    private void saveCore(String title, String author, String publisher, LocalDate newDate) {
+        Core core = Core.builder().title(title).author(author).publisher(publisher).publicDate(newDate).build();
+        coreRepository.saveAndFlush(core);
+    }
+
+    private void saveBook(String title, String author, String publisher) {
+        bookRepository.saveAndFlush(Book.builder().title(title).author(author).publisher(publisher).build());
+    }
+
+    private void saveBook(String title, String author, String publisher, LocalDate pubDate) {
+        bookRepository.saveAndFlush(Book.builder().title(title).author(author).publisher(publisher).publicDate(pubDate).build());
     }
 
 }
