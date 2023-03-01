@@ -1,14 +1,17 @@
 package com.elib.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(exclude = {"cores"})
+@EqualsAndHashCode(of = {"id"})
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"title", "author", "publisher"})
 })
@@ -21,8 +24,7 @@ public class Book {
     private String publisher;
     private LocalDate publicDate;
     private String coverUrl;
-    @OneToMany(mappedBy = "book")
-    private List<Core> cores;
+    @OneToMany(mappedBy = "book") private List<Core> cores;
 
     protected Book() {}
 
@@ -34,19 +36,6 @@ public class Book {
         this.publicDate = publicDate;
         this.coverUrl = coverUrl;
         this.cores = cores;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(getId(), book.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
     }
 
 }
