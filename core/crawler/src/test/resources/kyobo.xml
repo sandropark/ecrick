@@ -17,14 +17,14 @@
     <item>
       <idx>1</idx>
       <image><![CDATA[src="http://gumilib.yes24library.com:8085/DRMContent/ebook/4801196067695/M4801196067695.jpg" alt="12가지 인생의 법칙" ]]></image>
-      <product_nm_kr><![CDATA[12가지 인생의 법칙 ]]></product_nm_kr>
+      <product_nm_kr><![CDATA[12가지 인생의 법칙]]></product_nm_kr>
       <product_cd>001</product_cd>
-      <text_author_nm><![CDATA[조던 B. &amp;피터슨 저]]></text_author_nm>
+      <text_author_nm><![CDATA[조던 B. 피터슨]]></text_author_nm>
       <barcode>4801196067695</barcode>
       <seq_barcode></seq_barcode>
       <audio_count>0</audio_count>
       <audio_time>0</audio_time>
-      <borrow_count>0</borrow_count>
+      <borrow_count>2</borrow_count>
       <license_count>3</license_count>
       <reserve_count>0</reserve_count>
       <borrow_id></borrow_id>
@@ -58,7 +58,7 @@
       <seq_barcode></seq_barcode>
       <audio_count>0</audio_count>
       <audio_time>0</audio_time>
-      <borrow_count>0</borrow_count>
+      <borrow_count>1</borrow_count>
       <license_count>3</license_count>
       <reserve_count>0</reserve_count>
       <borrow_id></borrow_id>
@@ -194,7 +194,7 @@
       <seq_barcode></seq_barcode>
       <audio_count>0</audio_count>
       <audio_time>0</audio_time>
-      <borrow_count>1</borrow_count>
+      <borrow_count>0</borrow_count>
       <license_count>3</license_count>
       <reserve_count>0</reserve_count>
       <borrow_id></borrow_id>
@@ -330,7 +330,7 @@
       <seq_barcode></seq_barcode>
       <audio_count>0</audio_count>
       <audio_time>0</audio_time>
-      <borrow_count>1</borrow_count>
+      <borrow_count>0</borrow_count>
       <license_count>3</license_count>
       <reserve_count>0</reserve_count>
       <borrow_id></borrow_id>
@@ -636,7 +636,7 @@
       <seq_barcode></seq_barcode>
       <audio_count>0</audio_count>
       <audio_time>0</audio_time>
-      <borrow_count>1</borrow_count>
+      <borrow_count>0</borrow_count>
       <license_count>3</license_count>
       <reserve_count>0</reserve_count>
       <borrow_id></borrow_id>

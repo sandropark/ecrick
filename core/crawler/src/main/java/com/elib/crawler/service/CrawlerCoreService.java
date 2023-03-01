@@ -46,15 +46,4 @@ public class CrawlerCoreService {
         crawlerCoreRepository.mapCoreAndBookIfCore_BookIdIsNull();
     }
 
-    @Transactional
-    public void reduceDuplicateFromDate() {
-        // TODO : 수정하기
-        // 1. 중복 데이터를 가진 코어를 모두 가져온다.
-
-        // 2. 연관관계를 통일한다.
-//        Set<Book> oldBooks = cleanDbService.updateToLatestBook();
-
-        // 3. 연관관계를 잃은 (출간일이 최신이 아닌) Book을 모두 삭제한다. 이로써 중복이 제거되었다.
-//        bookRepository.deleteAll(oldBooks);
-    }
 }
