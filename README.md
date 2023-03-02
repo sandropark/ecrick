@@ -1,29 +1,12 @@
 [![Java CI with Gradle](https://github.com/sandropark/e-lib/actions/workflows/ci.yml/badge.svg)](https://github.com/sandropark/e-lib/actions/workflows/ci.yml)
 [![Deploy to Amazon EB](https://github.com/sandropark/e-lib/actions/workflows/deploy.yml/badge.svg)](https://github.com/sandropark/e-lib/actions/workflows/deploy.yml)
-# 전자도서관 통합검색 서비스
+# 📚 전자도서관 통합검색 서비스
 
-여러 전자도서관의 소장도서를 한 번에 검색할 수 있는 서비스입니다.
-
-크롤러를 구현해서 여러 도서관의 데이터를 크롤링해 DB에 넣어두고 사용자에게 보여줍니다.
-
-제가 이용하는 약 50개의 전자도서관을 지원합니다. 
-
-## 사용 예시
-<img src="https://user-images.githubusercontent.com/89520805/214039002-4fbb9256-42a4-4eed-9881-06ba0b164326.png" width="650"/>
-
-원하는 키워드를 입력하고 검색하면 해당 키워드가 포함된 도서목록을 확인할 수 있습니다.  
+> https://ecrick.com
 
 <br>
 
-<img src="https://user-images.githubusercontent.com/89520805/214753885-94e92996-e862-48b1-ae36-965d907d04a1.png" width="500"/>
-
-도서를 클릭하면 **소장도서관**과 **전자책 공급사**를 확인할 수 있습니다.
-
-<img src="https://user-images.githubusercontent.com/89520805/216225018-c27a60c6-bca0-4fc9-98d1-e8fb5adeb4b8.png" width="300"/>
-
-대부분의 이용자는 모바일로 접속하기 때문에 모바일 버전도 구현했습니다.
-
-## 기술 스택 
+## 기술 스택
 <div>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> 
   <img src="https://img.shields.io/badge/Jpa-007396?style=for-the-badge&logo=Jpa&logoColor=white"/>
@@ -38,6 +21,8 @@
   <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"/>
   <img src="https://img.shields.io/badge/AWS Elastic Beanstalk-232F3E?style=for-the-badge&logo=AmazonAWS&logoColor=white"/>
 </div>
+
+<br>
 
 ## 구조
 
