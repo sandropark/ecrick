@@ -1,7 +1,9 @@
 [![Java CI with Gradle](https://github.com/sandropark/e-lib/actions/workflows/ci.yml/badge.svg)](https://github.com/sandropark/e-lib/actions/workflows/ci.yml)
 [![Deploy to Amazon EB](https://github.com/sandropark/e-lib/actions/workflows/deploy.yml/badge.svg)](https://github.com/sandropark/e-lib/actions/workflows/deploy.yml)
-# 📚 전자도서관 통합검색 서비스
+# 📚 전자책벌레
 
+> 전자도서관 통합검색 서비스
+>
 > https://ecrick.com
 
 <br>
