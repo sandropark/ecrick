@@ -1,4 +1,4 @@
-package com.elib.controller;
+package com.elib.response;
 
 import com.elib.domain.ContentType;
 import com.elib.dto.LibraryDto;
