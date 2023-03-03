@@ -1,8 +1,8 @@
 [![Java CI with Gradle](https://github.com/sandropark/e-lib/actions/workflows/ci.yml/badge.svg)](https://github.com/sandropark/e-lib/actions/workflows/ci.yml)
 [![Deploy to Amazon EB](https://github.com/sandropark/e-lib/actions/workflows/deploy.yml/badge.svg)](https://github.com/sandropark/e-lib/actions/workflows/deploy.yml)
-# 📚 전자책벌레
-
-> 전자도서관 통합검색 서비스
+# 📚 전자책벌레 - 전자도서관 통합검색 서비스
+ 
+> 여러 공공도서관에서 제공하는 전자책을 한 곳에서 손쉽게 검색할 수 있는 서비스입니다. 도서관마다 일일이 접속해서 검색하는 불편함을 해결하고자 개발하게 되었습니다.
 >
 > https://ecrick.com
 
@@ -10,15 +10,15 @@
 
 ## 기술 스택
 <div>
-  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> 
+  <img src="https://img.shields.io/badge/java 11-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> 
+  <img src="https://img.shields.io/badge/Spring Boot 2.7-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
   <img src="https://img.shields.io/badge/Jpa-007396?style=for-the-badge&logo=Jpa&logoColor=white"/>
   <img src="https://img.shields.io/badge/Querydsl-007396?style=for-the-badge&logo=Querydsl&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
   <img src="https://img.shields.io/badge/Thymeleaf-6DB33F?style=for-the-badge&logo=Thymeleaf&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"/>
-  <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> 
+  <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white"/> 
 </div>
 <div>
+  <img src="https://img.shields.io/badge/mariaDB 10.6-003545?style=for-the-badge&logo=mariaDB&logoColor=white">
   <img src="https://img.shields.io/badge/Github Actions-2088FF?style=for-the-badge&logo=Github Actions&logoColor=white"/>
   <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"/>
   <img src="https://img.shields.io/badge/AWS Elastic Beanstalk-232F3E?style=for-the-badge&logo=AmazonAWS&logoColor=white"/>
