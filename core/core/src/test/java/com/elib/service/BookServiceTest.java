@@ -1,9 +1,6 @@
 package com.elib.service;
 
-import com.elib.domain.Book;
-import com.elib.domain.Core;
-import com.elib.domain.Library;
-import com.elib.domain.Vendor;
+import com.elib.domain.*;
 import com.elib.dto.BookDetailDto;
 import com.elib.dto.LocationDto;
 import com.elib.repository.BookRepository;
@@ -34,7 +31,7 @@ class BookServiceTest {
     @Autowired CoreRepository coreRepository;
     @Autowired EntityManager em;
 
-    @DisplayName("bookId로 조회하면 연관된 도서관과 공급사를 모두 조회한다.")
+    @DisplayName("bookId로 조회하면 연관된 도서관과 공급사를 모두 조회한다. 도서관 이름으로 오름차순 정렬")
     @Test
     void getBookDetail() throws Exception {
         Book book = createBook();
@@ -47,10 +44,10 @@ class BookServiceTest {
         List<LocationDto> locationDtos = bookDetail.getLocation();
 
         assertThat(locationDtos).hasSize(2);
-        assertThat(locationDtos.get(0).getLibraryName()).isEqualTo("종로도서관");
-        assertThat(locationDtos.get(0).getVendorName()).isEqualTo(KYOBO.getValue());
-        assertThat(locationDtos.get(1).getLibraryName()).isEqualTo("강남도서관");
-        assertThat(locationDtos.get(1).getVendorName()).isEqualTo(YES24.getValue());
+        assertThat(locationDtos.get(0).getLibraryName()).isEqualTo("강남");
+        assertThat(locationDtos.get(0).getVendorName()).isEqualTo(YES24.getValue());
+        assertThat(locationDtos.get(1).getLibraryName()).isEqualTo("포항");
+        assertThat(locationDtos.get(1).getVendorName()).isEqualTo(KYOBO.getValue());
     }
 
     private Book createBook() {
@@ -58,24 +55,16 @@ class BookServiceTest {
     }
 
     private void createCore(Book book) {
-        coreRepository.save(Core.builder().title(book.getTitle()).library(createJongroLibrary()).book(book).build());
-        coreRepository.save(Core.builder().title(book.getTitle()).library(createGangnamLibrary()).book(book).build());
+        coreRepository.save(Core.builder().title(book.getTitle()).library(createLibrary("포항", KYOBO)).book(book).build());
+        coreRepository.save(Core.builder().title(book.getTitle()).library(createLibrary("강남", YES24)).book(book).build());
     }
 
-    private Library createJongroLibrary() {
-        return libraryRepository.save(Library.builder().name("종로도서관").vendor(createKyoboVendor()).build());
+    private Library createLibrary(String name, VendorName vendorName) {
+        return libraryRepository.save(Library.builder().name(name).vendor(createVendor(vendorName)).build());
     }
 
-    private Library createGangnamLibrary() {
-        return libraryRepository.save(Library.builder().name("강남도서관").vendor(createYes24Vendor()).build());
-    }
-
-    private Vendor createKyoboVendor() {
-        return vendorRepository.save(Vendor.builder().name(KYOBO).build());
-    }
-
-    private Vendor createYes24Vendor() {
-        return vendorRepository.save(Vendor.builder().name(YES24).build());
+    private Vendor createVendor(VendorName vendorName) {
+        return vendorRepository.save(Vendor.builder().name(vendorName).build());
     }
 
 }
