@@ -18,4 +18,4 @@ spring:
     password: ${RDS_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
 
-logging.slack.webhook-url: https://hooks.slack.com/services/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
+logging.slack.webhook-url: ${SLACK_WEBHOOK_URL}
