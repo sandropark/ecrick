@@ -4,6 +4,7 @@ spring:
     group:
       dev:
         - db
+  output.ansi.enabled: always
   jpa:
     open-in-view: false
     properties.hibernate.default_batch_fetch_size: 100
@@ -16,3 +17,5 @@ spring:
     username: ${RDS_USERNAME}
     password: ${RDS_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
+
+logging.slack.webhook-url: https://hooks.slack.com/services/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

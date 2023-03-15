@@ -26,6 +26,8 @@ class HomeControllerTest {
         MvcResult result = mvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(model().attributeExists("searchTargets"))
+                .andExpect(view().name("index"))
                 .andReturn();
         String html = result.getResponse().getContentAsString();
         assertThat(html).contains("name=\"searchTarget\"");
