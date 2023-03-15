@@ -9,7 +9,7 @@
   <div class="m-auto" style="max-width: 580px">
     <form th:action="@{/books}">
       <div class="input-group">
-        <select class="form-select" style="max-width: 110px">
+        <select name="searchTarget" class="form-select" style="max-width: 110px">
           <option th:each="searchTarget : ${searchTargets}"
                   th:value="${searchTarget.name}" th:selected="${searchTarget.name} == TOTAL"
                   th:text="${searchTarget.displayName}"></option>

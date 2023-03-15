@@ -28,6 +28,7 @@ class HomeControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         String html = result.getResponse().getContentAsString();
+        assertThat(html).contains("name=\"searchTarget\"");
         assertThat(html).contains("value=\"TOTAL\" selected=\"selected\"");
         assertThat(html).contains("value=\"TITLE\"");
         assertThat(html).contains("value=\"AUTHOR\"");
