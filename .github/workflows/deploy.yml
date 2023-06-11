@@ -39,7 +39,7 @@ jobs:
 #      - name: Publish Docker Image
 #        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:${{ github.run_number }}
 
-      - name: Deploy to prod
+      - name: Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.OCI_HOST }}
