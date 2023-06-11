@@ -16,7 +16,7 @@ RUN ls -al # 테스트
 RUN gralde build -x test --parallel --continue > /dev/null 2>&1 || true
 
 # 빌더 이미지에서 애플리케이션 빌드
-COPY . server/service-server/build
+COPY . /build
 
 RUN pwd # 테스트
 RUN ls -al # 테스트
