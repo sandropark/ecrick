@@ -5,11 +5,13 @@ FROM gradle:7.5-jdk11-alpine as builder
 WORKDIR /build
 
 RUN pwd # 테스트
+RUN ls -al # 테스트
 
 # 그레이들 파일이 변경되었을 때만 의존성 설치
 COPY build.gradle settings.gradle /build/
 
 RUN pwd # 테스트
+RUN ls -al # 테스트
 
 RUN gralde build -x test --parallel --continue > /dev/null 2>&1 || true
 
@@ -17,6 +19,7 @@ RUN gralde build -x test --parallel --continue > /dev/null 2>&1 || true
 COPY . server/service-server/build
 
 RUN pwd # 테스트
+RUN ls -al # 테스트
 
 RUN gradle build -x test --parallel
 
