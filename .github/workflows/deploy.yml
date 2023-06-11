@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  REPOSITORY: elib
-
 jobs:
   build:
     name: Build
@@ -34,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/$REPOSITORY:${{ github.run_number }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
 
       - name: Deploy
         uses: appleboy/ssh-action@master
@@ -45,4 +42,4 @@ jobs:
           port: 22
           script: |
             sudo docker rm -f $(sudo docker ps -aq)
-            sudo docker run -d --name elib -e spring.config.activate.on-profile=prod -e OCI_DB_HOST=${{secrets.OCI_DB_HOST}} -e OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}} -e OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}} -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/$REPOSITORY:${{ github.run_number }}
+            sudo docker run -d --name elib -e spring.config.activate.on-profile=prod -e OCI_DB_HOST=${{secrets.OCI_DB_HOST}} -e OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}} -e OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}} -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
