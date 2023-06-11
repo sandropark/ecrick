@@ -4,12 +4,20 @@ FROM gradle:7.5-jdk11-alpine as builder
 # build 디렉토리로 이동
 WORKDIR /build
 
+RUN pwd # 테스트
+
 # 그레이들 파일이 변경되었을 때만 의존성 설치
 COPY build.gradle settings.gradle /build/
+
+RUN pwd # 테스트
+
 RUN gralde build -x test --parallel --continue > /dev/null 2>&1 || true
 
 # 빌더 이미지에서 애플리케이션 빌드
 COPY . server/service-server/build
+
+RUN pwd # 테스트
+
 RUN gradle build -x test --parallel
 
 #APP
