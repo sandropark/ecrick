@@ -7,15 +7,21 @@ spring:
   output.ansi.enabled: always
   jpa:
     open-in-view: false
-    properties.hibernate.default_batch_fetch_size: 100
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
 
 ---
 spring:
-  config.activate.on-profile: prod
+  config:
+    activate:
+      on-profile: prod
   datasource:
-    url: ${RDS_URL}
-    username: ${RDS_USERNAME}
-    password: ${RDS_PASSWORD}
+    url: ${OCI_DB_HOST}
+    username: ${OCI_DB_USERNAME}
+    password: ${OCI_DB_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
 
-logging.slack.webhook-url: ${SLACK_WEBHOOK_URL}
+logging:
+  slack:
+    webhook-url: ${SLACK_WEBHOOK_URL}
