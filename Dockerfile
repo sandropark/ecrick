@@ -1,5 +1,5 @@
 # gradle 이미지를 기본으로 사용한다.
-FROM gradle:7.6-jdk11-alpine as builder
+FROM gradle:7.5-jdk11-alpine as builder
 
 # build 디렉토리로 이동
 WORKDIR /build
