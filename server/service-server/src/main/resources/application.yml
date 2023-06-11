@@ -22,6 +22,6 @@ spring:
     password: ${OCI_DB_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
 
-logging:
-  slack:
-    webhook-url: ${SLACK_WEBHOOK_URL}
+#logging:
+#  slack:
+#    webhook-url: ${SLACK_WEBHOOK_URL}
