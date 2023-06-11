@@ -44,6 +44,6 @@ jobs:
         with:
           host: ${{ secrets.OCI_HOST }}
           username: ${{ secrets.OCI_USERNAME }}
-          password: ${{ secrets.OCI_SSH_KEY }}
+          key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
           script: pwd
