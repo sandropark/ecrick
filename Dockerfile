@@ -28,7 +28,7 @@ FROM openjdk:11.0-slim
 WORKDIR /app
 
 # 빌더 이미지에서 jar 파일만 복사
-COPY --from=Builder /build/server/service-server/build/libs/*-SNAPSHOT.jar ./app.jar
+COPY --from=Builder /build/server/build/libs/*-SNAPSHOT.jar ./app.jar
 
 RUN pwd # 테스트
 RUN ls -al # 테스트
