@@ -1,7 +1,0 @@
-spring:
-  output.ansi.enabled: always
-  jpa:
-    properties.hibernate:
-#      dialect: org.hibernate.dialect.MariaDB106Dialect
-      show_sql: true
-      format_sql: true

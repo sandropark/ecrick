@@ -1,6 +1,0 @@
-spring:
-  output.ansi.enabled: always
-  datasource.url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE # JDBC Template로 mariaDB 문법을 사용하기 위해서
-  jpa.properties.hibernate:
-    show_sql: true
-    format_sql: true

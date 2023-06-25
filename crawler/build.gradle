@@ -1,0 +1,11 @@
+
+dependencies {
+    implementation(
+            project(":server"),
+
+            'org.jsoup:jsoup',
+            'com.fasterxml.jackson.core:jackson-core',
+            'com.fasterxml.jackson.core:jackson-databind'
+    )
+}
+

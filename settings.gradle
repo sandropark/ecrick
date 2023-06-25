@@ -1,40 +1,39 @@
-rootProject.name = 'elib'
+rootProject.name = 'e-lib'
 
-// 디렉토리를 생성하고 하위 프로젝트로 설정
-["server", "core", "web"].each {
+// 모듈명 정의
+["core", "crawler", "server"].each {
 
+    // 루트 경로에 위에서 정의한 모듈을 생성
     def compDir = new File(rootDir, it)
-    if(!compDir.exists()){
+
+    if (!compDir.exists())
         compDir.mkdirs()
+
+    // 모듈에 gradle 파일 생성
+    def gradleFile = new File(compDir.absolutePath, "build.gradle")
+
+    if (!gradleFile.exists()) {
+        gradleFile.text =
+                """
+                dependencies {
+              
+            
+                }
+                """.stripIndent(20)
     }
 
-    compDir.eachDir {subDir ->
+    // src 폴더 생성
+    [
+            "src/main/java/com/elib",
+            "src/main/resources",
+            "src/test/java/com/elib",
+            "src/test/resources"
+    ].each { srcDir ->
+        def srcFolder = new File(compDir.absolutePath, srcDir)
 
-        def gradleFile = new File(subDir.absolutePath, "build.gradle")
-        if(!gradleFile.exists()){
-            gradleFile.text =
-                    """
-                    
-                    dependencies {
-                
-                    }
-                
-                    """.stripIndent(20)
-        }
-        [
-                "src/main/java/com/elib",
-                "src/main/resources",
-                "src/test/java/com/elib",
-                "src/test/resources"
-        ].each {srcDir->
-            def srcFolder = new File(subDir.absolutePath, srcDir)
-            if(!srcFolder.exists()){
-                srcFolder.mkdirs()
-            }
-        }
-
-        def projectName = ":${it}-${subDir.name}";
-        include projectName
-        project(projectName).projectDir = subDir
+        if (!srcFolder.exists())
+            srcFolder.mkdirs()
     }
+
+    include ":${it}"
 }

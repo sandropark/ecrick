@@ -1,0 +1,45 @@
+spring:
+  profiles:
+    group:
+      server:
+        - maria-db
+      crawler:
+        - maria-db
+      db-test:
+        - db
+  output.ansi.enabled: always
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        default_batch_fetch_size: 100
+        dialect: com.elib.config.MariaDB106DialectCustom
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL;
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: maria-db
+  datasource:
+    url: ${OCI_DB_HOST}
+    username: ${OCI_DB_USERNAME}
+    password: ${OCI_DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: crawler
+
+server:
+  port: 8081

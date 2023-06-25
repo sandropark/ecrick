@@ -1,0 +1,14 @@
+
+dependencies {
+    api(
+            project(":core"),
+
+            'org.springframework.boot:spring-boot-starter-web',
+            "$boot:spring-boot-starter-thymeleaf"
+    )
+
+//    implementation(
+////            'com.github.maricn:logback-slack-appender:1.4.0',
+////            "${spring}.data:spring-data-commons"
+//    )
+}

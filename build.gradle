@@ -23,6 +23,8 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: boot
 
+    sourceCompatibility = '11'
+
     repositories {
         mavenCentral()
     }
@@ -34,13 +36,21 @@ subprojects {
     }
 
     dependencies {
+        implementation(
+                "$boot:spring-boot-starter-data-jpa"
+        )
+
         compileOnly lombok
-        testCompileOnly lombok
         annotationProcessor lombok
+        testCompileOnly lombok
         testAnnotationProcessor lombok
 
-        testImplementation "$boot:spring-boot-starter-test"
-        testImplementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+        testImplementation (
+                "$boot:spring-boot-starter-test",
+                'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+        )
+
+        testRuntimeOnly('com.h2database:h2:1.4.199')
     }
 
     tasks.named('test') {
@@ -49,24 +59,8 @@ subprojects {
 
 }
 
-["core", "web"].each {
-    def subProjectDir = new File(projectDir, it)
-    subProjectDir.eachDir {dir->
-        def projectName = ":${it}-${dir.name}"
-        project(projectName){
-            bootJar.enabled(false)
-            jar.enabled(true)
-        }
-    }
-}
-["server"].each {
-    def subProjectDir = new File(projectDir, it)
-    subProjectDir.eachDir {dir->
-        def projectName = ":${it}-${dir.name}"
-        project(projectName){
-            jar.enabled(false)
-        }
-    }
+project("core"){
+    bootJar.enabled(false)
 }
 
 help.enabled(false)
