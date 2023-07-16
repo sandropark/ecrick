@@ -32,17 +32,6 @@ jobs:
 #        with:
 #          push: true
 #          tags: ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
-      - uses: actions/checkout@master
-      - name: Copy Files
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.OCI_APPLICATION_HOST }}
-          username: ${{ secrets.OCI_APPLICATION_USERNAME }}
-          key: ${{ secrets.OCI_SSH_KEY }}
-          port: 22
-          source: "deploy/deploy.sh"
-          target: "~"
-
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -51,6 +40,8 @@ jobs:
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
           script: |
+            git pull https://github.com/sandropark/e-lib.git
+            cd e-lib/deploy
             pwd
             ls -al
 
