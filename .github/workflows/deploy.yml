@@ -40,6 +40,16 @@ jobs:
           username: ${{ secrets.OCI_APPLICATION_USERNAME }}
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
+          source: "./deploy/deploy.sh"
+          target: /ecrick
           script: |
-            sudo docker rm -f $(sudo docker ps -aq)
-            sudo docker run -d --name elib -e OCI_DB_HOST=${{secrets.OCI_DB_HOST}} -e OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}} -e OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}} -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
+            export APP_LATEST_TAG=${{ github.run_number }}  # 최신 앱 태그 변수 등록
+            export OCI_DB_HOST=${{secrets.OCI_DB_HOST}}
+            export OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}}
+            export OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}}
+            
+            cd /ecrick
+            chmod 777 ./deploy.sh
+            ./deploy.sh
+#            sudo docker rm -f $(sudo docker ps -aq)
+#            sudo docker run -d --name elib -e OCI_DB_HOST=${{secrets.OCI_DB_HOST}} -e OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}} -e OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}} -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
