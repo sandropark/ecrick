@@ -40,7 +40,7 @@ jobs:
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
           script: |
-            git pull https://github.com/sandropark/e-lib.git
+            git clone https://github.com/sandropark/e-lib.git
             cd e-lib/deploy
             pwd
             ls -al
