@@ -51,12 +51,15 @@ jobs:
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
           script: |
+            cd /ecrick
+            ls -al
+
 #            export APP_LATEST_TAG=${{ github.run_number }}  # 최신 앱 태그 변수 등록
 #            export OCI_DB_HOST=${{secrets.OCI_DB_HOST}}
 #            export OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}}
 #            export OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}}
-            cd /ecrick
-            ls -al
+#            cd /ecrick
+#            ls -al
 #            chmod 777 ./deploy.sh
 #            ./deploy.sh
 #            sudo docker rm -f $(sudo docker ps -aq)
