@@ -1,11 +1,10 @@
 
 dependencies {
-    implementation(
-            project(":server"),
+    implementation project(":server")
 
-            'org.jsoup:jsoup:1.15.3',
-            'com.fasterxml.jackson.core:jackson-core',
-            'com.fasterxml.jackson.core:jackson-databind'
-    )
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.15.3'
+    implementation 'com.fasterxml.jackson.core:jackson-core'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 

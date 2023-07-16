@@ -1,12 +1,4 @@
 spring:
-  profiles:
-    group:
-      server:
-        - maria-db
-      crawler:
-        - maria-db
-      db-test:
-        - db
   output.ansi.enabled: always
   jpa:
     open-in-view: false
@@ -24,7 +16,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: maria-db
+      on-profile: prd
   datasource:
     url: ${OCI_DB_HOST}
     username: ${OCI_DB_USERNAME}
@@ -33,13 +25,3 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: crawler
-
-server:
-  port: 8081

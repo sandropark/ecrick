@@ -9,11 +9,13 @@ plugins {
 }
 
 dependencies {
-    implementation(
-            "com.querydsl:querydsl-jpa:${queryDslVersion}",
-    )
-    annotationProcessor("com.querydsl:querydsl-apt:${queryDslVersion}")
-    runtimeOnly('org.mariadb.jdbc:mariadb-java-client')
+    // QueryDsl
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    // DB
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'com.h2database:h2:1.4.199'
 }
 
 def querydslDir = "$buildDir/generated/querydsl"

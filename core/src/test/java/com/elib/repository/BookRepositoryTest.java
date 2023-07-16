@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled
-@ActiveProfiles("db-test")
+@ActiveProfiles("prd")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class BookRepositoryTest {
 
