@@ -33,6 +33,16 @@ jobs:
 #          push: true
 #          tags: ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
 
+      - name: Copy Files
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.OCI_APPLICATION_HOST }}
+          username: ${{ secrets.OCI_APPLICATION_USERNAME }}
+          key: ${{ secrets.OCI_SSH_KEY }}
+          port: 22
+          source: "./deploy/"
+          target: "/ecrick"
+
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -40,9 +50,6 @@ jobs:
           username: ${{ secrets.OCI_APPLICATION_USERNAME }}
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
-#          source: ./deploy/deploy.sh
-          source: "./"
-          target: "/ecrick"
           script: |
             export APP_LATEST_TAG=${{ github.run_number }}  # 최신 앱 태그 변수 등록
             export OCI_DB_HOST=${{secrets.OCI_DB_HOST}}
