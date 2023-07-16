@@ -40,9 +40,13 @@ jobs:
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
           script: |
-            git clone https://github.com/sandropark/e-lib.git
-            cd e-lib/deploy
-            pwd
+            if ls | grep -q e-lib; then
+              cd e-lib/deploy
+              git pull
+            else 
+              git clone https://github.com/sandropark/e-lib.git
+              cd e-lib/deploy
+            fi
             ls -al
 
 #            export APP_LATEST_TAG=${{ github.run_number }}  # 최신 앱 태그 변수 등록
