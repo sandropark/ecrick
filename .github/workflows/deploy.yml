@@ -43,9 +43,8 @@ jobs:
           username: ${{ secrets.OCI_APPLICATION_USERNAME }}
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
-          source: "deploy/deploy.sh"
-          target: /ecrick
-          strip_components: 1
+          source: "deploy.sh"
+          target: "~"
 
       - name: Deploy
         uses: appleboy/ssh-action@master
@@ -55,7 +54,7 @@ jobs:
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
           script: |
-            cd /ecrick
+            pwd
             ls -al
 
 #            export APP_LATEST_TAG=${{ github.run_number }}  # 최신 앱 태그 변수 등록
