@@ -13,7 +13,7 @@ jobs:
       #  소스코드 불러오기
       - name: Checkout
         uses: actions/checkout@v3
-        run:
+      - run: |
           pwd
           ls -al
 #
