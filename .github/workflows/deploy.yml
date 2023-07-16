@@ -55,7 +55,6 @@ jobs:
 #            export OCI_DB_HOST=${{secrets.OCI_DB_HOST}}
 #            export OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}}
 #            export OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}}
-            
             cd /ecrick
             ls -al
 #            chmod 777 ./deploy.sh
