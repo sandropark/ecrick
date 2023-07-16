@@ -40,8 +40,9 @@ jobs:
           username: ${{ secrets.OCI_APPLICATION_USERNAME }}
           key: ${{ secrets.OCI_SSH_KEY }}
           port: 22
-          source: "deploy/"
-          target: "/ecrick"
+          source: "./deploy/deploy.sh"
+          target: /ecrick
+          strip_components: 1
 
       - name: Deploy
         uses: appleboy/ssh-action@master
