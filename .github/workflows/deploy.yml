@@ -47,12 +47,12 @@ jobs:
               git clone https://github.com/sandropark/e-lib.git
               cd e-lib/deploy
             fi
-
-            APP_LATEST_TAG=${{ github.run_number }}  # 최신 앱 태그 변수 등록
-            OCI_DB_HOST=${{secrets.OCI_DB_HOST}}
-            OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}}
-            OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}}
-
+            
+            echo "APP_LATEST_TAG=${{ github.run_number }}" > .env  
+            echo "OCI_DB_HOST=${{secrets.OCI_DB_HOST}}" >> .env
+            echo "OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}}" >> .env
+            echo "OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}}" >> .env
+            
             chmod 777 ./deploy.sh
             sudo ./deploy.sh
 #            sudo docker rm -f $(sudo docker ps -aq)
