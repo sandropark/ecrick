@@ -13,9 +13,8 @@ services:
     image: sandeulpark/elib:${APP_LATEST_TAG} # docker hub의 image 이름
     ports:
       - "8080:8080"  # green은 8080 포트를 열어줍니다.
-    profiles:
-      - prd
     environment:
+      SPRING_PROFILES_ACTIVE: prd
       OCI_DB_HOST: ${OCI_DB_HOST}
       OCI_DB_USERNAME: ${OCI_DB_USERNAME}
       OCI_DB_PASSWORD: ${OCI_DB_PASSWORD}
@@ -27,6 +26,7 @@ services:
     profiles:
       - prd
     environment:
+      SPRING_PROFILES_ACTIVE: prd
       OCI_DB_HOST: ${OCI_DB_HOST}
       OCI_DB_USERNAME: ${OCI_DB_USERNAME}
       OCI_DB_PASSWORD: ${OCI_DB_PASSWORD}
