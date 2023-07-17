@@ -8,6 +8,10 @@ services:
     restart: always
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
   green:
     container_name: green
     image: sandeulpark/elib:${APP_LATEST_TAG} # docker hub의 image 이름
