@@ -1,5 +1,6 @@
 package com.elib.domain;
 
+import com.elib.type.UrlStatus;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,17 +17,26 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 public class Library extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = IDENTITY) private Long id;
-    @Column(name = "library_name", nullable = false) private String name;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+    @Column(name = "library_name", nullable = false)
+    private String name;
     private String url;
     private String param;
     private int totalBooks;
     private int savedBooks;
-    @Enumerated(EnumType.STRING) private ContentType contentType;
-    @ManyToOne @JoinColumn(name = "vendor_id", foreignKey = @ForeignKey(name = "fk_vendor_id")) private Vendor vendor;
+    @Enumerated(EnumType.STRING)
+    private ContentType contentType;
     private Integer size;
+    @Enumerated(EnumType.STRING)
+    private UrlStatus status;
+    @ManyToOne
+    @JoinColumn(name = "vendor_id", foreignKey = @ForeignKey(name = "fk_vendor_id"))
+    private Vendor vendor;
 
-    protected Library() {}
+    protected Library() {
+    }
 
     public void update(Library library, Vendor vendor) {
         name = library.getName();

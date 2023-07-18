@@ -1,6 +1,5 @@
 package com.elib.crawler;
 
-import com.elib.CrawlerApplication;
 import com.elib.repository.BookRepository;
 import com.elib.repository.CoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;

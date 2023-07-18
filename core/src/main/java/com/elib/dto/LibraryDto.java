@@ -3,6 +3,7 @@ package com.elib.dto;
 import com.elib.domain.ContentType;
 import com.elib.domain.Library;
 import com.elib.domain.Vendor;
+import com.elib.type.UrlStatus;
 import lombok.*;
 
 @Getter @Setter
@@ -19,6 +20,7 @@ public class LibraryDto {
     private ContentType contentType;
     private VendorDto vendor;
     private Integer size;
+    private UrlStatus status;
 
     public static LibraryDto from(Library entity) {
         return LibraryDto.builder()
@@ -31,19 +33,7 @@ public class LibraryDto {
                 .contentType(entity.getContentType())
                 .vendor(VendorDto.from(entity.getVendor()))
                 .size(entity.getSize())
-                .build();
-    }
-
-    public Library toEntity() {
-        return Library.builder()
-                .id(id)
-                .name(name)
-                .url(url)
-                .param(param)
-                .totalBooks(totalBooks)
-                .savedBooks(savedBooks)
-                .contentType(contentType)
-                .size(size)
+                .status(entity.getStatus())
                 .build();
     }
 
@@ -57,7 +47,12 @@ public class LibraryDto {
                 .contentType(contentType)
                 .vendor(vendor)
                 .size(size)
+                .status(status)
                 .build();
+    }
+
+    public Library toEntity() {
+        return toEntity(null);
     }
 
 }

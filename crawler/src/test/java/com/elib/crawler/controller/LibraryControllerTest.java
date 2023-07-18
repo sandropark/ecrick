@@ -1,6 +1,6 @@
 package com.elib.crawler.controller;
 
-import com.elib.CrawlerApplication;
+import com.elib.crawler.CrawlerApplication;
 import com.elib.crawler.service.CrawlerService;
 import com.elib.domain.VendorName;
 import com.elib.dto.LibraryDto;

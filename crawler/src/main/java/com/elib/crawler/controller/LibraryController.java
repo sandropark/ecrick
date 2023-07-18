@@ -1,5 +1,6 @@
 package com.elib.crawler.controller;
 
+import com.elib.crawler.service.CrawlerLibraryService;
 import com.elib.crawler.service.CrawlerService;
 import com.elib.domain.ContentType;
 import com.elib.dto.LibraryDto;
@@ -40,6 +41,7 @@ public class LibraryController {
     private final LibraryService libraryService;
     private final CrawlerService crawlerService;
     private final CoreService coreService;
+    private final CrawlerLibraryService crawlerLibraryService;
 
     @GetMapping
     public String libraries(
@@ -148,6 +150,16 @@ public class LibraryController {
             RedirectAttributes redirectAttributes
     ) {
         libraryService.updateAllSavedBooks();
+        redirectAttributes.addAllAttributes(queryParam.toMap());
+        return "redirect:" + ADMIN_LIBRARIES;
+    }
+
+    @PostMapping("/ping")
+    public String ping(
+            @ModelAttribute QueryParam queryParam,
+            RedirectAttributes redirectAttributes
+    ) {
+//        crawlerLibraryService.ping();
         redirectAttributes.addAllAttributes(queryParam.toMap());
         return "redirect:" + ADMIN_LIBRARIES;
     }
