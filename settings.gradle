@@ -1,4 +1,4 @@
-rootProject.name = 'e-lib'
+rootProject.name = 'ecrick'
 
 // 모듈명 정의
 ["core", "crawler", "server"].each {

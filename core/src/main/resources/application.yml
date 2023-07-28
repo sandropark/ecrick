@@ -7,9 +7,23 @@ spring:
         format_sql: true
         show_sql: true
         default_batch_fetch_size: 100
-        dialect: com.elib.config.MariaDB106DialectCustom
+        dialect: com.elib.core.config.MariaDB106DialectCustom
   datasource:
     url: jdbc:h2:mem:test;MODE=MySQL;
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mariadb://localhost:3306/elib
+    username: root
+    password: 8989
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
 
 ---
 

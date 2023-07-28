@@ -1,8 +1,8 @@
 buildscript {
     ext {
         bootVersion = "2.7.4"
-        spring = "org.springframework"
-        boot = "${spring}.boot"
+        boot = "org.springframework.boot"
+        queryDslVersion = "5.0.0"
         lombok = "org.projectlombok:lombok"
     }
     repositories {

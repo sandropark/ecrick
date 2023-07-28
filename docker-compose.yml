@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  mariadb:
+    image: mariadb:10.6.12
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_ROOT_PASSWORD=8989

@@ -1,6 +1,6 @@
 
 dependencies {
-    api project(":core")
+    implementation project(":core")
 
     api 'org.springframework.boot:spring-boot-starter-web'
     api "$boot:spring-boot-starter-thymeleaf"

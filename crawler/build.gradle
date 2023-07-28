@@ -1,6 +1,14 @@
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
 
 dependencies {
+    implementation project(":core")
     implementation project(":server")
+
+    // QueryDsl
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.15.3'
@@ -8,3 +16,17 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}

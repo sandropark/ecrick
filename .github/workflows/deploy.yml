@@ -57,5 +57,3 @@ jobs:
             sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             chmod 777 ./deploy.sh
             sudo ./deploy.sh
-#            sudo docker rm -f $(sudo docker ps -aq)
-#            sudo docker run -d --name elib -e OCI_DB_HOST=${{secrets.OCI_DB_HOST}} -e OCI_DB_USERNAME=${{secrets.OCI_DB_USERNAME}} -e OCI_DB_PASSWORD=${{secrets.OCI_DB_PASSWORD}} -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
