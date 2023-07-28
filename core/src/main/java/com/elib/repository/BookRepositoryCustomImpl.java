@@ -4,11 +4,13 @@ import com.elib.domain.Book;
 import com.elib.dto.BookListDto;
 import com.elib.dto.QBookListDto;
 import com.elib.dto.Search;
+import com.elib.service.SearchTarget;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
@@ -31,8 +33,6 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
 
     @Override
     public Page<BookListDto> searchPage(Search search, Pageable pageable) {
-        String keyword = search.getKeyword();
-
         List<BookListDto> content = queryFactory
                 .select(
                         new QBookListDto(
@@ -45,7 +45,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                         )
                 )
                 .from(book)
-                .where(bookContains(keyword))
+                .where(bookContains(search))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(bookSort(pageable))
@@ -54,17 +54,34 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
         JPAQuery<Long> countQuery = queryFactory
                 .select(book.count())
                 .from(book)
-                .where(bookContains(keyword));
+                .where(bookContains(search));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
-    private BooleanExpression bookContains(String keyword) {
-        if (hasText(keyword))
-            return Expressions.numberTemplate(
-                    Integer.class, "function('match', {0}, {1})", book.fullInfo, keyword
-            ).eq(1);
-        return null;
+    private BooleanExpression bookContains(Search search) {
+        String keyword = search.getKeyword();
+        if (!hasText(keyword))
+            return null;
+
+        SearchTarget searchTarget = search.getSearchTarget();
+
+        switch (searchTarget) {
+            case TITLE:
+                return condition(book.title, keyword);
+            case AUTHOR:
+                return condition(book.author, keyword);
+            case PUBLISHER:
+                return condition(book.publisher, keyword);
+            default:
+                return condition(book.fullInfo, keyword);
+        }
+    }
+
+    private BooleanExpression condition(StringPath target, String keyword) {
+        return Expressions.numberTemplate(
+                Integer.class, "function('match', {0}, {1})", target, keyword
+        ).eq(1);
     }
 
     private OrderSpecifier[] bookSort(Pageable pageable) {
