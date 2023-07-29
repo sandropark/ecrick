@@ -80,7 +80,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
 
     private BooleanExpression condition(StringPath target, String keyword) {
         return Expressions.numberTemplate(
-                Integer.class, "function('match', {0}, {1})", target, keyword
+                Integer.class, "function('match', {0}, {1})", target, '"' + keyword + '"'
         ).eq(1);
     }
 
