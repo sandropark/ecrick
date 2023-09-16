@@ -14,7 +14,7 @@ buildscript {
 }
 
 allprojects {
-    group = 'com.elib'
+    group = 'com.ecrick'
     version = '0.0.1-SNAPSHOT'
 }
 
