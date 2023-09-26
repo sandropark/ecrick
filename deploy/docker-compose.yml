@@ -22,6 +22,7 @@ services:
       OCI_DB_HOST: ${OCI_DB_HOST}
       OCI_DB_USERNAME: ${OCI_DB_USERNAME}
       OCI_DB_PASSWORD: ${OCI_DB_PASSWORD}
+    restart: always
   blue:
     container_name: blue
     image: sandeulpark/elib:${APP_LATEST_TAG} # docker hub의 image 이름
@@ -34,3 +35,4 @@ services:
       OCI_DB_HOST: ${OCI_DB_HOST}
       OCI_DB_USERNAME: ${OCI_DB_USERNAME}
       OCI_DB_PASSWORD: ${OCI_DB_PASSWORD}
+    restart: always
