@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DEFAULT_CONF="/etc/nginx/nginx.conf" # 새로 띄운 컨테이너로 리버스 프록시 하기 위해서 사용
+DEFAULT_CONF="/etc/nginx/conf.d/app.conf" # 새로 띄운 컨테이너로 리버스 프록시 하기 위해서 사용
 
 BEFORE=blue
 AFTER=green
@@ -15,7 +15,7 @@ if docker ps | grep -q green; then
     AFTER_PORT=8081
 fi
 
-docker compose up -d nginx
+#docker compose up -d nginx
 
 echo "### $BEFORE => $AFTER ###"
 echo "1. $AFTER container up"
@@ -35,7 +35,8 @@ done;
 
 echo "3. change proxy port and reload nginx"
 # nginx가 새로운 포트를 리버스 프록싱하게 수정 후 nginx 재시작
-docker exec nginx sed -i "s/$BEFORE/$AFTER/g" $DEFAULT_CONF; docker exec nginx service nginx reload
+#docker exec nginx sed -i "s/$BEFORE/$AFTER/g" $DEFAULT_CONF; docker exec nginx service nginx reload
+sed -i "s/$BEFORE/$AFTER/g" $DEFAULT_CONF; service nginx reload
 echo "4. $BEFORE container down"
 docker compose stop $BEFORE  # 이전 버전 컨테이너 멈추기
 echo "5. delete unused images"
