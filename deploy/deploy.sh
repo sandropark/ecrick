@@ -36,7 +36,7 @@ done;
 echo "3. change proxy port and reload nginx"
 # nginx가 새로운 포트를 리버스 프록싱하게 수정 후 nginx 재시작
 #docker exec nginx sed -i "s/$BEFORE/$AFTER/g" $DEFAULT_CONF; docker exec nginx service nginx reload
-sed -i "s/$BEFORE/$AFTER/g" $DEFAULT_CONF; service nginx reload
+sed -i "s/$BEFORE_PORT/$AFTER_PORT/g" $DEFAULT_CONF; service nginx reload
 echo "4. $BEFORE container down"
 docker compose stop $BEFORE  # 이전 버전 컨테이너 멈추기
 echo "5. delete unused images"
