@@ -48,7 +48,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 .from(book)
                 .where(bookContains(search))
                 .offset(pageable.getOffset())
-                .limit(EcrickConst.PAGE_SIZE)
+                .limit(pageable.getPageSize())
                 .orderBy(bookSort(pageable))
                 .fetch();
 

@@ -25,3 +25,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  data:
+    web:
+      pageable:
+        max-page-size: 24
