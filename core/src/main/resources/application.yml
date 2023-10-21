@@ -7,7 +7,7 @@ spring:
         format_sql: true
         show_sql: true
         default_batch_fetch_size: 100
-        dialect: com.elib.config.MariaDB106DialectCustom
+        dialect: com.ecrick.config.MariaDB106DialectCustom
   datasource:
     url: jdbc:h2:mem:test;MODE=MySQL;
 
