@@ -6,6 +6,7 @@ import com.ecrick.dto.QBookListDto;
 import com.ecrick.dto.Search;
 import com.ecrick.service.SearchTarget;
 import com.querydsl.core.types.Order;
+import com.ecrick.EcrickConst;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
@@ -47,7 +48,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 .from(book)
                 .where(bookContains(search))
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .limit(EcrickConst.PAGE_SIZE)
                 .orderBy(bookSort(pageable))
                 .fetch();
 

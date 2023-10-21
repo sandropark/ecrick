@@ -6,6 +6,7 @@ import com.ecrick.service.BookService;
 import com.ecrick.service.PaginationService;
 import com.ecrick.service.SearchTarget;
 import lombok.RequiredArgsConstructor;
+import com.ecrick.EcrickConst;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,7 +29,7 @@ public class BookController {
 
     @GetMapping
     public String bookList(
-            @PageableDefault(size = 24, sort = {"publicDate"}, direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = EcrickConst.PAGE_SIZE, sort = {"publicDate"}, direction = Sort.Direction.DESC) Pageable pageable,
             @ModelAttribute Search search,
             Model model,
             HttpServletRequest request
