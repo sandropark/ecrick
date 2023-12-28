@@ -1,0 +1,8 @@
+bootJar.enabled(true)
+
+dependencies {
+    api project(":ecrick-repository")
+
+    api "$boot:spring-boot-starter-web"
+    api "$boot:spring-boot-starter-thymeleaf"
+}

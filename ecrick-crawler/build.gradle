@@ -1,0 +1,13 @@
+
+dependencies {
+    implementation project(':ecrick-repository')
+
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.15.3'
+    implementation "$boot:spring-boot-starter-json"
+
+    // DB
+    runtimeOnly 'com.mysql:mysql-connector-j:8.1.0'
+    testRuntimeOnly 'com.h2database:h2:1.4.200'
+}
+

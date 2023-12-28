@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragment/common :: head('도서관 정보')"></head>
+<body>
+<nav th:replace="fragment/navbar :: nav"></nav>
+
+<main class="container" th:object="${libraryDto}">
+  <h3 th:text="*{name}">전자도서관</h3>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <form method="post" th:action="@{|/admin/libraries/*{id}/delete|}">
+      <button type="submit" class="btn btn-danger">삭제</button>
+    </form>
+    <a class="btn btn-primary" href="#" th:href="@{|/admin/libraries/*{id}/form|}" role="button">수정</a>
+  </div>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">url</th>
+        <td><a th:text="*{url}" th:href="*{url}" target="_blank">http://naver.com</a></td>
+      </tr>
+      <tr>
+        <th scope="row">param</th>
+        <td th:text="*{param}">page=1</td>
+      </tr>
+      <tr>
+        <th scope="row">totalBooks</th>
+        <td th:text="*{totalBooks}">100</td>
+      </tr>
+      <tr>
+        <th scope="row">savedBooks</th>
+        <td th:text="*{savedBooks}">50</td>
+      </tr>
+      <tr>
+        <th scope="row">size</th>
+        <td th:text="*{size}">20</td>
+      </tr>
+      <tr>
+        <th scope="row">contentType</th>
+        <td th:text="*{contentType}">text/xml</td>
+      </tr>
+      <tr>
+        <th scope="row">vendor</th>
+        <td th:text="*{vendor}">교보</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a class="btn btn-primary" th:href="@{/admin/libraries/}" role="button">목록으로</a>
+  </div>
+
+</main>
+
+<script th:replace="fragment/common :: #script"></script>
+</body></html>

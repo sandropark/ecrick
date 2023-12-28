@@ -1,0 +1,5 @@
+
+dependencies {
+    implementation project(':ecrick-crawler-new-domain')
+    implementation project(':ecrick-crawler-new-crawler')
+}

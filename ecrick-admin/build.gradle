@@ -1,0 +1,7 @@
+bootJar.enabled(true)
+
+dependencies {
+    implementation project(":ecrick-app")
+    implementation project(":ecrick-crawler")
+}
+

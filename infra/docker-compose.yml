@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.1
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: ecrick
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"

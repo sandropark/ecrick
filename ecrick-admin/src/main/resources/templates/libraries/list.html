@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragment/common :: head('도서관 목록')"></head>
+<body>
+<nav th:replace="fragment/navbar :: nav"></nav>
+<div th:replace="fragment/common :: #search-bar" class="container"></div>
+
+<div class="container">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <form method="post" th:action="@{/admin/libraries/saved-update}">
+      <input type="hidden" name="keyword" th:value="${param.keyword}">
+      <input type="hidden" name="page" th:value="${param.page}">
+      <input type="hidden" name="sort" th:value="${param.sort}">
+      <input type="hidden" name="size" th:value="${param.size}">
+      <button class="btn btn-primary" type="submit">저장된 도서수 업데이트</button>
+    </form>
+    <a class="btn btn-primary" th:href="@{/admin/libraries/form}">도서관 등록</a>
+  </div>
+</div>
+
+<main th:object="${libraries}"}>
+
+  <div class="container">결과 총 <span th:text="*{getTotalElements()}"></span></div>
+
+  <!--도서관 목록-->
+  <main class="container">
+    <table class="table table-striped table-hover a-tag-off">
+      <!--정렬-->
+      <thead>
+        <tr>
+          <th scope="col"><a th:href="@{/admin/libraries (
+                sort=id + (*{sort.getOrderFor('id') != null} ? (*{sort.getOrderFor('id').isAscending()} ? ',desc' : '' ) : ''),
+                keyword=${param.keyword})}">id</a></th>
+          <th scope="col"><a th:href="@{/admin/libraries (
+                sort=name + (*{sort.getOrderFor('name') != null} ? (*{sort.getOrderFor('name').isAscending()} ? ',desc' : '' ) : ''),
+                keyword=${param.keyword})}">이름</a></th>
+          <th scope="col"><a th:href="@{/admin/libraries (
+                sort=totalBooks + (*{sort.getOrderFor('totalBooks') != null} ? (*{sort.getOrderFor('totalBooks').isAscending()} ? ',desc' : '' ) : ''),
+                keyword=${param.keyword})}">총 도서수</a></th>
+          <th scope="col"><a th:href="@{/admin/libraries (
+                sort=savedBooks + (*{sort.getOrderFor('savedBooks') != null} ? (*{sort.getOrderFor('savedBooks').isAscending()} ? ',desc' : '' ) : ''),
+                keyword=${param.keyword})}">저장된 도서수</a></th>
+          <th><a th:href="@{/admin/libraries (
+                sort=contentType + (*{sort.getOrderFor('contentType') != null} ? (*{sort.getOrderFor('contentType').isAscending()} ? ',desc' : '' ) : ''),
+                keyword=${param.keyword})}">컨텐츠 타입</a></th>
+          <th><a th:href="@{/admin/libraries (
+                sort=vendor + (*{sort.getOrderFor('vendor') != null} ? (*{sort.getOrderFor('vendor').isAscending()} ? ',desc' : '' ) : ''),
+                keyword=${param.keyword})}">공급사</a></th>
+          <th>size</th>
+          <th>크롤링</th>
+          <th>저장된 도서수</th>
+          <th>도서삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="libraryDto : ${libraries.content}">
+          <th scope="row" th:text="${libraryDto.id}" >1</th>
+          <td><a th:href="@{|/admin/libraries/${libraryDto.id}|}" th:text="${libraryDto.name}">중랑구립도서관</a></td>
+          <td th:text="${libraryDto.totalBooks}">3000권</td>
+          <td th:text="${libraryDto.savedBooks}"
+              th:style="${libraryDto.totalBooks != libraryDto.savedBooks
+              ? libraryDto.totalBooks > libraryDto.savedBooks && libraryDto.totalBooks - libraryDto.savedBooks < 10
+                ? 'color:blue'
+                : 'color:red'
+              : ''}">3000권</td>
+          <td th:text="${libraryDto.contentType.value}">json or xml</td>
+          <td th:text="${libraryDto.vendor.name}">교보</td>
+          <td th:text="${libraryDto.requestSize}">20</td>
+          <td>
+            <form method="post" th:action="@{|/admin/libraries/${libraryDto.id}/crawl|}">
+              <input type="hidden" name="keyword" th:value="${param.keyword}">
+              <input type="hidden" name="page" th:value="${param.page}">
+              <input type="hidden" name="sort" th:value="${param.sort}">
+              <input type="hidden" name="size" th:value="${param.size}">
+
+              <label for="thread-num"><small>Thread</small></label>
+              <input type="number" name="thread-num" id="thread-num" min="1", max="100" value="1">
+              <label for="sleep-time"><small>Sleep</small></label>
+              <input type="number" name="sleep-time" id="sleep-time" min="0", max="300" value="0">
+              <label for="sleep-time"><small>(초)</small></label>
+
+              <button type="submit" class="btn btn-primary">실행</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" th:action="@{|/admin/libraries/${libraryDto.id}/saved-update|}">
+              <input type="hidden" name="keyword" th:value="${param.keyword}">
+              <input type="hidden" name="page" th:value="${param.page}">
+              <input type="hidden" name="sort" th:value="${param.sort}">
+              <input type="hidden" name="size" th:value="${param.size}">
+              <button type="submit" class="btn btn-primary">업데이트</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" th:action="@{|/admin/libraries/${libraryDto.id}/delete-books|}">
+              <input type="hidden" name="keyword" th:value="${param.keyword}">
+              <input type="hidden" name="page" th:value="${param.page}">
+              <input type="hidden" name="sort" th:value="${param.sort}">
+              <input type="hidden" name="size" th:value="${param.size}">
+              <input type="button" value="삭제" onclick="confirmDelete(this.form)" class="btn btn-danger">
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <nav th:replace="fragment/common :: pagination(path='/admin/libraries')"></nav>
+</main>
+
+<script src="/script.js"></script>
+<script th:replace="fragment/common :: #script"></script>
+</body></html>

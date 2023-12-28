@@ -1,0 +1,13 @@
+spring:
+  output.ansi.enabled: always
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        default_batch_fetch_size: 100
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecrick
+    username: root
+    password: 1234

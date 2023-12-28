@@ -23,7 +23,9 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: boot
 
-    sourceCompatibility = '11'
+    sourceCompatibility = '17'
+
+    bootJar.enabled(false)
 
     repositories {
         mavenCentral()
@@ -51,10 +53,6 @@ subprojects {
         useJUnitPlatform()
     }
 
-}
-
-project("core"){
-    bootJar.enabled(false)
 }
 
 help.enabled(false)

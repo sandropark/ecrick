@@ -1,0 +1,8 @@
+
+dependencies {
+    implementation project(':ecrick-crawler-new-domain')
+
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.15.3'
+    implementation "$boot:spring-boot-starter-json"
+}
