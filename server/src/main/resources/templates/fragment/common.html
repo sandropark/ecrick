@@ -1,88 +1,102 @@
-<!doctype html><html>
-
+<!doctype html>
+<html>
 <head th:fragment="head(title)">
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta name="keywords" content="전자책벌레,전자도서관,통합검색,검색,전자책,교보,예스24,yes24,Yes24,북큐브,알라딘,서울도서관,bookcube">
-  <meta name="description" content="전자책벌레 전자도서관 통합검색">
-  <meta property="og.title" content="전자책벌레 - 전자도서관 통합검색">
-  <meta property="og:description" content="전자책벌레 - 전자도서관 편하게 검색하세요.">
-  <meta name="naver-site-verification" content="b71e050f3a12fcd67e80a6d0a2397412d9d94c5b" />  <!--네이버 소유확인-->
-  <title th:text="${title}">Hello!</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/css/a-tag-off.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="keywords"
+          content="전자책벌레,전자도서관,통합검색,검색,전자책,책,전자도서,도서관,도서,교보,교보문고,예스24,yes24,Yes24,북큐브,알라딘,서울도서관,bookcube">
+    <meta name="description" content="전자도서관 소장도서를 편하게, 한 번에 검색할 수 있는 사이트입니다.">
+    <meta property="og.title" content="전자책벌레 - 전자도서관 통합검색">
+    <meta property="og:description" content="전자책벌레 - 전자도서관 편하게 검색하세요.">
+    <meta name="naver-site-verification" content="b71e050f3a12fcd67e80a6d0a2397412d9d94c5b"/>  <!--네이버 소유확인-->
+    <title th:text="${title}">Hello!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/a-tag-off.css" rel="stylesheet">
+    <link rel="icon" href="favicon.png">
 
-  <!-- Google tag (gtag.js) elib.ga -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQLVYPTDTK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <!-- Google tag (gtag.js) elib.ga -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQLVYPTDTK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-ZQLVYPTDTK');
+    </script>
 
-    gtag('config', 'G-ZQLVYPTDTK');
-  </script>
+    <!-- Google tag (gtag.js) ecrick.com -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2ZL95WWEX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-M2ZL95WWEX');
+    </script>
 
-  <!-- Google tag (gtag.js) ecrick.com -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2ZL95WWEX"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-M2ZL95WWEX');
-</script>
-
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8495159868358935"
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
-
 <nav th:fragment="navbar(collapse)" class="navbar navbar-expand-sm navbar-dark bg-dark mb-2">
-  <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{/}">전자도서관 통합검색</a>
-    <th:block th:replace="${collapse}"/>
-  </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">전자책벌레</a>
+        <th:block th:replace="${collapse}"/>
+    </div>
 </nav>
 
 <div id="search-bar" class="container">
-  <form class="form-inline mb-2" th:object="${search}" th:action="@{/books}">
-    <div class="input-group">
-      <select th:field="*{searchTarget}" class="form-select" style="max-width: 110px">
-        <option th:each="searchTarget : ${searchTargets}"
-                th:value="${searchTarget.name}"
-                th:text="${searchTarget.displayName}"></option>
-      </select>
-      <input class="form-control" th:field="*{keyword}" placeholder="검색어를 입력하세요." type="text">
-      <button class="btn btn-outline-secondary" type="submit">검색</button>
-    </div>
-  </form>
+    <form class="form-inline mb-2" th:object="${search}" th:action="@{/books}">
+        <div class="input-group">
+            <select th:field="*{searchTarget}" class="form-select" style="max-width: 110px">
+                <option th:each="searchTarget : ${searchTargets}"
+                        th:value="${searchTarget.name}"
+                        th:text="${searchTarget.displayName}"></option>
+            </select>
+            <input class="form-control" th:field="*{keyword}" placeholder="검색어를 입력하세요." type="text">
+            <button class="btn btn-outline-secondary" type="submit">검색</button>
+        </div>
+    </form>
 </div>
 
 <nav th:fragment="pagination(path)" aria-label="pagination" class="mt-2">
-  <ul class="pagination justify-content-center">
-    <li aria-label="previous btn" class="page-item" th:if="${pagination.hasPrePages()}">
-      <a th:href="@{${path} (keyword=${param.keyword}, searchTarget=${param.searchTarget},
+    <ul class="pagination justify-content-center">
+        <li aria-label="previous btn" class="page-item" th:if="${pagination.hasPrePages()}">
+            <a th:href="@{${path} (keyword=${param.keyword}, searchTarget=${param.searchTarget},
          sort=${param.sort}, page=${pagination.preCurrentPage}, size=${param.size})}"
-         class="page-link">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li aria-label="page btn" class="page-item" th:each="page : ${pagination.pageNumbers}" th:classappend="${page} == *{number} ? 'active'">
-      <a th:href="@{${path} (keyword=${param.keyword}, searchTarget=${param.searchTarget}, sort=${param.sort}, page=${page}, size=${param.size})}"
-         class="page-link" th:text="${page+1}">1</a>
-    </li>
-    <li aria-label="next btn" class="page-item" th:if="${pagination.hasNextPages()}">
-      <a th:href="@{${path} (keyword=${param.keyword}, searchTarget=${param.searchTarget},
+               class="page-link">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li aria-label="page btn" class="page-item" th:each="page : ${pagination.pageNumbers}"
+            th:classappend="${page} == *{number} ? 'active'">
+            <a th:href="@{${path} (keyword=${param.keyword}, searchTarget=${param.searchTarget}, sort=${param.sort}, page=${page}, size=${param.size})}"
+               class="page-link" th:text="${page+1}">1</a>
+        </li>
+        <li aria-label="next btn" class="page-item" th:if="${pagination.hasNextPages()}">
+            <a th:href="@{${path} (keyword=${param.keyword}, searchTarget=${param.searchTarget},
           sort=${param.sort}, page=${pagination.nextCurrentPage}, size=${param.size})}"
-         class="page-link">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
+               class="page-link">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
 </nav>
 
 <th:block id="script">
-  <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
 </th:block>
-</body></html>
+</body>
+</html>
