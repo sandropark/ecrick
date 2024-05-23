@@ -1,11 +1,11 @@
 package com.ecrick.crawler.service;
 
+import com.ecrick.core.domain.Core;
+import com.ecrick.core.dto.CoreDto;
+import com.ecrick.core.repository.BookRepository;
+import com.ecrick.core.repository.CoreRepository;
 import com.ecrick.crawler.repository.CrawlerBookRepository;
 import com.ecrick.crawler.repository.CrawlerCoreRepository;
-import com.ecrick.domain.Core;
-import com.ecrick.dto.CoreDto;
-import com.ecrick.repository.BookRepository;
-import com.ecrick.repository.CoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

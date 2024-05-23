@@ -1,7 +1,7 @@
 package com.ecrick.crawler.parser;
 
+import com.ecrick.core.dto.CoreDto;
 import com.ecrick.crawler.dto.KyoboXmlDto;
-import com.ecrick.dto.CoreDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

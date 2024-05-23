@@ -1,13 +1,12 @@
 package com.ecrick.crawler;
 
 import com.ecrick.CrawlerApplication;
-import com.ecrick.repository.BookRepository;
-import com.ecrick.repository.CoreRepository;
+import com.ecrick.core.repository.BookRepository;
+import com.ecrick.core.repository.CoreRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import jakarta.persistence.EntityManager;
 
 @Transactional
 @SpringBootTest(

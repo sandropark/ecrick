@@ -1,15 +1,15 @@
 package com.ecrick.crawler.controller;
 
 import com.ecrick.CrawlerApplication;
+import com.ecrick.core.domain.VendorName;
+import com.ecrick.core.dto.LibraryDto;
+import com.ecrick.core.dto.Pagination;
+import com.ecrick.core.dto.VendorDto;
+import com.ecrick.core.service.CoreService;
+import com.ecrick.core.service.LibraryService;
+import com.ecrick.core.service.PaginationService;
+import com.ecrick.core.service.VendorService;
 import com.ecrick.crawler.service.CrawlerService;
-import com.ecrick.domain.VendorName;
-import com.ecrick.dto.LibraryDto;
-import com.ecrick.dto.Pagination;
-import com.ecrick.dto.VendorDto;
-import com.ecrick.service.CoreService;
-import com.ecrick.service.LibraryService;
-import com.ecrick.service.PaginationService;
-import com.ecrick.service.VendorService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

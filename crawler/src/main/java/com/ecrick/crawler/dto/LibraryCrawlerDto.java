@@ -1,8 +1,8 @@
 package com.ecrick.crawler.dto;
 
-import com.ecrick.domain.ContentType;
-import com.ecrick.domain.Library;
-import com.ecrick.dto.VendorDto;
+import com.ecrick.core.domain.ContentType;
+import com.ecrick.core.domain.Library;
+import com.ecrick.core.dto.VendorDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,14 +79,14 @@ public class LibraryCrawlerDto {
 
         String[] params = param.split("&");
         for (int page = 1; page < maxPage; page++) {
-            detailUrls.add(url + params[0] + page + "&"+ params[1] + size);
+            detailUrls.add(url + params[0] + page + "&" + params[1] + size);
         }
         return detailUrls;
     }
 
     private List<String> getAladinDetailUrls() {
         ArrayList<String> detailUrls = new ArrayList<>();
-        for (int page = 1; page < totalBooks; page+=size) {
+        for (int page = 1; page < totalBooks; page += size) {
             detailUrls.add(url + "currentPage=" + page);
         }
         detailUrls.add(url + "currentPage=" + totalBooks);

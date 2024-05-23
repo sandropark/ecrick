@@ -1,11 +1,12 @@
 package com.ecrick.crawler.request;
 
-import com.ecrick.domain.ContentType;
-import com.ecrick.dto.LibraryDto;
+import com.ecrick.core.domain.ContentType;
+import com.ecrick.core.dto.LibraryDto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class LibraryUpdateRequestDto {
     private Long id;
     private String name;

@@ -1,15 +1,15 @@
 package com.ecrick.crawler.service;
 
-import com.ecrick.crawler.worker.Crawler;
+import com.ecrick.core.repository.LibraryRepository;
+import com.ecrick.core.service.LibraryService;
 import com.ecrick.crawler.dto.LibraryCrawlerDto;
-import com.ecrick.repository.LibraryRepository;
-import com.ecrick.service.LibraryService;
+import com.ecrick.crawler.worker.Crawler;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

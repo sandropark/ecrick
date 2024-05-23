@@ -1,7 +1,7 @@
 package com.ecrick.crawler.dto;
 
-import com.ecrick.domain.ContentType;
-import com.ecrick.dto.LibraryDto;
+import com.ecrick.core.domain.ContentType;
+import com.ecrick.core.dto.LibraryDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

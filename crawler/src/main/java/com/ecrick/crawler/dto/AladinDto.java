@@ -1,11 +1,11 @@
 package com.ecrick.crawler.dto;
 
-import com.ecrick.domain.Library;
-import com.ecrick.dto.CoreDto;
-import lombok.Getter;
-
+import com.ecrick.core.domain.Library;
+import com.ecrick.core.dto.CoreDto;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -30,18 +30,23 @@ public class AladinDto implements ResponseDto {
                 Matcher m = Pattern.compile(regex).matcher(content);
                 return m.find() ? m.group(1).strip() : "";
             }
+
             private String getTitle() {
                 return getField("<pdName>(.+)</pdName>");
             }
+
             private String getAuthor() {
                 return getField("<author>(.+)</author>");
             }
+
             private String getPublisher() {
                 return getField("<publisher>(.+)</publisher>");
             }
+
             private String getPublicDate() {
                 return getField("<ebookYMD>(.+)</ebookYMD>");
             }
+
             private String getCoverUrl() {
                 return getField("<thumbnail>(.+)</thumbnail>");
             }

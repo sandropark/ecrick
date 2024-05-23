@@ -1,7 +1,7 @@
 package com.ecrick.crawler.dto;
 
-import com.ecrick.domain.Library;
-import com.ecrick.dto.CoreDto;
+import com.ecrick.core.domain.Library;
+import com.ecrick.core.dto.CoreDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -18,6 +18,7 @@ public class SeoulLibDto implements ResponseDto {
     private Integer totalCount;
     @JsonProperty("ContentDataList")
     private List<Content> contents;
+
     @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class Content {
