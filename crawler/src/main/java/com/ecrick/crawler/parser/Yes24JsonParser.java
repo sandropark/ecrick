@@ -6,7 +6,7 @@ import com.ecrick.crawler.dto.Yes24JsonDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import static org.jsoup.Connection.Response;
 

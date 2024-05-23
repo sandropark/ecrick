@@ -3,10 +3,10 @@ package com.ecrick.domain;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity

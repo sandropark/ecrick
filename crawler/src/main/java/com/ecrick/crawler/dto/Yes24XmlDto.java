@@ -4,8 +4,6 @@ import com.ecrick.domain.Library;
 import com.ecrick.dto.CoreDto;
 import lombok.Getter;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;

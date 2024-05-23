@@ -3,7 +3,7 @@ package com.ecrick.crawler.parser;
 import com.ecrick.crawler.dto.LibraryCrawlerDto;
 import com.ecrick.crawler.dto.ResponseDto;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import java.io.IOException;
 
 import static org.jsoup.Connection.Response;

@@ -5,7 +5,7 @@ import com.ecrick.crawler.dto.ResponseDto;
 import com.ecrick.crawler.dto.SeoulEduDto;
 import org.jsoup.Connection;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import java.io.IOException;
 
 public class SeoulEduParser implements CrawlerParser {
