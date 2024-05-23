@@ -1,11 +1,11 @@
 package com.ecrick.crawler.dto;
 
-import com.ecrick.domain.Library;
-import com.ecrick.dto.CoreDto;
+import com.ecrick.core.domain.Library;
+import com.ecrick.core.dto.CoreDto;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;

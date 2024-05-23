@@ -1,6 +1,6 @@
 package com.ecrick.crawler.repository;
 
-import com.ecrick.domain.Core;
+import com.ecrick.core.domain.Core;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,12 +48,12 @@ public class CrawlerCoreRepository {
 
     public void mapCoreAndBookIfCore_BookIdIsNull() {
         template.execute(
-        "UPDATE core c SET c.book_id = " +
-                "(select b.id from book b" +
-                " where c.title = b.title" +
-                " AND c.author = b.author" +
-                " AND c.publisher = b.publisher)" +
-                "where c.book_id is null"
+                "UPDATE core c SET c.book_id = " +
+                        "(select b.id from book b" +
+                        " where c.title = b.title" +
+                        " AND c.author = b.author" +
+                        " AND c.publisher = b.publisher)" +
+                        "where c.book_id is null"
         );
     }
 }

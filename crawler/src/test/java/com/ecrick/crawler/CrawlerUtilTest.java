@@ -1,13 +1,13 @@
 package com.ecrick.crawler;
 
+import com.ecrick.core.dto.CoreDto;
 import com.ecrick.crawler.dto.KyoboXmlDto;
-import com.ecrick.dto.CoreDto;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.List;
 

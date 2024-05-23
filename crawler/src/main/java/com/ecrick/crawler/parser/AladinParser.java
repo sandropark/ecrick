@@ -6,8 +6,8 @@ import com.ecrick.crawler.dto.ResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jsoup.Connection;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import java.io.StringReader;
 
 public class AladinParser extends BodyCleaner implements CrawlerParser {

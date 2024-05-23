@@ -1,15 +1,13 @@
 spring:
-  output.ansi.enabled: always
+  output:
+    ansi:
+      enabled: always
   jpa:
     open-in-view: false
     properties:
       hibernate:
-        format_sql: true
-        show_sql: true
         default_batch_fetch_size: 100
-        dialect: com.ecrick.config.MariaDB106DialectCustom
-  datasource:
-    url: jdbc:h2:mem:test;MODE=MySQL;
+        dialect: com.ecrick.core.config.MariaDB106DialectCustom
 
 ---
 

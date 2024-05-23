@@ -1,8 +1,8 @@
 package com.ecrick.crawler.parser;
 
+import com.ecrick.core.domain.Library;
+import com.ecrick.core.dto.CoreDto;
 import com.ecrick.crawler.dto.ResponseDto;
-import com.ecrick.domain.Library;
-import com.ecrick.dto.CoreDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,7 @@ class SeoulLibParserTest {
 //        bookDtos.forEach(System.out::println);
 
         coreDtos.forEach(bookDto ->
-            System.out.println(bookDto.toEntity())
+                System.out.println(bookDto.toEntity())
         );
 
     }
