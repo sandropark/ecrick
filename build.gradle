@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        bootVersion = "3.1.4"
+        bootVersion = "3.1.12"
         lombok = "org.projectlombok:lombok"
     }
     repositories {

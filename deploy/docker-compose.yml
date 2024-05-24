@@ -14,7 +14,7 @@ services:
 #      - /var/lib/letsencrypt:/var/lib/letsencrypt
   green:
     container_name: green
-    image: sandeulpark/elib:${APP_LATEST_TAG} # docker hub의 image 이름
+    image: sandeulpark/ecrick:${APP_LATEST_TAG} # docker hub의 image 이름
     ports:
       - "8080:8080"  # green은 8080 포트를 열어줍니다.
     environment:
@@ -25,7 +25,7 @@ services:
     restart: always
   blue:
     container_name: blue
-    image: sandeulpark/elib:${APP_LATEST_TAG} # docker hub의 image 이름
+    image: sandeulpark/ecrick:${APP_LATEST_TAG} # docker hub의 image 이름
     ports:
       - "8081:8080"  #blue는 8081 포트를 열어줍니다.
     profiles:

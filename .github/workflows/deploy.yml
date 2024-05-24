@@ -28,11 +28,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+#      - name: Docker Build and push
+#        uses: docker/build-push-action@v4
+#        with:
+#          push: true
+#          tags: ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
+
       - name: Docker Build and push
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/elib:${{ github.run_number }}
+        run: |
+          ./gradlew :server:bootBuildImage --imageName=${{ secrets.DOCKERHUB_USERNAME }}/ecrick:${{ github.run_number }} -x test
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ecrick:${{ github.run_number }}
 
       - name: Deploy
         uses: appleboy/ssh-action@master
