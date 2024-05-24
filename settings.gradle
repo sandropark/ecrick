@@ -19,7 +19,7 @@ rootProject.name = 'ecrick'
               
             
                 }
-                """.stripIndent(20)
+                """.stripIndent()
     }
 
     // src 폴더 생성

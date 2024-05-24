@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        bootVersion = "3.1.12"
+        bootVersion = "3.1.4"
         lombok = "org.projectlombok:lombok"
     }
     repositories {
@@ -22,6 +22,9 @@ subprojects {
     apply plugin: 'org.springframework.boot'
 
     sourceCompatibility = '17'
+
+    bootJar.enabled false
+    jar.enabled true
 
     repositories {
         mavenCentral()
@@ -48,10 +51,6 @@ subprojects {
         useJUnitPlatform()
     }
 
-}
-
-project("core") {
-    bootJar.enabled(false)
 }
 
 help.enabled(false)
