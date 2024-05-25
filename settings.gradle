@@ -1,15 +1,46 @@
 rootProject.name = 'ecrick'
 
-// 모듈명 정의
-["core", "crawler", "server"].each {
+['crawler'].each { parentModuleName ->
+    File parentModuleDir = makeParentModule(parentModuleName)
 
-    // 루트 경로에 위에서 정의한 모듈을 생성
-    def compDir = new File(rootDir, it)
+    ['boot', 'web', 'domain'].each { subModuleName ->
+        makeSubModule(parentModuleDir, subModuleName)
+    }
+}
+
+['app'].each { parentModuleName ->
+    File parentModuleDir = makeParentModule(parentModuleName)
+
+    ['boot', 'web', 'domain'].each { subModuleName ->
+        makeSubModule(parentModuleDir, subModuleName)
+    }
+}
+
+private void makeSubModule(File parentModuleDir, subModuleName) {
+    def subModuleDir = makeDir(parentModuleDir, subModuleName)
+    makeGradle(subModuleDir)
+    makeSrc(subModuleDir)
+
+    def subProjectName = ":${parentModuleDir.name}:${subModuleName}"
+    include subProjectName
+    project(subProjectName).projectDir = subModuleDir
+}
+
+private File makeParentModule(parentModuleName) {
+    def parentModuleDir = makeDir(rootDir, parentModuleName)
+    include ":${parentModuleName}"
+    parentModuleDir
+}
+
+private static File makeDir(File parentDir, String it) {
+    def compDir = new File(parentDir, it)
 
     if (!compDir.exists())
         compDir.mkdirs()
+    compDir
+}
 
-    // 모듈에 gradle 파일 생성
+private static makeGradle(File compDir) {
     def gradleFile = new File(compDir.absolutePath, "build.gradle")
 
     if (!gradleFile.exists()) {
@@ -21,8 +52,9 @@ rootProject.name = 'ecrick'
                 }
                 """.stripIndent()
     }
+}
 
-    // src 폴더 생성
+private static makeSrc(File compDir) {
     [
             "src/main/java/com/ecrick",
             "src/main/resources",
@@ -34,6 +66,4 @@ rootProject.name = 'ecrick'
         if (!srcFolder.exists())
             srcFolder.mkdirs()
     }
-
-    include ":${it}"
 }

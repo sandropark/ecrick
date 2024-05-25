@@ -1,9 +1,0 @@
-dependencies {
-    api project(":core")
-    implementation 'org.springframework.data:spring-data-commons'
-
-    api 'org.springframework.boot:spring-boot-starter-web'
-    api "org.springframework.boot:spring-boot-starter-thymeleaf"
-}
-
-bootJar.enabled true

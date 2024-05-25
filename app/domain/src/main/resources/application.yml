@@ -1,0 +1,29 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        dialect: com.ecrick.domain.config.MariaDB106DialectCustom
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prd
+  datasource:
+    url: ${OCI_DB_HOST}
+    username: ${OCI_DB_USERNAME}
+    password: ${OCI_DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  data:
+    web:
+      pageable:
+        max-page-size: 24
