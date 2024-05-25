@@ -1,0 +1,5 @@
+
+dependencies {
+    implementation project(":crawler:crawler-domain")
+    implementation project(":crawler:crawler-web")
+}

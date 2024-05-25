@@ -1,19 +1,24 @@
 rootProject.name = 'ecrick'
 
+
+
 ['crawler'].each { parentModuleName ->
     File parentModuleDir = makeParentModule(parentModuleName)
 
-    ['boot', 'web', 'domain'].each { subModuleName ->
+    ['crawler-boot', 'crawler-web', 'crawler-domain'].each { subModuleName ->
         makeSubModule(parentModuleDir, subModuleName)
     }
 }
 
-['app'].each { parentModuleName ->
-    File parentModuleDir = makeParentModule(parentModuleName)
+['boot', 'web', 'domain'].each { moduleName ->
+    makeModule(moduleName)
+}
 
-    ['boot', 'web', 'domain'].each { subModuleName ->
-        makeSubModule(parentModuleDir, subModuleName)
-    }
+private void makeModule(String moduleName) {
+    def moduleDir = makeDir(rootDir, moduleName)
+    makeGradle(moduleDir)
+    makeSrc(moduleDir)
+    include ":${moduleName}"
 }
 
 private void makeSubModule(File parentModuleDir, subModuleName) {
