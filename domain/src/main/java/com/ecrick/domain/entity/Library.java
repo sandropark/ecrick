@@ -1,33 +1,35 @@
 package com.ecrick.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-
-import java.util.Objects;
+import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
-@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Entity
 public class Library extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = IDENTITY) private Long id;
-    @Column(name = "library_name", nullable = false) private String name;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+    @Column(name = "library_name", nullable = false)
+    private String name;
     private String url;
     private String param;
     private int totalBooks;
     private int savedBooks;
-    @Enumerated(EnumType.STRING) private ContentType contentType;
-    @ManyToOne @JoinColumn(name = "vendor_id", foreignKey = @ForeignKey(name = "fk_vendor_id")) private Vendor vendor;
+    @Enumerated(EnumType.STRING)
+    private ContentType contentType;
+    @Enumerated(EnumType.STRING)
+    private VendorName vendorName;
+    @ManyToOne
+    @JoinColumn(name = "vendor_id", foreignKey = @ForeignKey(name = "fk_vendor_id"))
+    private Vendor vendor;
     private Integer size;
-
-    protected Library() {
-    }
 
     public void update(Library library, Vendor vendor) {
         name = library.getName();
@@ -48,16 +50,39 @@ public class Library extends BaseEntity {
         return vendor.getNameValue();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Library library = (Library) o;
-        return Objects.equals(getId(), library.getId());
+    public boolean isKyoboXml() {
+        return vendorName.isKyobo() && contentType.isXml();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
+    public boolean isKyoboJson() {
+        return vendorName.isKyobo() && contentType.isJson();
+    }
+
+    public boolean isYes24Xml() {
+        return vendorName.isYes24() && contentType.isXml();
+    }
+
+    public boolean isYes24Json() {
+        return vendorName.isYes24() && contentType.isJson();
+    }
+
+    public boolean isBookcube() {
+        return vendorName.isBookcube() && contentType.isJson();
+    }
+
+    public boolean isOPMS() {
+        return vendorName.isOPMS() && contentType.isJson();
+    }
+
+    public boolean isAladin() {
+        return vendorName.isAladin() && contentType.isXml();
+    }
+
+    public boolean isSeoulLib() {
+        return vendorName.isSeoulLib();
+    }
+
+    public boolean isSeoulEdu() {
+        return vendorName.isSeoulEdu();
     }
 }

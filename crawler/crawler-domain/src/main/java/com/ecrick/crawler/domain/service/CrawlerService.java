@@ -1,20 +1,13 @@
 package com.ecrick.crawler.domain.service;
 
-import com.ecrick.crawler.domain.worker.Crawler;
-import com.ecrick.crawler.domain.worker.CrawlerUtil;
-import com.ecrick.crawler.domain.dto.LibraryCrawlerDto;
+import com.ecrick.crawler.domain.Crawler;
 import com.ecrick.domain.repository.LibraryRepository;
 import com.ecrick.domain.service.LibraryService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import static com.ecrick.crawler.domain.worker.CrawlerUtil.getResponseDto;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,22 +29,22 @@ public class CrawlerService implements Runnable {
 
     @Override
     public void run() {
-        LibraryCrawlerDto libraryDto = libraryRepository.findById(libraryId)
-                .map(LibraryCrawlerDto::from)
-                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
-
-        log.info("{} 크롤링 시작", libraryDto.getName());
-
-        CrawlerUtil.getResponseDto(libraryDto).ifPresent(responseDto -> {
-            libraryService.updateTotalBooks(libraryDto.getId(), responseDto.getTotalBooks());
-            crawl(libraryDto);
-        });
+//        LibraryCrawlerDto libraryDto = libraryRepository.findById(libraryId)
+//                .map(LibraryCrawlerDto::from)
+//                .orElseThrow(() -> new EntityNotFoundException("도서관을 찾을 수 없습니다. libraryId = " + libraryId));
+//
+//        log.info("{} 크롤링 시작", libraryDto.getName());
+//
+//        CrawlerUtil.getResponseDto(libraryDto).ifPresent(responseDto -> {
+//            libraryService.updateTotalBooks(libraryDto.getId(), responseDto.getTotalBooks());
+//            crawl(libraryDto);
+//        });
     }
 
-    private void crawl(LibraryCrawlerDto libraryDto) {
-        ExecutorService es = Executors.newFixedThreadPool(threadNum);
-        libraryDto.getDetailUrls().forEach(url ->
-                es.submit(crawlerProvider.getObject().init(url, libraryDto, sleepTime)));
-    }
+//    private void crawl(LibraryCrawlerDto libraryDto) {
+//        ExecutorService es = Executors.newFixedThreadPool(threadNum);
+//        libraryDto.getDetailUrls().forEach(url ->
+//                es.submit(crawlerProvider.getObject().init(url, libraryDto, sleepTime)));
+//    }
 
 }

@@ -1,6 +1,9 @@
 dependencies {
+    implementation project(":domain")
+    implementation project(":web")
     implementation project(":crawler:crawler-domain")
     implementation project(":crawler:crawler-web")
+    implementation project(":crawler:crawler-infra")
 
     runtimeOnly 'com.mysql:mysql-connector-j'
 }

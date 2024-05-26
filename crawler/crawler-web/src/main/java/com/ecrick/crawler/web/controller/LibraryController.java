@@ -1,10 +1,10 @@
 package com.ecrick.crawler.web.controller;
 
-import com.ecrick.crawler.domain.dto.LibraryEditFormDto;
-import com.ecrick.crawler.domain.dto.LibraryResponseDto;
-import com.ecrick.crawler.domain.request.LibraryAddRequestDto;
-import com.ecrick.crawler.domain.request.LibraryUpdateRequestDto;
 import com.ecrick.crawler.domain.service.CrawlerService;
+import com.ecrick.crawler.web.dto.LibraryAddRequestDto;
+import com.ecrick.crawler.web.dto.LibraryEditFormDto;
+import com.ecrick.crawler.web.dto.LibraryResponseDto;
+import com.ecrick.crawler.web.dto.LibraryUpdateRequestDto;
 import com.ecrick.domain.dto.LibraryDto;
 import com.ecrick.domain.dto.Pagination;
 import com.ecrick.domain.dto.Search;

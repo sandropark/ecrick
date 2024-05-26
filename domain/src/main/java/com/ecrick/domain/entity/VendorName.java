@@ -1,42 +1,46 @@
 package com.ecrick.domain.entity;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum VendorName {
-    KYOBO("교보"), YES24("예스24"), BOOKCUBE("북큐브"), OPMS("OPMS"), ALADIN("알라딘"), SEOUL_LIB("서울도서관"), SEOUL_EDU("서울시교육청");
+    KYOBO("교보"),
+    YES24("예스24"),
+    BOOKCUBE("북큐브"),
+    OPMS("OPMS"),
+    ALADIN("알라딘"),
+    SEOUL_LIB("서울도서관"),
+    SEOUL_EDU("서울시교육청");
 
     private final String value;
 
-    VendorName(String value) {
-        this.value = value;
-    }
-
-    public Boolean isKyobo() {
+    public boolean isKyobo() {
         return this == KYOBO;
     }
 
-    public Boolean isYes24() {
+    public boolean isYes24() {
         return this == YES24;
     }
 
-    public Boolean isBookcube() {
+    public boolean isBookcube() {
         return this == BOOKCUBE;
     }
 
-    public Boolean isOPMS() {
+    public boolean isOPMS() {
         return this == OPMS;
     }
 
-    public Boolean isAladin() {
+    public boolean isAladin() {
         return this == ALADIN;
     }
 
-    public Boolean isSeoulLib() {
+    public boolean isSeoulLib() {
         return this == SEOUL_LIB;
     }
 
-    public Boolean isSeoulEdu() {
+    public boolean isSeoulEdu() {
         return this == SEOUL_EDU;
     }
 }

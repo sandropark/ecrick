@@ -12,7 +12,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 public class Vendor extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     @Column(name = "vendor_name")
     @Enumerated(value = EnumType.STRING)
@@ -33,5 +34,9 @@ public class Vendor extends BaseEntity {
         this.id = id;
         this.name = name;
         this.totalBooks = totalBooks;
+    }
+
+    public boolean isAladin() {
+        return false;
     }
 }
