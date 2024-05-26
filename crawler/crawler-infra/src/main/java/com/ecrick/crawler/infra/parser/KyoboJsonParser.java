@@ -5,9 +5,11 @@ import com.ecrick.crawler.infra.dto.KyoboJsonDto;
 import com.ecrick.crawler.infra.utils.BodyCleanUtils;
 import com.ecrick.crawler.infra.utils.ObjectMapperUtils;
 import com.ecrick.domain.entity.Library;
+import org.springframework.stereotype.Component;
 
 import static org.jsoup.Connection.Response;
 
+@Component
 public class KyoboJsonParser implements CrawlerParser {
     @Override
     public Boolean supports(Library library) {

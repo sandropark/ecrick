@@ -1,4 +1,4 @@
-package com.ecrick.crawler.domain.parser;
+package com.ecrick.crawler.infra.parser;
 
 import com.ecrick.crawler.domain.dto.ResponseDto;
 import org.junit.jupiter.api.Disabled;

@@ -2,8 +2,10 @@ package com.ecrick.crawler.domain;
 
 import com.ecrick.domain.entity.Library;
 
+import java.util.Optional;
+
 public interface CrawlerClient {
-    ResponseDto get(Library library);
+    Optional<ResponseDto> get(Library library);
 
     void updateTotalBooks(Library library);
 }

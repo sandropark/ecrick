@@ -2,6 +2,8 @@ package com.ecrick.crawler.infra;
 
 import com.ecrick.crawler.domain.CrawlerClient;
 import com.ecrick.crawler.domain.ResponseDto;
+import com.ecrick.crawler.domain.exception.CrawlerException;
+import com.ecrick.crawler.domain.exception.ExceptionCode;
 import com.ecrick.crawler.infra.parser.CrawlerParser;
 import com.ecrick.domain.entity.Library;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.jsoup.Connection.Response;
 
@@ -20,28 +23,36 @@ import static org.jsoup.Connection.Response;
 @Component
 public class JsoupCrawlerClient implements CrawlerClient {
     private static final Map<String, String> headers = Map.of(
-            "accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
             "Accept-Encoding", "gzip, deflate",
             "Accept-Language", "ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7",
             "Cache-Control", "max-age=0",
-            "Upgrade-Insecure-Requests", "1",
-            "User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.5249.207 Whale/3.17.145.18 Safari/537.36");
+            "Connection", "keep-alive",
+            "User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36");
 
     private final List<CrawlerParser> parsers;
 
     @Override
-    public ResponseDto get(Library library) {
-        Response jsoupResponse = execute(library.getUrl());
-        CrawlerParser parser = getParser(library);
-        return parser.parse(jsoupResponse);
+    public Optional<ResponseDto> get(Library library) {
+        try {
+            Response jsoupResponse = execute(library.getUrl());
+            CrawlerParser parser = getParser(library);
+            return Optional.of(parser.parse(jsoupResponse));
+        } catch (CrawlerException e) {
+            log(e, library);
+            return Optional.empty();
+        }
     }
 
     @Override
     public void updateTotalBooks(Library library) {
-        Response jsoupResponse = execute(library.getUrl());
-        CrawlerParser parser = getParser(library);
-        ResponseDto responseDto = parser.parse(jsoupResponse);
-        library.updateTotalBooks(responseDto.getTotalBooks());
+        get(library)
+                .ifPresent(responseDto -> {
+                    try {
+                        library.updateTotalBooks(responseDto.getTotalBooks());
+                    } catch (Exception e) {
+                        log.error("totalBooks 업데이트 실패. Library: " + library.getName(), e);
+                    }
+                });
     }
 
     private static Response execute(String url) {
@@ -52,8 +63,18 @@ public class JsoupCrawlerClient implements CrawlerClient {
                     .ignoreContentType(true)
                     .execute();
         } catch (IOException e) {
-            log.error("접속 실패 {}", url, e);
-            throw new RuntimeException(e);
+            throw new CrawlerException(ExceptionCode.REQUEST_FAILED, e);
+        }
+    }
+
+    private static void log(CrawlerException e, Library library) {
+        switch (e.getExceptionCode()) {
+            case REQUEST_FAILED:
+                log.error("request failed. Library: " + library.getName(), e);
+                break;
+            case PARSING_FAILED:
+                log.error("parsing failed. Library: " + library.getName(), e);
+                break;
         }
     }
 

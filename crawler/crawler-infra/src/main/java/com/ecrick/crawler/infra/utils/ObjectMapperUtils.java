@@ -1,5 +1,7 @@
 package com.ecrick.crawler.infra.utils;
 
+import com.ecrick.crawler.domain.exception.CrawlerException;
+import com.ecrick.crawler.domain.exception.ExceptionCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ObjectMapperUtils {
@@ -10,7 +12,7 @@ public class ObjectMapperUtils {
         try {
             return objectMapper.readValue(value, clazz);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new CrawlerException(ExceptionCode.PARSING_FAILED, e);
         }
     }
 

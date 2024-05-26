@@ -1,22 +1,24 @@
-package com.ecrick.crawler.domain.parser;
+package com.ecrick.crawler.infra.parser;
 
 import com.ecrick.crawler.domain.dto.ResponseDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static com.ecrick.crawler.domain.worker.CrawlerUtil.requestUrl;
+import static org.jsoup.Connection.Response;
 
-class SeoulEduParserTest {
+class KyoboJsonParserTest {
 
     @Disabled
     @Test
     void parse() throws Exception {
         // Given
-        String url = "http://e-lib.sen.go.kr/0_ebook/list.php?code=2&start_code=2&flag=ebk&sort1=cont_makedt&mode=total&";
-        SeoulEduParser parser = new SeoulEduParser();
+        String url = "http://ebook.splib.or.kr:8090/elibrary-front/content/contentListMobile.json?cttsDvsnCode=001&";
+        KyoboJsonParser parser = new KyoboJsonParser();
 
         // When
-        ResponseDto dto = parser.parse(requestUrl(url));
+        Response response = requestUrl(url);
+        ResponseDto dto = parser.parse(response);
 
         // Then
         System.out.println("totalBooks = " + dto.getTotalBooks());

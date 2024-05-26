@@ -6,7 +6,9 @@ import com.ecrick.crawler.infra.utils.BodyCleanUtils;
 import com.ecrick.crawler.infra.utils.ObjectMapperUtils;
 import com.ecrick.domain.entity.Library;
 import org.jsoup.Connection;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OpmsParser implements CrawlerParser {
     @Override
     public Boolean supports(Library library) {

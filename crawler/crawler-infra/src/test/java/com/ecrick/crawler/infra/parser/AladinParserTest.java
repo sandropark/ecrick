@@ -1,10 +1,8 @@
-package com.ecrick.crawler.domain.parser;
+package com.ecrick.crawler.infra.parser;
 
-import com.ecrick.crawler.domain.dto.ResponseDto;
+import com.ecrick.crawler.domain.ResponseDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import static com.ecrick.crawler.domain.worker.CrawlerUtil.requestUrl;
 
 class AladinParserTest {
 

@@ -85,4 +85,5 @@ public class Library extends BaseEntity {
     public boolean isSeoulEdu() {
         return vendorName.isSeoulEdu();
     }
+
 }

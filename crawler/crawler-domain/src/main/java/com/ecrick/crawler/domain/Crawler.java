@@ -4,21 +4,19 @@ import com.ecrick.domain.entity.Library;
 import com.ecrick.domain.repository.LibraryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@Component
+@Service
 public class Crawler {
     private final LibraryRepository libraryRepository;
     private final CrawlerClient crawlerClient;
 
     @Transactional
     public void crawl() {
-        // 1. DB에서 도서관 조회
         List<Library> libraries = libraryRepository.findAll();
-        // 2. Health Check 및 총 도서수 업데이트 - 여기부터 병렬로 진행
         libraries.parallelStream()
                 .forEach(crawlerClient::updateTotalBooks);
         // 2-1. 실패 시 알림 받기
