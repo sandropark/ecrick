@@ -1,17 +1,24 @@
 package com.ecrick.domain.config;
 
-import org.hibernate.dialect.MariaDB106Dialect;
-import org.hibernate.dialect.function.SQLFunctionTemplate;
-import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.boot.model.FunctionContributions;
+import org.hibernate.dialect.MariaDBDialect;
+import org.hibernate.query.sqm.function.FunctionKind;
+import org.hibernate.query.sqm.function.SqmFunctionRegistry;
+import org.hibernate.query.sqm.produce.function.PatternFunctionDescriptorBuilder;
+import org.hibernate.type.spi.TypeConfiguration;
 
-public class MariaDB106DialectCustom extends MariaDB106Dialect {
+public class MariaDB106DialectCustom extends MariaDBDialect {
 
-    public MariaDB106DialectCustom() {
-        super();
+    @Override
+    public void initializeFunctionRegistry(FunctionContributions functionContributions) {
+        super.initializeFunctionRegistry(functionContributions);
 
-        registerFunction(
-                "match",
-                new SQLFunctionTemplate(StandardBasicTypes.INTEGER, "match(?1) against(?2 in boolean mode) and 1")
-        );
+        SqmFunctionRegistry registry = functionContributions.getFunctionRegistry();
+        TypeConfiguration types = functionContributions.getTypeConfiguration();
+
+        new PatternFunctionDescriptorBuilder(registry, "match", FunctionKind.NORMAL, "match(?1) against(?2 in boolean mode) and 1")
+                .setExactArgumentCount(2)
+                .setInvariantType(types.getBasicTypeForJavaType(Integer.class))
+                .register();
     }
 }

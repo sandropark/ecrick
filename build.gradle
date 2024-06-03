@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        bootVersion = "2.7.18"
+        bootVersion = "3.1.12"
         lombok = "org.projectlombok:lombok"
     }
     repositories {
@@ -21,7 +21,7 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
 
-    sourceCompatibility = '11'
+    sourceCompatibility = '17'
 
     bootJar.enabled false
     jar.enabled true

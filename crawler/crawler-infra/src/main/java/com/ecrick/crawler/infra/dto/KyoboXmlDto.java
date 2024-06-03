@@ -3,10 +3,10 @@ package com.ecrick.crawler.infra.dto;
 import com.ecrick.crawler.domain.ResponseDto;
 import com.ecrick.domain.dto.CoreDto;
 import com.ecrick.domain.entity.Library;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 

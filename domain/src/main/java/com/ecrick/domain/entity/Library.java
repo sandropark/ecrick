@@ -1,10 +1,9 @@
 package com.ecrick.domain.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter

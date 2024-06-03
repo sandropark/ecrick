@@ -1,5 +1,5 @@
 # gradle 이미지를 기본으로 사용한다.
-FROM gradle:8.0-jdk11-alpine as builder
+FROM gradle:8.7.0-jdk17-alpine as builder
 
 # build 디렉토리로 이동
 WORKDIR /build
@@ -15,7 +15,7 @@ COPY . /build
 RUN gradle build -x test --parallel
 
 #APP
-FROM openjdk:11.0-slim
+FROM openjdk:17.0.2-slim
 WORKDIR /app
 
 # 빌더 이미지에서 jar 파일만 복사

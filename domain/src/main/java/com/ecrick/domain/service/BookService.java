@@ -4,13 +4,12 @@ import com.ecrick.domain.dto.BookDetailDto;
 import com.ecrick.domain.dto.BookListDto;
 import com.ecrick.domain.dto.Search;
 import com.ecrick.domain.repository.BookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

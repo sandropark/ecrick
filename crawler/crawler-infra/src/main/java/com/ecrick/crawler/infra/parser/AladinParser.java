@@ -6,11 +6,11 @@ import com.ecrick.crawler.domain.exception.ExceptionCode;
 import com.ecrick.crawler.infra.dto.AladinDto;
 import com.ecrick.crawler.infra.utils.BodyCleanUtils;
 import com.ecrick.domain.entity.Library;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import org.jsoup.Connection;
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import java.io.StringReader;
 
 @Component

@@ -1,11 +1,11 @@
 package com.ecrick.domain.entity;
 
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 

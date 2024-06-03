@@ -14,11 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'corretto'
-          java-version: 11
+          distribution: 'openjdk'
+          java-version: 17
           check-latest: true
 
       # 컨테이너 레지스트리 로그인

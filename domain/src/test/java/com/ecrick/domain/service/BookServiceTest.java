@@ -7,13 +7,13 @@ import com.ecrick.domain.repository.BookRepository;
 import com.ecrick.domain.repository.CoreRepository;
 import com.ecrick.domain.repository.LibraryRepository;
 import com.ecrick.domain.repository.VendorRepository;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.ecrick.domain.entity.VendorName.KYOBO;
