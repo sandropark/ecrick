@@ -7,24 +7,25 @@ import com.ecrick.domain.repository.BookRepository;
 import com.ecrick.domain.repository.CoreRepository;
 import com.ecrick.domain.repository.LibraryRepository;
 import com.ecrick.domain.repository.VendorRepository;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.ecrick.domain.entity.VendorName.KYOBO;
 import static com.ecrick.domain.entity.VendorName.YES24;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 @Import(BookService.class)
 @DataJpaTest
 class BookServiceTest {
 
-    @Autowired BookService bookService;
+    @Autowired
+    BookService bookService;
     @Autowired
     BookRepository bookRepository;
     @Autowired
@@ -33,7 +34,8 @@ class BookServiceTest {
     LibraryRepository libraryRepository;
     @Autowired
     CoreRepository coreRepository;
-    @Autowired EntityManager em;
+    @Autowired
+    EntityManager em;
 
     @DisplayName("bookId로 조회하면 연관된 도서관과 공급사를 모두 조회한다. 도서관 이름으로 오름차순 정렬")
     @Test

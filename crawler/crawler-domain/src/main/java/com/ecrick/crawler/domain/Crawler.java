@@ -2,10 +2,10 @@ package com.ecrick.crawler.domain;
 
 import com.ecrick.domain.entity.Library;
 import com.ecrick.domain.repository.LibraryRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor

@@ -1,17 +1,6 @@
 version: '3'
 
 services:
-#  nginx:
-#    container_name: nginx
-#    image: sandeulpark/my_nginx
-#    platform: linux/amd64
-#    restart: always
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#    volumes:
-#      - /etc/letsencrypt:/etc/letsencrypt
-#      - /var/lib/letsencrypt:/var/lib/letsencrypt
   green:
     container_name: green
     image: sandeulpark/ecrick:${APP_LATEST_TAG} # docker hub의 image 이름

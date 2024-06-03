@@ -1,13 +1,13 @@
 package com.ecrick.domain.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.IDENTITY;
+import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @ToString
 @Getter
@@ -19,16 +19,31 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 })
 @Entity
 public class Core extends BaseEntity {
-    @Id @GeneratedValue(strategy = IDENTITY) private Long id;
-    @Column(nullable = false) private String title;
-    @Column(nullable = false) @Builder.Default private String author = "";
-    @Column(nullable = false) @Builder.Default private String publisher = "";
-    @Column(nullable = false) @Builder.Default private LocalDate publicDate = LocalDate.of(0, 1, 1);
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+    @Column(nullable = false)
+    private String title;
+    @Column(nullable = false)
+    @Builder.Default
+    private String author = "";
+    @Column(nullable = false)
+    @Builder.Default
+    private String publisher = "";
+    @Column(nullable = false)
+    @Builder.Default
+    private LocalDate publicDate = LocalDate.of(0, 1, 1);
     private String coverUrl;
-    @Column(nullable = false) @Builder.Default private String vendor = "";
+    @Column(nullable = false)
+    @Builder.Default
+    private String vendor = "";
     private String category;
-    @ManyToOne(fetch = LAZY) @JoinColumn(name = "library_id", foreignKey = @ForeignKey(name = "fk_library_id")) private Library library;
-    @ManyToOne(fetch = LAZY) @JoinColumn(name = "book_id", foreignKey = @ForeignKey(name = "fk_book_id")) private Book book;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "library_id", foreignKey = @ForeignKey(name = "fk_library_id"))
+    private Library library;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "book_id", foreignKey = @ForeignKey(name = "fk_book_id"))
+    private Book book;
 
     protected Core() {
     }

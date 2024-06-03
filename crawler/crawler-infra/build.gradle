@@ -4,6 +4,9 @@ dependencies {
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.15.3'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
+    implementation 'com.fasterxml.jackson.core:jackson-core'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api"
+    implementation "org.glassfish.jaxb:jaxb-runtime"
 }

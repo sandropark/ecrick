@@ -6,7 +6,6 @@ import com.ecrick.domain.dto.Search;
 import com.ecrick.domain.service.BookService;
 import com.ecrick.domain.service.PaginationService;
 import com.ecrick.domain.service.SearchTarget;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RequiredArgsConstructor
 @RequestMapping("/books")
