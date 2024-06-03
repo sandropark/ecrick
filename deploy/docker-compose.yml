@@ -17,8 +17,6 @@ services:
     image: sandeulpark/ecrick:${APP_LATEST_TAG} # docker hub의 image 이름
     ports:
       - "8081:8080"  #blue는 8081 포트를 열어줍니다.
-    profiles:
-      - prd
     environment:
       SPRING_PROFILES_ACTIVE: prd
       OCI_DB_HOST: ${OCI_DB_HOST}
