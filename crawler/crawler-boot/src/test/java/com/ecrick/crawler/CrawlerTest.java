@@ -1,8 +1,6 @@
 package com.ecrick.crawler;
 
-import com.ecrick.crawler.domain.Crawler;
 import com.ecrick.crawler.domain.CrawlerClient;
-import com.ecrick.domain.entity.Library;
 import com.ecrick.domain.repository.LibraryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

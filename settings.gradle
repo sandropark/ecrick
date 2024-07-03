@@ -4,7 +4,7 @@ rootProject.name = 'ecrick'
 ['crawler'].each { parentModuleName ->
     File parentModuleDir = makeParentModule(parentModuleName)
 
-    ['crawler-boot', 'crawler-web', 'crawler-domain', 'crawler-infra'].each { subModuleName ->
+    ['crawler-boot', 'crawler-domain', 'crawler-infra'].each { subModuleName ->
         makeSubModule(parentModuleDir, subModuleName)
     }
 }
