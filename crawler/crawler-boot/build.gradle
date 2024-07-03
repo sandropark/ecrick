@@ -1,10 +1,10 @@
 dependencies {
     implementation project(":domain")
-    implementation project(":web")
     implementation project(":crawler:crawler-domain")
     implementation project(":crawler:crawler-infra")
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
 }
