@@ -37,6 +37,30 @@ public class Vendor extends BaseEntity {
     }
 
     public boolean isAladin() {
-        return false;
+        return name.isAladin();
+    }
+
+    public boolean isKyobo() {
+        return name.isKyobo();
+    }
+
+    public boolean isYes24() {
+        return name.isYes24();
+    }
+
+    public boolean isBookcube() {
+        return name.isBookcube();
+    }
+
+    public boolean isOPMS() {
+        return name.isOPMS();
+    }
+
+    public boolean isSeoulLib() {
+        return name.isSeoulLib();
+    }
+
+    public boolean isSeoulEdu() {
+        return name.isSeoulEdu();
     }
 }

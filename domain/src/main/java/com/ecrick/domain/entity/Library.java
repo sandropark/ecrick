@@ -24,8 +24,6 @@ public class Library extends BaseEntity {
     private int savedBooks;
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
-    @Enumerated(EnumType.STRING)
-    private VendorName vendorName;
     @ManyToOne
     @JoinColumn(name = "vendor_id", foreignKey = @ForeignKey(name = "fk_vendor_id"))
     private Vendor vendor;
@@ -51,39 +49,39 @@ public class Library extends BaseEntity {
     }
 
     public boolean isKyoboXml() {
-        return vendorName.isKyobo() && contentType.isXml();
+        return vendor.isKyobo() && contentType.isXml();
     }
 
     public boolean isKyoboJson() {
-        return vendorName.isKyobo() && contentType.isJson();
+        return vendor.isKyobo() && contentType.isJson();
     }
 
     public boolean isYes24Xml() {
-        return vendorName.isYes24() && contentType.isXml();
+        return vendor.isYes24() && contentType.isXml();
     }
 
     public boolean isYes24Json() {
-        return vendorName.isYes24() && contentType.isJson();
+        return vendor.isYes24() && contentType.isJson();
     }
 
     public boolean isBookcube() {
-        return vendorName.isBookcube() && contentType.isJson();
+        return vendor.isBookcube() && contentType.isJson();
     }
 
     public boolean isOPMS() {
-        return vendorName.isOPMS() && contentType.isJson();
+        return vendor.isOPMS() && contentType.isJson();
     }
 
     public boolean isAladin() {
-        return vendorName.isAladin() && contentType.isXml();
+        return vendor.isAladin() && contentType.isXml();
     }
 
     public boolean isSeoulLib() {
-        return vendorName.isSeoulLib();
+        return vendor.isSeoulLib();
     }
 
     public boolean isSeoulEdu() {
-        return vendorName.isSeoulEdu();
+        return vendor.isSeoulEdu();
     }
 
 }

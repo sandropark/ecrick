@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 @SpringBootApplication
-public class CrawlerApp {
+public class CrawlerBatchApp {
 
     @EventListener(ApplicationReadyEvent.class)
     public void timeZoneConfig() {
@@ -18,7 +18,7 @@ public class CrawlerApp {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(CrawlerApp.class, args);
+        SpringApplication.run(CrawlerBatchApp.class, args);
     }
 
 }

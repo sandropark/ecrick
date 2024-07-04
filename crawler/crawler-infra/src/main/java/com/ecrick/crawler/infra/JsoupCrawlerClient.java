@@ -55,6 +55,13 @@ public class JsoupCrawlerClient implements CrawlerClient {
                 });
     }
 
+    @Override
+    public ResponseDto request(Library library) {
+        Response jsoupResponse = execute(library.getUrl());
+        CrawlerParser parser = getParser(library);
+        return parser.parse(jsoupResponse);
+    }
+
     private static Response execute(String url) {
         try {
             return Jsoup.connect(url)
@@ -84,22 +91,5 @@ public class JsoupCrawlerClient implements CrawlerClient {
                 .findFirst()
                 .orElseThrow();
     }
-
-//    public static Optional<ResponseDto> getResponseDto(LibraryCrawlerDto libraryDto) {
-//        return getResponseDto(libraryDto.getUrl(), libraryDto);
-//    }
-
-//    public Optional<ResponseDto> getResponseDto(String url, LibraryCrawlerDto libraryDto) {
-//        try {
-//            return Optional.of(getParser(libraryDto).parse(execute(url)));
-//        } catch (IllegalArgumentException e) {
-//            log.error("parser를 찾을 수 없습니다. {}", libraryDto.getName());
-//        } catch (JAXBException | JsonProcessingException e) {
-//            log.error("파싱 오류 {}, {}", libraryDto.getName(), url, e);
-//        } catch (IOException e) {
-//            log.error("접속 실패 {}, {}", libraryDto.getName(), url, e);
-//        }
-//        return Optional.empty();
-//    }
 
 }

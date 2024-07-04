@@ -13,3 +13,11 @@ spring:
     properties:
       hibernate:
         default_batch_fetch_size: 100
+
+decorator:
+  datasource:
+    p6spy:
+      log-filter:
+        pattern: (?mis)(?!.*(BATCH|last_insert_id).*)(.*)
+      logging: custom
+      custom-appender-class: com.ecrick.domain.config.CustomSlf4JLogger

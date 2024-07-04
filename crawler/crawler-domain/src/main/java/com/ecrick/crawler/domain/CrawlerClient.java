@@ -8,4 +8,6 @@ public interface CrawlerClient {
     Optional<ResponseDto> get(Library library);
 
     void updateTotalBooks(Library library);
+
+    ResponseDto request(Library library);
 }

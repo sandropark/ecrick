@@ -1,6 +1,9 @@
 package com.ecrick.domain.repository;
 
 import com.ecrick.domain.entity.Library;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +24,11 @@ public interface LibraryRepository extends JpaRepository<Library, Long> {
     @Query("select distinct l.name from Library l")
     List<String> findAllNames();
 
+    @EntityGraph(attributePaths = {"vendor"})
+    @Override
+    List<Library> findAll();
+
+    @EntityGraph(attributePaths = {"vendor"})
+    @Override
+    Page<Library> findAll(Pageable pageable);
 }
