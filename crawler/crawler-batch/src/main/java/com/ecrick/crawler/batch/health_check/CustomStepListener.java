@@ -15,7 +15,7 @@ public class CustomStepListener implements StepExecutionListener {
 
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
-        log.info("Failed Library List: {}", failedLibraryList.getFailedLibraryList());
+        log.info("Failed Library List: {}", failedLibraryList.getListAsString());
         return StepExecutionListener.super.afterStep(stepExecution);
     }
 }

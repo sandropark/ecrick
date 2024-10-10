@@ -5,6 +5,7 @@ import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@ToString(of = {"name", "url"})
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

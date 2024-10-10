@@ -14,8 +14,6 @@ public class LibraryItemReader extends AbstractPagingItemReader<Library> {
 
     @Override
     protected void doReadPage() {
-        setMaxItemCount(30);
-        setPageSize(100);
         results = libraryRepository.findAll(PageRequest.of(getPage(), getPageSize())).getContent();
     }
 }

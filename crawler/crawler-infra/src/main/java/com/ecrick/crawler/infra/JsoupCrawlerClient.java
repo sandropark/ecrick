@@ -76,12 +76,8 @@ public class JsoupCrawlerClient implements CrawlerClient {
 
     private static void log(CrawlerException e, Library library) {
         switch (e.getExceptionCode()) {
-            case REQUEST_FAILED:
-                log.error("request failed. Library: " + library.getName(), e);
-                break;
-            case PARSING_FAILED:
-                log.error("parsing failed. Library: " + library.getName(), e);
-                break;
+            case REQUEST_FAILED -> log.error("request failed. Library: " + library.getName(), e);
+            case PARSING_FAILED -> log.error("parsing failed. Library: " + library.getName(), e);
         }
     }
 
@@ -91,5 +87,4 @@ public class JsoupCrawlerClient implements CrawlerClient {
                 .findFirst()
                 .orElseThrow();
     }
-
 }

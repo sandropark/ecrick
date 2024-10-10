@@ -21,7 +21,10 @@ public class HealthCheckItemProcessor implements ItemProcessor<Library, Response
         try {
             return crawlerClient.request(library);
         } catch (CrawlerException e) {
-            failedLibraryList.add(library);
+            failedLibraryList.add(FailedLibraryList.FailedLibrary.builder()
+                    .library(library)
+                    .e(e)
+                    .build());
             throw e;
         }
     }
