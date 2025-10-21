@@ -183,3 +183,5 @@ gradle-app.setting
 # Generated files
 target/
 **/generated/
+
+.serena
