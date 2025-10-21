@@ -11,7 +11,7 @@ services:
       OCI_DB_HOST: ${OCI_DB_HOST}
       OCI_DB_USERNAME: ${OCI_DB_USERNAME}
       OCI_DB_PASSWORD: ${OCI_DB_PASSWORD}
-    restart: always
+    restart: unless-stopped
     logging:
       driver: 'json-file'
       options:
@@ -27,6 +27,7 @@ services:
       OCI_DB_HOST: ${OCI_DB_HOST}
       OCI_DB_USERNAME: ${OCI_DB_USERNAME}
       OCI_DB_PASSWORD: ${OCI_DB_PASSWORD}
+    restart: unless-stopped
     logging:
       driver: 'json-file'
       options:
